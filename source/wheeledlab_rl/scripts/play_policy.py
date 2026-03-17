@@ -121,7 +121,6 @@ def main(env_cfg: ManagerBasedRLEnvCfg, agent_cfg): # TODO: Add SB3 config suppo
 
     env.action_space.low = -1.
     env.action_space.high = 1.
-    env = ClipAction(env)
 
     ppo_runner = OnPolicyRunner(env, agent_cfg.to_dict())
     ppo_runner.load(policy_resume_path)
