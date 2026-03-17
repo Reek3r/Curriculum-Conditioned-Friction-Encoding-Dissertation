@@ -16,7 +16,7 @@ import gymnasium as gym
 import os
 
 from isaaclab.utils.dict import print_dict
-from isaaclab.utils.io import dump_yaml, dump_pickle
+from isaaclab.utils.io import dump_yaml
 from isaaclab_tasks.utils import get_checkpoint_path
 from isaaclab_rl.rsl_rl import RslRlVecEnvWrapper
 
@@ -61,7 +61,6 @@ def main(run_cfg: RunConfig): # TODO: Add SB3 config support
     # Save the config file
     if not log_cfg.no_log:
         dump_yaml(os.path.join(log_cfg.run_log_dir, "run_config.yaml"), run_cfg)
-        dump_pickle(os.path.join(log_cfg.run_log_dir, "run_config.pkl"), run_cfg)
 
     ############################
     #### CREATE ENVIRONMENT ####

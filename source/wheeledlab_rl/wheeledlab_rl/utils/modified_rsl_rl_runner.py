@@ -47,8 +47,8 @@ class OnPolicyRunner(runners.OnPolicyRunner):
             self.env.episode_length_buf = torch.randint_like(
                 self.env.episode_length_buf, high=int(self.env.max_episode_length)
             )
-        obs, extras = self.env.get_observations()
-        critic_obs = extras["observations"].get("critic", obs)
+        obs = self.env.get_observations()
+        critic_obs = obs.get("critic", obs.get("policy", obs))
         obs, critic_obs = obs.to(self.device), critic_obs.to(self.device)
         self.train_mode()  # switch to train mode (for dropout for example)
 
@@ -69,24 +69,18 @@ class OnPolicyRunner(runners.OnPolicyRunner):
             # Rollout
             with torch.inference_mode():
                 for i in range(self.num_steps_per_env):
-                    actions = self.alg.act(obs, critic_obs)
+                    actions = self.alg.act(obs)
                     obs, rewards, dones, infos = self.env.step(actions)
                     if actions.isnan().any():
                         raise ValueError("NaN in actions")
-                    obs = self.obs_normalizer(obs)
-                    if "critic" in infos["observations"]:
-                        critic_obs = self.critic_obs_normalizer(
-                            infos["observations"]["critic"]
-                        )
-                    else:
-                        critic_obs = obs
+                    critic_obs = obs
                     obs, critic_obs, rewards, dones = (
                         obs.to(self.device),
                         critic_obs.to(self.device),
                         rewards.to(self.device),
                         dones.to(self.device),
                     )
-                    self.alg.process_env_step(rewards, dones, infos)
+                    self.alg.process_env_step(obs, rewards, dones, infos)
 
                     if not self.no_log:
                         # Book keeping
