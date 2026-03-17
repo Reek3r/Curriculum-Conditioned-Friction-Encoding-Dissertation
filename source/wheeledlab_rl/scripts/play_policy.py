@@ -46,7 +46,7 @@ import torch
 from tqdm import tqdm
 from rsl_rl.runners import OnPolicyRunner
 
-from isaaclab.utils.io import load_pickle
+from isaaclab.utils.io import load_yaml
 from isaaclab_tasks.utils import get_checkpoint_path
 from isaaclab_tasks.utils.hydra import hydra_task_config
 from isaaclab.envs import ManagerBasedRLEnvCfg
@@ -62,7 +62,7 @@ if FROM_RUN: # Load paths for run folder
 
     # Load run config
     path_to_run_cfg_pkl = os.path.join(args_cli.run_path, "run_config.pkl")
-    run_cfg: RunConfig = load_pickle(path_to_run_cfg_pkl) # load_yaml does not work on slices
+    run_cfg: RunConfig = load_yaml(path_to_run_cfg_pkl.replace(".pkl", ".yaml"))
     run_agent_cfg = run_cfg.agent
     task = run_cfg.env_setup.task_name if args_cli.task is None else args_cli.task
     agent_entry_point = None
