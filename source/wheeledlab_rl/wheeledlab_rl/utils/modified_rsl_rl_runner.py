@@ -29,7 +29,21 @@ class OnPolicyRunner(runners.OnPolicyRunner):
         self.logger_type = None
         if not self.no_wandb:
             self.logger_type = "wandb"
-        # self.pbar = tqdm(total=self.cfg.get("rl_max_iterations", 0))
+
+    def _milestone_iters(self, start_iter: int, num_learning_iterations: int) -> dict:
+        """Return {absolute_iteration: pct_label} for 0/25/50/75/100% milestones."""
+        tot_iter = start_iter + num_learning_iterations
+        milestones = {}
+        for pct in [0, 25, 50, 75, 100]:
+            if pct == 0:
+                it = start_iter
+            elif pct == 100:
+                it = tot_iter - 1
+            else:
+                it = start_iter + round(num_learning_iterations * pct / 100)
+                it = max(start_iter, min(tot_iter - 1, it))
+            milestones[it] = pct
+        return milestones
 
     def learn(self, num_learning_iterations, init_at_random_ep_len=False):
         # initialize writer
@@ -64,6 +78,16 @@ class OnPolicyRunner(runners.OnPolicyRunner):
 
         start_iter = self.current_learning_iteration
         tot_iter = start_iter + num_learning_iterations
+
+        # --- Milestone setup ----------------------------------------------- #
+        milestone_iters = self._milestone_iters(start_iter, num_learning_iterations)
+        os.makedirs(os.path.join(self.log_dir, "models"), exist_ok=True)
+        print(
+            "[MilestoneRunner] Milestones: "
+            + ", ".join(f"{pct}%→iter{it}" for it, pct in sorted(milestone_iters.items()))
+        )
+        # ------------------------------------------------------------------- #
+
         for it in tqdm(range(start_iter, tot_iter)):
             start = time.time()
             # Rollout
@@ -83,9 +107,6 @@ class OnPolicyRunner(runners.OnPolicyRunner):
                     self.alg.process_env_step(obs, rewards, dones, infos)
 
                     if not self.no_log:
-                        # Book keeping
-                        # note: we changed logging to use "log" instead of "episode" to avoid confusion with
-                        # different types of logging data (rewards, curriculum, etc.)
                         if "episode" in infos:
                             ep_infos.append(infos["episode"])
                         elif "log" in infos:
@@ -105,7 +126,6 @@ class OnPolicyRunner(runners.OnPolicyRunner):
                 stop = time.time()
                 collection_time = stop - start
 
-                # Learning step
                 start = stop
                 self.alg.compute_returns(critic_obs)
 
@@ -118,4 +138,15 @@ class OnPolicyRunner(runners.OnPolicyRunner):
                     self.log(locals())
                 if it % self.save_interval == 0:
                     self.save(os.path.join(self.log_dir, "models", f"model_{it}.pt"))
+
+            # --- Milestone save -------------------------------------------- #
+            if it in milestone_iters:
+                pct = milestone_iters[it]
+                path = os.path.join(
+                    self.log_dir, "models", f"model_milestone_iter{it}_{pct}pct.pt"
+                )
+                self.save(path)
+                print(f"[MilestoneRunner] ✓ {pct}% checkpoint → {path}")
+            # ---------------------------------------------------------------- #
+
             ep_infos.clear()
