@@ -95,6 +95,10 @@ class OnPolicyRunner(runners.OnPolicyRunner):
                 for i in range(self.num_steps_per_env):
                     actions = self.alg.act(obs)
                     obs, rewards, dones, infos = self.env.step(actions)
+                    if i == 0:
+                        print(f"[INFOS KEYS STEP] {list(infos.keys())}")
+                        if "episode" in infos:
+                            print(f"[EPISODE KEYS] {list(infos['episode'].keys())}")
                     if actions.isnan().any():
                         raise ValueError("NaN in actions")
                     critic_obs = obs
@@ -123,10 +127,13 @@ class OnPolicyRunner(runners.OnPolicyRunner):
                             except Exception as _e:
                                 print(f"[MU INJECT ERROR] {_e}")
 
+                        ep_info = {}
+                        if "log" in infos:
+                            ep_info.update(infos["log"])
                         if "episode" in infos:
-                            ep_infos.append(infos["episode"])
-                        elif "log" in infos:
-                            ep_infos.append(infos["log"])
+                            ep_info.update(infos["episode"])
+                        if ep_info:
+                            ep_infos.append(ep_info)
 
                         cur_reward_sum += rewards
                         cur_episode_length += 1

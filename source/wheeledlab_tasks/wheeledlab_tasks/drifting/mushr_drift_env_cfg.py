@@ -158,12 +158,12 @@ class DriftEventsRandomCfg(DriftEventsCfg):
 ###### REWARDS #######
 ######################
 
-_call_count = {"n": 0}
-def log_friction_debug(env):
-    _call_count["n"] += 1
-    if _call_count["n"] > 1:
-        raise RuntimeError(f"FRICTION DEBUG REACHED, call #{_call_count['n']}")
-    return torch.zeros(env.num_envs, device=env.device)
+# _call_count = {"n": 0}
+# def log_friction_debug(env):
+#     _call_count["n"] += 1
+#     if _call_count["n"] > 1:
+#         raise RuntimeError(f"FRICTION DEBUG REACHED, call #{_call_count['n']}")
+#     return torch.zeros(env.num_envs, device=env.device)
 
 
 def track_progress_rate(env):
@@ -251,11 +251,11 @@ def turn_left_go_right(env, ang_vel_thresh: float=torch.pi/4):
 @configclass
 class DriftRewardsCfg:
 
-    friction_debug = RewTerm(func=log_friction_debug, weight=0.)
+    #friction_debug = RewTerm(func=log_friction_debug, weight=0.)
     """Reward terms for the MDP."""
     side_slip = RewTerm(
         func=side_slip,
-        weight=10., # Increases over time
+        weight=0., # Increases over time
         params={
             "min_thresh": 0.25, # 15 degrees
             "max_thresh": SLIP_THRESHOLD,
@@ -317,15 +317,15 @@ class DriftRewardsCfg:
 @configclass
 class DriftCurriculumCfg:
 
-    more_slip = CurrTerm(
-        func=increase_reward_weight_over_time,
-        params={
-            "reward_term_name": "side_slip",
-            "increase": 20.,
-            "episodes_per_increase": 20,
-            "max_increases": 10,
-        }
-    )
+    # more_slip = CurrTerm(
+    #     func=increase_reward_weight_over_time,
+    #     params={
+    #         "reward_term_name": "side_slip",
+    #         "increase": 20.,
+    #         "episodes_per_increase": 20,
+    #         "max_increases": 10,
+    #     }
+    # )
 
     more_tlgr = CurrTerm(
         func=increase_reward_weight_over_time,
