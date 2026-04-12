@@ -107,13 +107,29 @@ class OnPolicyRunner(runners.OnPolicyRunner):
                     self.alg.process_env_step(obs, rewards, dones, infos)
 
                     if not self.no_log:
+                        new_ids = (dones > 0).nonzero(as_tuple=False)
+
+                        if new_ids.numel() > 0:
+                            try:
+                                _raw = self.env
+                                while hasattr(_raw, 'env'):
+                                    _raw = _raw.env
+                                mats = _raw.unwrapped.scene["robot"].root_physx_view.get_material_properties()
+                                wheel_mu = mats[:, 2:10, 0].mean(dim=1).cpu()
+                                ep_mu = wheel_mu[new_ids[:, 0].cpu()].tolist()
+                                if "episode" not in infos:
+                                    infos["episode"] = {}
+                                infos["episode"]["mu"] = sum(ep_mu) / len(ep_mu)
+                            except Exception as _e:
+                                print(f"[MU INJECT ERROR] {_e}")
+
                         if "episode" in infos:
                             ep_infos.append(infos["episode"])
                         elif "log" in infos:
                             ep_infos.append(infos["log"])
+
                         cur_reward_sum += rewards
                         cur_episode_length += 1
-                        new_ids = (dones > 0).nonzero(as_tuple=False)
                         rewbuffer.extend(
                             cur_reward_sum[new_ids][:, 0].cpu().numpy().tolist()
                         )
