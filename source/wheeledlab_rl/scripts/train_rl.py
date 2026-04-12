@@ -91,6 +91,49 @@ def main(run_cfg: RunConfig): # TODO: Add SB3 config support
     # TODO: add back support for SB3
     env = RslRlVecEnvWrapper(env)
 
+    try:
+        em = env.unwrapped.event_manager
+        print(f"[EVENT MANAGER] {dir(em)}")
+        for attr in ['active_terms', 'terms', '_terms']:
+            if hasattr(em, attr):
+                print(f"[EVENT TERMS via {attr}] {getattr(em, attr)}")
+                break
+    except Exception as e:
+        print(f"[EVENT MANAGER ERROR] {e}")
+
+    try:
+        robot = env.unwrapped.scene["robot"]
+        wheel_indices = robot.find_bodies(".*wheel_link")
+        print(f"[WHEEL BODIES] {wheel_indices}")
+    except Exception as e:
+        print(f"[WHEEL BODIES ERROR] {e}")
+
+    try:
+        robot = env.unwrapped.scene["robot"]
+        mats = robot.root_physx_view.get_material_properties()
+        print(f"[MATS SHAPE] {mats.shape}")
+        print(f"[MATS ENV0 ALL SHAPES] {mats[0, :, :].cpu().tolist()}")
+    except Exception as e:
+        print(f"[MATS ERROR] {e}")
+    # --- DIAGNOSTIC: read per-env friction from PhysX ---
+    def log_mu_diagnostic(env_wrapped, iteration_label):
+        if log_cfg.no_wandb:
+            return
+        try:
+            raw_env = env_wrapped.unwrapped
+            robot = raw_env.scene["robot"]
+            mats = robot.root_physx_view.get_material_properties()
+            # mats shape: (num_envs, num_shapes, 3) — static_friction, dynamic_friction, restitution
+            wheel_frictions = mats[:, 2:10, 0]
+            static_frictions = wheel_frictions.mean(dim=1).cpu().tolist()
+            wandb.log({
+                "debug/mu_per_env": wandb.Histogram(static_frictions),
+                **{f"debug/mu_env_{i}": v for i, v in enumerate(static_frictions[:8])}
+            }, step=iteration_label)
+            print(f"[MU DIAGNOSTIC] iter={iteration_label} frictions={static_frictions[:4]}")
+        except Exception as e:
+            print(f"[MU DIAGNOSTIC ERROR] {e}")
+    
     runner = ModifiedRslRunner(env, agent_cfg.to_dict(), log_cfg, device=train_cfg.device)
 
     ##### LOAD EXISTING RUN? #####
@@ -99,20 +142,39 @@ def main(run_cfg: RunConfig): # TODO: Add SB3 config support
         chkpt = "model_"
         if train_cfg.load_run_checkpoint > 0:
             chkpt = f"{chkpt}{train_cfg.load_run_checkpoint}"
-        # get path to previous checkpoint
         resume_path = get_checkpoint_path(WHEELEDLAB_RL_LOGS_DIR, run_dir=train_cfg.load_run,
                                         other_dirs=["models"], checkpoint=f"{chkpt}.*")
         print(f"[INFO]: Loading model checkpoint from: {resume_path}")
-        # load previously trained model
         runner.load(resume_path)
+
+    # --- MU DIAGNOSTIC ---
+    def read_frictions(env_chain):
+        _raw = env_chain
+        while hasattr(_raw, 'env'):
+            _raw = _raw.env
+        mats = _raw.unwrapped.scene["robot"].root_physx_view.get_material_properties()
+        # Shapes 0-1 are ground plane. Shapes 2-9 are wheel collision shapes.
+        # Take mean static friction across wheel shapes per env.
+        wheel_frictions = mats[:, 2:10, 0]  # (num_envs, 8)
+        return wheel_frictions.mean(dim=1).cpu().tolist()  # (num_envs,)
+
+    try:
+        print(f"[MU PRE-TRAIN] {read_frictions(env)}")
+    except Exception as e:
+        print(f"[MU PRE-TRAIN ERROR] {e}")
 
     #################
     ##### TRAIN #####
     #################
 
     env.seed(agent_cfg.seed)
-    env.common_step_counter = train_cfg.set_env_step # For continuing curriculums
+    env.common_step_counter = train_cfg.set_env_step
     runner.learn(num_learning_iterations=train_cfg.num_iterations)
+
+    try:
+        print(f"[MU POST-TRAIN] {read_frictions(env)}")
+    except Exception as e:
+        print(f"[MU POST-TRAIN ERROR] {e}")
 
     if not log_cfg.no_wandb:
         run.finish()

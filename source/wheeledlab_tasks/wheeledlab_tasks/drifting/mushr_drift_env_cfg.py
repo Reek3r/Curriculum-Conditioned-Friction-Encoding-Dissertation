@@ -1,4 +1,5 @@
 import torch
+import omni.log
 
 import isaaclab.envs.mdp as mdp
 import isaaclab.sim as sim_utils
@@ -97,7 +98,7 @@ class DriftEventsRandomCfg(DriftEventsCfg):
 
     change_wheel_friction = EventTerm(
         func=mdp.randomize_rigid_body_material,
-        mode="startup",
+        mode="reset",
         params={
             "static_friction_range": (0.3, 0.5),
             "dynamic_friction_range": (0.3, 0.5),
@@ -156,6 +157,14 @@ class DriftEventsRandomCfg(DriftEventsCfg):
 ######################
 ###### REWARDS #######
 ######################
+
+_call_count = {"n": 0}
+def log_friction_debug(env):
+    _call_count["n"] += 1
+    if _call_count["n"] > 1:
+        raise RuntimeError(f"FRICTION DEBUG REACHED, call #{_call_count['n']}")
+    return torch.zeros(env.num_envs, device=env.device)
+
 
 def track_progress_rate(env):
     '''Estimate track progress by positive z-axis angular velocity around the environment'''
@@ -242,6 +251,7 @@ def turn_left_go_right(env, ang_vel_thresh: float=torch.pi/4):
 @configclass
 class DriftRewardsCfg:
 
+    friction_debug = RewTerm(func=log_friction_debug, weight=0.)
     """Reward terms for the MDP."""
     side_slip = RewTerm(
         func=side_slip,
@@ -251,6 +261,7 @@ class DriftRewardsCfg:
             "max_thresh": SLIP_THRESHOLD,
             "min_vel_x": 1.0
         }
+
     )
 
     vel = RewTerm(
@@ -369,7 +380,7 @@ class DriftTerminationsCfg:
 class MushrDriftRLEnvCfg(ManagerBasedRLEnvCfg):
 
     seed: int = 42
-    num_envs: int = 1024
+    num_envs: int = 1
     env_spacing: float = 0.
 
     # Basic Settings
