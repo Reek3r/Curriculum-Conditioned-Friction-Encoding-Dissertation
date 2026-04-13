@@ -31,6 +31,8 @@ LINE_RADIUS = 0.8             # For spawning and reward
 STRAIGHT = 0.8                # Shaping
 SLIP_THRESHOLD = 0.55         # (rad) For reward
 MAX_SPEED = 3.0               # (m/s) For action and reward
+TWO_PI = 2.0 * torch.pi
+POLICY_DT = 0.02  # sim_dt=0.005 × decimation=4
 
 ###################
 ###### SCENE ######
@@ -173,6 +175,19 @@ def track_progress_rate(env):
     progress_rate = root_ang_vel[..., 2]
     return progress_rate
 
+def lap_bonus(env, bonus_per_lap: float = 5000.0):
+    """Sparse bonus per completed lap. Fires each time progress crosses
+    an integer lap boundary. Requires MushrDriftEnv (has lap_progress_buf
+    and prev_lap_progress_buf)."""
+    prev_laps = (env.prev_lap_progress_buf / TWO_PI).floor()
+    curr_laps = (env.lap_progress_buf / TWO_PI).floor()
+    return (curr_laps - prev_laps) * bonus_per_lap
+
+
+def track_progress_completed(env):
+    """Lap fractions completed this episode. Used by ADR gate and logging."""
+    return env.lap_progress_buf / TWO_PI
+
 def vel_dist(env, speed_target: float=MAX_SPEED, offset: float=-MAX_SPEED**2):
     lin_vel = mdp.base_lin_vel(env)
     ground_speed = torch.norm(lin_vel[..., :2], dim=-1)
@@ -288,6 +303,12 @@ class DriftRewardsCfg:
         func=energy_through_turn,
         weight=20.,
         params={"straight": STRAIGHT}
+    )
+
+    b_lap = RewTerm(
+        func=lap_bonus,
+        weight=1.0,
+        params={"bonus_per_lap": 5000.0}
     )
 
     ## Penalties
