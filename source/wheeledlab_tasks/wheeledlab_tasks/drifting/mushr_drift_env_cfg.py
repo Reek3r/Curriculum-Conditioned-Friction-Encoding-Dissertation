@@ -404,7 +404,8 @@ class MushrDriftRLEnvCfg(ManagerBasedRLEnvCfg):
         self.sim.dt = 0.005  # 200 Hz
         self.decimation = 4  # 50 Hz
         self.sim.render_interval = 20 # 10 Hz
-        self.episode_length_s = 5
+        # AFTER — Step 0: T_ice_optimal × 1.5; derived from v_max(µ_min=0.2, r_min=0.8m) = 1.253 m/s
+        self.episode_length_s = 10
         self.actions.throttle_steer.scale = (MAX_SPEED, 0.488)
 
         self.observations.policy.enable_corruption = True
