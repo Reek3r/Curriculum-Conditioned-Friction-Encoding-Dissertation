@@ -176,9 +176,7 @@ def track_progress_rate(env):
     return progress_rate
 
 def lap_bonus(env, bonus_per_lap: float = 5000.0):
-    """Sparse bonus per completed lap. Fires each time progress crosses
-    an integer lap boundary. Requires MushrDriftEnv (has lap_progress_buf
-    and prev_lap_progress_buf)."""
+    """Sparse bonus per completed lap. Requires MushrDriftEnv."""
     prev_laps = (env.prev_lap_progress_buf / TWO_PI).floor()
     curr_laps = (env.lap_progress_buf / TWO_PI).floor()
     return (curr_laps - prev_laps) * bonus_per_lap

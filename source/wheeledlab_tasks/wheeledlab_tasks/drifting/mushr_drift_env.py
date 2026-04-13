@@ -1,4 +1,4 @@
-﻿"""
+"""
 Custom ManagerBasedRLEnv subclass for MuSHR drift task.
 Adds per-environment lap progress accumulator with clean reset semantics.
 """
@@ -9,7 +9,7 @@ from isaaclab.assets import RigidObject
 from isaaclab.managers import SceneEntityCfg
 
 TWO_PI = 2.0 * torch.pi
-POLICY_DT = 0.02  # sim_dt=0.005 × decimation=4
+POLICY_DT = 0.02  # sim_dt=0.005 x decimation=4
 
 
 class MushrDriftEnv(ManagerBasedRLEnv):
@@ -18,7 +18,7 @@ class MushrDriftEnv(ManagerBasedRLEnv):
     Adds:
         lap_progress_buf (torch.Tensor): shape (num_envs,). Cumulative angular
             progress in radians this episode, clamped at zero (reverse driving
-            does not reduce progress). Divide by 2π for lap fraction.
+            does not reduce progress). Divide by 2*pi for lap fraction.
     """
 
     def __init__(self, cfg, render_mode=None, **kwargs):
@@ -36,14 +36,10 @@ class MushrDriftEnv(ManagerBasedRLEnv):
         self.prev_lap_progress_buf[env_ids] = 0.0
 
     def step(self, action):
-        # Snapshot and increment lap progress BEFORE super().step() so that
-        # lap_bonus (called inside reward_manager.compute()) reads consistent
-        # pre/post-step buffer values. Terminated envs from the prior step
-        # were zeroed by _reset_idx — their buffers are clean entering here.
+        # Snapshot BEFORE increment so lap_bonus reads consistent pre/post values
         self.prev_lap_progress_buf = self.lap_progress_buf.clone()
         asset: RigidObject = self.scene[SceneEntityCfg("robot").name]
         omega = asset.data.root_link_ang_vel_w[..., 2]
         delta = (omega * POLICY_DT).clamp(min=0.0)
         self.lap_progress_buf += delta
         return super().step(action)
-
