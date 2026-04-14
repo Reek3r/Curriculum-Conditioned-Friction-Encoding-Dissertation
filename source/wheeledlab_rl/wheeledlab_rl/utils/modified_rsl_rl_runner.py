@@ -127,6 +127,32 @@ class OnPolicyRunner(runners.OnPolicyRunner):
                             except Exception as _e:
                                 print(f"[MU INJECT ERROR] {_e}")
 
+                            # Step 3+4: log progress, episode length, radial distance
+                            try:
+                                _env = self.env
+                                while hasattr(_env, 'env'):
+                                    _env = _env.env
+                                done_ids = new_ids[:, 0].cpu()
+                                # track_progress_completed: laps finished this episode
+                                prog = _env.last_ep_lap_progress[done_ids].tolist()
+                                # episode_length_s: seconds elapsed this episode
+                                ep_s = _env.last_ep_length_s[done_ids].tolist()
+                                # min_radial_distance: minimum distance to circuit centre
+                                min_rad = _env.last_ep_min_radial[done_ids].tolist()
+                                if "episode" not in infos:
+                                    infos["episode"] = {}
+                                infos["episode"]["track_progress_completed"] = (
+                                    sum(prog) / len(prog)
+                                )
+                                infos["episode"]["episode_length_s"] = (
+                                    sum(ep_s) / len(ep_s)
+                                )
+                                infos["episode"]["min_radial_distance"] = (
+                                    sum(min_rad) / len(min_rad)
+                                )
+                            except Exception as _e:
+                                print(f"[PROGRESS LOG ERROR] {_e}")
+
                         ep_info = {}
                         if "log" in infos:
                             ep_info.update(infos["log"])
