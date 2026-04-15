@@ -1,9 +1,8 @@
 """
 Custom ManagerBasedRLEnv subclass for MuSHR drift task.
 Adds per-environment lap progress accumulator with clean reset semantics,
-and episode-end snapshots for W&B logging.
+episode-end snapshots for W&B logging, and k=5 observation history buffer.
 """
-
 import torch
 from isaaclab.envs import ManagerBasedRLEnv
 from isaaclab.assets import RigidObject
@@ -11,23 +10,38 @@ from isaaclab.managers import SceneEntityCfg
 
 TWO_PI = 2.0 * torch.pi
 POLICY_DT = 0.02  # sim_dt=0.005 x decimation=4
+
 # Track centre is at world origin (0, 0). CORNER_IN_RADIUS = 0.3 m.
 # If min_radial_distance < CORNER_IN_RADIUS the T_max physics is wrong.
 CORNER_IN_RADIUS = 0.3
 
+# History buffer constants
+HISTORY_LEN = 5   # k: number of frames stacked
+OBS_DIM = 14      # single-frame observation dimension
+STACK_DIM = HISTORY_LEN * OBS_DIM  # 70: MLP input dimension
+
 
 class MushrDriftEnv(ManagerBasedRLEnv):
-    """ManagerBasedRLEnv with lap progress accumulator and episode snapshots.
+    """ManagerBasedRLEnv with lap progress accumulator, episode snapshots,
+    and k=5 observation history buffer.
 
     Buffers available for logging after each step():
         last_ep_lap_progress  (num_envs,): laps completed at episode end
         last_ep_length_s      (num_envs,): episode duration in seconds
         last_ep_min_radial    (num_envs,): min distance to circuit centre (m)
+
+    Observation contract:
+        Raw obs from observation_manager: (num_envs, 14)
+        Returned obs["policy"] after stacking: (num_envs, 70)
+        Zero-padded at episode start for first k-1 steps.
+        rsl_rl MLP input layer is sized from get_observations() at runner
+        init, which returns (num_envs, 70), so no manual cfg change needed.
     """
 
     def __init__(self, cfg, render_mode=None, **kwargs):
         super().__init__(cfg, render_mode=render_mode, **kwargs)
-        # Live accumulators
+
+        # ── Live accumulators ──────────────────────────────────────────────
         self.lap_progress_buf = torch.zeros(
             self.num_envs, device=self.device, dtype=torch.float32
         )
@@ -38,7 +52,8 @@ class MushrDriftEnv(ManagerBasedRLEnv):
             (self.num_envs,), fill_value=float('inf'),
             device=self.device, dtype=torch.float32
         )
-        # Snapshots: stable after step() returns, readable by runner
+
+        # ── Snapshots: stable after step() returns, readable by runner ─────
         self.last_ep_lap_progress = torch.zeros(
             self.num_envs, device=self.device, dtype=torch.float32
         )
@@ -48,6 +63,79 @@ class MushrDriftEnv(ManagerBasedRLEnv):
         self.last_ep_min_radial = torch.zeros(
             self.num_envs, device=self.device, dtype=torch.float32
         )
+
+        # ── History buffer ─────────────────────────────────────────────────
+        # Shape: (num_envs, k, obs_dim). Zero-initialised = correct zero-pad
+        # for the first k-1 steps of each episode.
+        self.obs_history_buf = torch.zeros(
+            (self.num_envs, HISTORY_LEN, OBS_DIM),
+            device=self.device, dtype=torch.float32
+        )
+
+    # ── Observation overrides ──────────────────────────────────────────────
+
+    def get_observations(self) -> dict:
+        """Return stacked observations (num_envs, 70).
+
+        Called by rsl_rl at runner init to size the MLP, and again at the
+        start of learn(). Must return the same shape as step() to ensure the
+        network input dimension is consistent.
+
+        At runner init the history buffer is all zeros (correct: episode start
+        zero-padding). The raw obs is inserted into slot[-1] so the buffer
+        advances correctly even when called outside step().
+        """
+        obs_dict = self.observation_manager.compute()
+        raw_obs = obs_dict["policy"]  # (num_envs, 14)
+
+        # Validate OBS_DIM on first call — catches config mismatches early
+        if raw_obs.shape[1] != OBS_DIM:
+            raise ValueError(
+                f"[MushrDriftEnv] Expected OBS_DIM={OBS_DIM} but observation "
+                f"manager returned shape {raw_obs.shape}. Update OBS_DIM."
+            )
+
+        # Advance ring buffer and insert new obs
+        self.obs_history_buf = torch.roll(self.obs_history_buf, shifts=-1, dims=1)
+        self.obs_history_buf[:, -1, :] = raw_obs
+
+        obs_dict["policy"] = self.obs_history_buf.reshape(self.num_envs, STACK_DIM)
+        return obs_dict
+
+    def _get_observations(self) -> dict:
+        """Fallback path used by DirectRLEnv-style callers. Same override."""
+        return self.get_observations()
+
+    # ── Step ───────────────────────────────────────────────────────────────
+
+    def step(self, action):
+        # Snapshot and increment lap progress BEFORE super().step() so that
+        # lap_bonus (called inside reward_manager.compute()) reads consistent
+        # pre/post-step buffer values.
+        self.prev_lap_progress_buf = self.lap_progress_buf.clone()
+
+        asset: RigidObject = self.scene[SceneEntityCfg("robot").name]
+        omega = asset.data.root_link_ang_vel_w[..., 2]
+        delta = (omega * POLICY_DT).clamp(min=0.0)
+        self.lap_progress_buf += delta
+
+        # Update running minimum radial distance from circuit centre (x=0, y=0)
+        pos = asset.data.root_link_pos_w
+        radial = torch.sqrt(pos[:, 0] ** 2 + pos[:, 1] ** 2)
+        self.min_radial_buf = torch.minimum(self.min_radial_buf, radial)
+
+        # Call super — observation_manager.compute() runs here, reward fires here
+        obs_dict, reward, terminated, truncated, info = super().step(action)
+
+        # Stack observations: advance ring buffer, insert new raw obs
+        raw_obs = obs_dict["policy"]  # (num_envs, 14) from observation_manager
+        self.obs_history_buf = torch.roll(self.obs_history_buf, shifts=-1, dims=1)
+        self.obs_history_buf[:, -1, :] = raw_obs
+        obs_dict["policy"] = self.obs_history_buf.reshape(self.num_envs, STACK_DIM)
+
+        return obs_dict, reward, terminated, truncated, info
+
+    # ── Reset ──────────────────────────────────────────────────────────────
 
     def _reset_idx(self, env_ids):
         # Snapshot BEFORE super() zeroes episode_length_buf and before we
@@ -59,23 +147,12 @@ class MushrDriftEnv(ManagerBasedRLEnv):
             self.episode_length_buf[env_ids].float() * POLICY_DT
         )
         self.last_ep_min_radial[env_ids] = self.min_radial_buf[env_ids]
+
         # Now reset
         super()._reset_idx(env_ids)
         self.lap_progress_buf[env_ids] = 0.0
         self.prev_lap_progress_buf[env_ids] = 0.0
         self.min_radial_buf[env_ids] = float('inf')
 
-    def step(self, action):
-        # Snapshot and increment lap progress BEFORE super().step() so that
-        # lap_bonus (called inside reward_manager.compute()) reads consistent
-        # pre/post-step buffer values.
-        self.prev_lap_progress_buf = self.lap_progress_buf.clone()
-        asset: RigidObject = self.scene[SceneEntityCfg("robot").name]
-        omega = asset.data.root_link_ang_vel_w[..., 2]
-        delta = (omega * POLICY_DT).clamp(min=0.0)
-        self.lap_progress_buf += delta
-        # Update running minimum radial distance from circuit centre (x=0, y=0)
-        pos = asset.data.root_link_pos_w
-        radial = torch.sqrt(pos[:, 0] ** 2 + pos[:, 1] ** 2)
-        self.min_radial_buf = torch.minimum(self.min_radial_buf, radial)
-        return super().step(action)
+        # Zero-pad history buffer for reset envs
+        self.obs_history_buf[env_ids] = 0.0
