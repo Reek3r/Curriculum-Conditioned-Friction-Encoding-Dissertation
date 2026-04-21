@@ -23,6 +23,43 @@ gym.register(
     }
 )
 
+#----------------------------------------------------
+from .drifting.mushr_drift_env_cfg import (
+    MushrDriftAgentACfg, MushrDriftAgentBCfg, MushrDriftAgentCCfg,
+)
+from .drifting.mushr_drift_env import MushrDriftADREnv
+
+gym.register(
+    id="Isaac-MushrDriftRL-AgentA-v0",
+    entry_point='wheeledlab_tasks.drifting.mushr_drift_env:MushrDriftEnv',
+    disable_env_checker=True,
+    kwargs={
+        "env_cfg_entry_point": MushrDriftAgentACfg,
+        "rsl_rl_cfg_entry_point": f"{mushr_drift_agents.__name__}.rsl_rl_ppo_cfg:MushrPPORunnerCfg",
+    }
+)
+
+gym.register(
+    id="Isaac-MushrDriftRL-AgentB-v0",
+    entry_point='wheeledlab_tasks.drifting.mushr_drift_env:MushrDriftEnv',
+    disable_env_checker=True,
+    kwargs={
+        "env_cfg_entry_point": MushrDriftAgentBCfg,
+        "rsl_rl_cfg_entry_point": f"{mushr_drift_agents.__name__}.rsl_rl_ppo_cfg:MushrPPORunnerCfg",
+    }
+)
+
+gym.register(
+    id="Isaac-MushrDriftRL-AgentC-v0",
+    entry_point='wheeledlab_tasks.drifting.mushr_drift_env:MushrDriftADREnv',
+    disable_env_checker=True,
+    kwargs={
+        "env_cfg_entry_point": MushrDriftAgentCCfg,
+        "rsl_rl_cfg_entry_point": f"{mushr_drift_agents.__name__}.rsl_rl_ppo_cfg:MushrPPORunnerCfg",
+    }
+)
+
+#-----------------------------------------------------------------------------------------------------------
 
 gym.register(
     id="Isaac-MushrVisualRL-v0",

@@ -299,7 +299,7 @@ class DriftRewardsCfg:
 
     turn_energy = RewTerm(
         func=energy_through_turn,
-        weight=20.,
+        weight=0.,
         params={"straight": STRAIGHT}
     )
 
@@ -433,6 +433,75 @@ class MushrDriftRLEnvCfg(ManagerBasedRLEnvCfg):
         self.scene = MushrDriftSceneCfg(
             num_envs=self.num_envs, env_spacing=self.env_spacing,
         )
+
+##############################
+###### AGENT CONFIGS #########
+#############################
+
+
+# ── Agent A: Narrow Fixed DR   µ ∈ (0.76, 0.84) ──────────────────────
+
+@configclass
+class AgentAEventsCfg(DriftEventsRandomCfg):
+    change_wheel_friction = EventTerm(
+        func=mdp.randomize_rigid_body_material,
+        mode="reset",
+        params={
+            "static_friction_range": (0.76, 0.84),
+            "dynamic_friction_range": (0.76, 0.84),
+            "restitution_range": (0.0, 0.0),
+            "num_buckets": 20,
+            "asset_cfg": SceneEntityCfg("robot", body_names=".*wheel_link"),
+            "make_consistent": True,
+        },
+    )
+
+@configclass
+class MushrDriftAgentACfg(MushrDriftRLEnvCfg):
+    events: DriftEventsCfg = AgentAEventsCfg()
+
+# ── Agent B: Wide Uniform DR   µ ∈ (0.2, 1.0) ────────────────────────
+
+@configclass
+class AgentBEventsCfg(DriftEventsRandomCfg):
+    change_wheel_friction = EventTerm(
+        func=mdp.randomize_rigid_body_material,
+        mode="reset",
+        params={
+            "static_friction_range": (0.2, 1.0),
+            "dynamic_friction_range": (0.2, 1.0),
+            "restitution_range": (0.0, 0.0),
+            "num_buckets": 20,
+            "asset_cfg": SceneEntityCfg("robot", body_names=".*wheel_link"),
+            "make_consistent": True,
+        },
+    )
+
+@configclass
+class MushrDriftAgentBCfg(MushrDriftRLEnvCfg):
+    events: DriftEventsCfg = AgentBEventsCfg()
+
+# ── Agent C: ADR   starts (0.76, 0.84) → expands toward (0.2, 1.0) ───
+
+@configclass
+class AgentCEventsCfg(DriftEventsRandomCfg):
+    change_wheel_friction = EventTerm(
+        func=mdp.randomize_rigid_body_material,
+        mode="reset",
+        params={
+            "static_friction_range": (0.76, 0.84),
+            "dynamic_friction_range": (0.76, 0.84),
+            "restitution_range": (0.0, 0.0),
+            "num_buckets": 20,
+            "asset_cfg": SceneEntityCfg("robot", body_names=".*wheel_link"),
+            "make_consistent": True,
+        },
+    )
+
+@configclass
+class MushrDriftAgentCCfg(MushrDriftRLEnvCfg):
+    events: DriftEventsCfg = AgentCEventsCfg()
+
 
 ######################
 ###### PLAY ENV ######

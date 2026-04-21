@@ -133,11 +133,8 @@ class OnPolicyRunner(runners.OnPolicyRunner):
                                 while hasattr(_env, 'env'):
                                     _env = _env.env
                                 done_ids = new_ids[:, 0].cpu()
-                                # track_progress_completed: laps finished this episode
                                 prog = _env.last_ep_lap_progress[done_ids].tolist()
-                                # episode_length_s: seconds elapsed this episode
                                 ep_s = _env.last_ep_length_s[done_ids].tolist()
-                                # min_radial_distance: minimum distance to circuit centre
                                 min_rad = _env.last_ep_min_radial[done_ids].tolist()
                                 if "episode" not in infos:
                                     infos["episode"] = {}
@@ -150,6 +147,10 @@ class OnPolicyRunner(runners.OnPolicyRunner):
                                 infos["episode"]["min_radial_distance"] = (
                                     sum(min_rad) / len(min_rad)
                                 )
+                                # ADR state (Agent C only)
+                                if hasattr(_env, 'adr_mu_lo'):
+                                    infos["episode"]["adr_mu_lo"] = _env.adr_mu_lo
+                                    infos["episode"]["adr_mu_hi"] = _env.adr_mu_hi
                             except Exception as _e:
                                 print(f"[PROGRESS LOG ERROR] {_e}")
 

@@ -137,7 +137,7 @@ def main(env_cfg: ManagerBasedRLEnvCfg, agent_cfg): # TODO: Add SB3 config suppo
     ### PLAY POLICY ###
 
     # reset environment
-    obs, _ = env.get_observations()
+    obs = env.get_observations()
     # simulate environment
     for _ in tqdm(range(args_cli.steps), desc="Playing policy"):
         # run everything in inference mode

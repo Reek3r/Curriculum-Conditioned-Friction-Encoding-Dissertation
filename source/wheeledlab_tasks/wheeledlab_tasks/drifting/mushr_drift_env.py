@@ -156,3 +156,61 @@ class MushrDriftEnv(ManagerBasedRLEnv):
 
         # Zero-pad history buffer for reset envs
         self.obs_history_buf[env_ids] = 0.0
+
+class MushrDriftADREnv(MushrDriftEnv):
+    """MushrDriftEnv with Automatic Domain Randomisation for friction.
+
+    Starts with narrow µ range identical to Agent A (0.76, 0.84).
+    Expands symmetrically toward Agent B's range (0.2, 1.0) when
+    success rate over ADR_WINDOW episodes exceeds ADR_THRESHOLD.
+
+    Success gate:
+        (laps_completed >= 1.0) AND (episode_time_s <= T_MAX)
+
+    Expansion is one-directional (no contraction).
+    """
+
+    T_MAX         = 5.5
+    ADR_STEP      = 0.02
+    ADR_WINDOW    = 200
+    ADR_THRESHOLD = 0.8
+    ADR_START_LO  = 0.76
+    ADR_START_HI  = 0.84
+    ADR_TARGET_LO = 0.2
+    ADR_TARGET_HI = 1.0
+
+    def __init__(self, cfg, render_mode=None, **kwargs):
+        super().__init__(cfg, render_mode=render_mode, **kwargs)
+        self.adr_mu_lo = self.ADR_START_LO
+        self.adr_mu_hi = self.ADR_START_HI
+        self._adr_successes = 0
+        self._adr_total = 0
+
+    def _reset_idx(self, env_ids):
+        # ── Score gate BEFORE reset zeroes buffers ───────────────────
+        laps    = self.lap_progress_buf[env_ids] / TWO_PI
+        ep_time = self.episode_length_buf[env_ids].float() * POLICY_DT
+        success = (laps >= 1.0) & (ep_time <= self.T_MAX)
+
+        self._adr_successes += int(success.sum().item())
+        self._adr_total     += len(env_ids)
+
+        # ── Evaluate expansion when window fills ─────────────────────
+        if self._adr_total >= self.ADR_WINDOW:
+            rate = self._adr_successes / self._adr_total
+            if rate >= self.ADR_THRESHOLD:
+                self.adr_mu_lo = max(self.ADR_TARGET_LO,
+                                     self.adr_mu_lo - self.ADR_STEP)
+                self.adr_mu_hi = min(self.ADR_TARGET_HI,
+                                     self.adr_mu_hi + self.ADR_STEP)
+                print(f"[ADR] Expanded µ → ({self.adr_mu_lo:.3f}, {self.adr_mu_hi:.3f})")
+            self._adr_successes = 0
+            self._adr_total     = 0
+
+        # ── Patch friction range in event manager BEFORE reset fires ─
+        friction_term = self.event_manager.get_term_cfg("change_wheel_friction")
+        friction_term.params["static_friction_range"] = (self.adr_mu_lo, self.adr_mu_hi)
+        friction_term.params["dynamic_friction_range"] = (self.adr_mu_lo, self.adr_mu_hi)
+
+        # ── Delegate to MushrDriftEnv._reset_idx (snapshots + reset) ─
+        super()._reset_idx(env_ids)
