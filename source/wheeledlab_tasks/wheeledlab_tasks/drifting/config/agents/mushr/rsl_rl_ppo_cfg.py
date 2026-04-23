@@ -7,8 +7,8 @@ class MushrPPORunnerCfg(RslRlOnPolicyRunnerCfg):
     max_iterations = 150
     save_interval = 50
     experiment_name = "ppo_mushr"
-
     empirical_normalization = False
+    seed = 42  # explicitly set, overridden by subclasses below
     policy = RslRlPpoActorCriticCfg(
         init_noise_std=1.0,
         actor_hidden_dims=[64, 64],
@@ -29,3 +29,11 @@ class MushrPPORunnerCfg(RslRlOnPolicyRunnerCfg):
         desired_kl=0.01,
         max_grad_norm=1.0,
     )
+
+@configclass
+class MushrPPORunnerCfgSeed2(MushrPPORunnerCfg):
+    seed = 123
+
+@configclass
+class MushrPPORunnerCfgSeed3(MushrPPORunnerCfg):
+    seed = 456

@@ -167,7 +167,11 @@ def main(run_cfg: RunConfig): # TODO: Add SB3 config support
     ##### TRAIN #####
     #################
 
+    _seed_override = os.environ.get("TRAIN_SEED")
+    if _seed_override is not None:
+        agent_cfg.seed = int(_seed_override)
     env.seed(agent_cfg.seed)
+    print(f"Setting seed: {agent_cfg.seed}")
     env.common_step_counter = train_cfg.set_env_step
     runner.learn(num_learning_iterations=train_cfg.num_iterations)
 

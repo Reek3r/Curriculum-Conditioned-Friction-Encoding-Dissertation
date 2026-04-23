@@ -306,7 +306,7 @@ class DriftRewardsCfg:
     b_lap = RewTerm(
         func=lap_bonus,
         weight=1.0,
-        params={"bonus_per_lap": 5000.0}
+        params={"bonus_per_lap": 1500.0}
     )
 
     ## Penalties
