@@ -182,8 +182,8 @@ class MushrDriftADREnv(MushrDriftEnv):
 
     T_MAX         = 5.5
     ADR_STEP      = 0.02
-    ADR_WINDOW    = 200
-    ADR_THRESHOLD = 0.8
+    ADR_WINDOW    = 200 #TEMP Revert to 200
+    ADR_THRESHOLD = 0.8 #TEMP Revert to 0.8
     ADR_START_LO  = 0.76
     ADR_START_HI  = 0.84
     ADR_TARGET_LO = 0.2
@@ -206,18 +206,31 @@ class MushrDriftADREnv(MushrDriftEnv):
         laps    = self.lap_progress_buf[env_ids] / TWO_PI
         success = (laps >= 1.0) & (self.first_lap_time[env_ids] <= self.T_MAX)
 
-        # TEMPORARY DIAGNOSTIC — remove before full training
-        if len(env_ids) > 0:
-            completed_mask = laps >= 1.0
-            n_completed = int(completed_mask.sum().item())
-            if n_completed > 0:
-                flt = self.first_lap_time[env_ids]
-                valid_times = flt[completed_mask & (flt < float('inf'))]
-                print(f"[ADR-DIAG] reset {len(env_ids)} envs | "
-                      f"laps>=1: {n_completed} | "
-                      f"first_lap_times: {valid_times[:5].tolist()} | "
-                      f"success: {int(success.sum().item())} | "
-                      f"window: {self._adr_successes}/{self._adr_total}")
+        # TEMPORARY DIAGNOSTIC — re-enable for debugging only
+        # if len(env_ids) > 0:
+        #     n_resets = len(env_ids)
+        #     completed_mask = laps >= 1.0
+        #     n_lap1 = int(completed_mask.sum().item())
+        #     flt = self.first_lap_time[env_ids]
+        #     finite_mask = completed_mask & (flt < float('inf'))
+        #     finite_times = flt[finite_mask]
+        #     n_passed = int(((laps >= 1.0) & (flt <= self.T_MAX)).sum().item())
+        # 
+        #     if finite_times.numel() > 0:
+        #         p50 = finite_times.median().item()
+        #         p90 = finite_times.quantile(0.9).item()
+        #         p50_str = f"{p50:.2f}s"
+        #         p90_str = f"{p90:.2f}s"
+        #     else:
+        #         p50_str = "—"
+        #         p90_str = "—"
+        # 
+        #     print(f"[ADR-DIAG] resets={n_resets} | "
+        #           f"lap>=1: {n_lap1}/{n_resets} ({100*n_lap1/max(n_resets,1):.0f}%) | "
+        #           f"flt p50={p50_str} p90={p90_str} | "
+        #           f"passed: {n_passed} | "
+        #           f"window: {self._adr_successes}/{self._adr_total} | "
+        #           f"mu=[{self.adr_mu_lo:.3f},{self.adr_mu_hi:.3f}]")
 
         self._adr_successes += int(success.sum().item())
         self._adr_total     += len(env_ids)
@@ -230,7 +243,7 @@ class MushrDriftADREnv(MushrDriftEnv):
                                      self.adr_mu_lo - self.ADR_STEP)
                 self.adr_mu_hi = min(self.ADR_TARGET_HI,
                                      self.adr_mu_hi + self.ADR_STEP)
-                print(f"[ADR] Expanded µ → ({self.adr_mu_lo:.3f}, {self.adr_mu_hi:.3f})")
+                print(f"[ADR] Expanded mu -> ({self.adr_mu_lo:.3f}, {self.adr_mu_hi:.3f})")
             self._adr_successes = 0
             self._adr_total     = 0
 
