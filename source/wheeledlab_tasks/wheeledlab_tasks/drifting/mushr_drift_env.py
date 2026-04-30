@@ -119,6 +119,16 @@ class MushrDriftEnv(ManagerBasedRLEnv):
         delta = (omega * POLICY_DT).clamp(min=0.0)
         self.lap_progress_buf += delta
 
+        if hasattr(self, 'first_lap_time'):
+            # Must run BEFORE super().step() at line 135 so first_lap_time is finite
+            # when MushrDriftADREnv._reset_idx reads it on episodes where lap-cross and
+            # termination coincide. Do not move below super().step().
+            just_crossed = (self.lap_progress_buf / TWO_PI >= 1.0) & \
+                           (self.first_lap_time == float('inf'))
+            if just_crossed.any():
+                self.first_lap_time[just_crossed] = \
+                    self.episode_length_buf[just_crossed].float() * POLICY_DT
+
         # Update running minimum radial distance from circuit centre (x=0, y=0)
         pos = asset.data.root_link_pos_w
         radial = torch.sqrt(pos[:, 0] ** 2 + pos[:, 1] ** 2)
@@ -185,12 +195,29 @@ class MushrDriftADREnv(MushrDriftEnv):
         self.adr_mu_hi = self.ADR_START_HI
         self._adr_successes = 0
         self._adr_total = 0
+        # Track time of first lap completion per episode
+        self.first_lap_time = torch.full(
+            (self.num_envs,), float('inf'),
+            device=self.device, dtype=torch.float32
+        )
 
     def _reset_idx(self, env_ids):
         # ── Score gate BEFORE reset zeroes buffers ───────────────────
         laps    = self.lap_progress_buf[env_ids] / TWO_PI
-        ep_time = self.episode_length_buf[env_ids].float() * POLICY_DT
-        success = (laps >= 1.0) & (ep_time <= self.T_MAX)
+        success = (laps >= 1.0) & (self.first_lap_time[env_ids] <= self.T_MAX)
+
+        # TEMPORARY DIAGNOSTIC — remove before full training
+        if len(env_ids) > 0:
+            completed_mask = laps >= 1.0
+            n_completed = int(completed_mask.sum().item())
+            if n_completed > 0:
+                flt = self.first_lap_time[env_ids]
+                valid_times = flt[completed_mask & (flt < float('inf'))]
+                print(f"[ADR-DIAG] reset {len(env_ids)} envs | "
+                      f"laps>=1: {n_completed} | "
+                      f"first_lap_times: {valid_times[:5].tolist()} | "
+                      f"success: {int(success.sum().item())} | "
+                      f"window: {self._adr_successes}/{self._adr_total}")
 
         self._adr_successes += int(success.sum().item())
         self._adr_total     += len(env_ids)
@@ -214,3 +241,4 @@ class MushrDriftADREnv(MushrDriftEnv):
 
         # ── Delegate to MushrDriftEnv._reset_idx (snapshots + reset) ─
         super()._reset_idx(env_ids)
+        self.first_lap_time[env_ids] = float('inf')
