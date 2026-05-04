@@ -1,243 +1,290 @@
-<img src="docs/media/fig1.png" alt="fig1" />
+# Curriculum-Conditioned Friction Encoding in Wheeled Robot RL Policies
+
+**Author:** Muhammad Rooman Waheed (11094142)  
+**Module:** EEEN30330 — Individual 3rd Year Project  
+**Institution:** Department of Electrical and Electronic Engineering, University of Manchester  
+**Supervisor:** [Supervisor name]  
+**Date:** May 2026
 
 ---
 
-# WheeledLab
+## 1. Introduction
 
-[![IsaacLab](https://img.shields.io/badge/IsaacLab-2.0.2-silver.svg)](https://isaac-sim.github.io/IsaacLab/v2.0.0/)
-[![IsaacSim](https://img.shields.io/badge/IsaacSim-4.5.0-silver.svg)](https://docs.isaacsim.omniverse.nvidia.com/latest/index.html)
-[![Python](https://img.shields.io/badge/python-3.10-blue.svg)](https://docs.python.org/3/whatsnew/3.10.html)
-[![Linux platform](https://img.shields.io/badge/platform-linux--64-orange.svg)](https://releases.ubuntu.com/20.04/)
+This repository contains the simulation, training, and analysis code for a dissertation investigating whether domain randomisation (DR) curriculum structure influences the degree to which a reinforcement learning (RL) policy's internal representations encode surface friction coefficient (µ). Three agents — trained under narrow fixed, wide uniform, and success-gated adaptive DR curricula — share an identical policy architecture but differ strictly in the order and breadth of friction conditions they encounter during training. Post-hoc linear probes applied to frozen hidden-layer activations measure whether these curriculum differences produce measurably different internal representations of the ground-truth friction parameter.
 
-Environments, assets, workflow for open-source mobile robotics, integrated with IsaacLab.
+The codebase is a fork of [WheeledLab](https://github.com/UWRobotLearning/WheeledLab) (Han et al., 2025), an open-source wheeled-robot learning framework built on NVIDIA Isaac Lab. All modifications made for this dissertation are confined to the files listed in Section 6 below. The upstream WheeledLab platform provides the MuSHR rover asset, the base environment class, and the rsl_rl PPO training infrastructure. This project adds the three-agent curriculum configurations, the adaptive domain randomisation (ADR) environment subclass with success-gated expansion logic, custom reward shaping, temporal observation stacking, milestone checkpointing, and Weights & Biases integration for ADR boundary tracking.
 
-[Website](https://uwrobotlearning.github.io/WheeledLab/) | [Paper](https://arxiv.org/abs/2502.07380)
+---
 
-## Installing IsaacLab (~20 min)
+## 2. Contextual Overview
 
-If you already have Isaac Lab installed, feel free to move directly to installing Wheeled Lab. Though, we recommend at least creating a new Conda environment for Isaac Lab + Wheeled Lab development.
+The software pipeline has three stages, executed sequentially:
 
-<details>
-  <summary><b>Ubuntu 22.04</b></summary>
-  
-  ### Setup Conda Environment
+```
+┌─────────────────────────────────────────────────────────────────┐
+│  STAGE 1: TRAINING                                              │
+│                                                                 │
+│  Isaac Lab (PhysX)  ──►  PPO (rsl_rl)  ──►  Checkpoints        │
+│  3 agents × 3 seeds × 5 milestones = 45 saved models           │
+│  Logging: Weights & Biases (per-episode µ, rewards, ADR bounds) │
+└─────────────────────────────────────────────────────────────────┘
+                              │
+                              ▼
+┌─────────────────────────────────────────────────────────────────┐
+│  STAGE 2: ACTIVATION EXTRACTION                                 │
+│                                                                 │
+│  Load frozen checkpoint  ──►  Roll out across 20-point µ grid   │
+│  ──►  Record hidden-layer activations via forward hooks         │
+│  ──►  Save (activations, µ_ground_truth) pairs                  │
+└─────────────────────────────────────────────────────────────────┘
+                              │
+                              ▼
+┌─────────────────────────────────────────────────────────────────┐
+│  STAGE 3: PROBE ANALYSIS (CPU-only)                             │
+│                                                                 │
+│  Ridge regression (sklearn) on activations → µ prediction       │
+│  4-component Probe Triangulation Framework:                     │
+│    1. Random-weight baseline                                    │
+│    2. Linear encoder probe (primary)                            │
+│    3. Raw-input ceiling probe                                   │
+│    4. MLP probe at final checkpoint                             │
+│  Output: R² values per agent × checkpoint × layer               │
+└─────────────────────────────────────────────────────────────────┘
+```
 
-  While this isn't technically necessary, we highly recommend using conda to keep dependencies and packages organized. 
+**Agent configurations:**
 
-  Conda can be installed [here](https://docs.conda.io/projects/conda/en/stable/user-guide/install/index.html).
+| Agent | Curriculum | µ Range | Environment Class |
+|-------|-----------|---------|-------------------|
+| A — Narrow Fixed DR | Fixed uniform | µ ∈ [0.76, 0.84] | `MushrDriftEnv` |
+| B — Wide Uniform DR | Fixed uniform | µ ∈ [0.20, 1.00] | `MushrDriftEnv` |
+| C — Standard ADR | Success-gated adaptive | Starts [0.76, 0.84], expands to [0.20, 1.00] | `MushrDriftADREnv` |
 
-  ```bash
-  # Create a conda environment named WL
-  conda create -n WL python=3.10
-  conda activate WL
-  ```
+All agents use the same policy architecture (70→64→64→2 ELU MLP with k=5 temporal observation stacking) and are trained with PPO using identical hyperparameters.
 
-  ### Install Isaac Sim
+---
 
-  We'll be installing Isaac Sim v4.5.0 here because WheeledLab was developed with 4.5.0 (WheeledLab should still work with v5.1.0).
+## 3. Installation Instructions
 
-  ```bash
-  pip install --upgrade pip
-  pip install 'isaacsim[all,extscache]==4.5.0' --extra-index-url https://pypi.nvidia.com
-  ```
+### Prerequisites
 
-  ### Install Isaac Lab
+- NVIDIA GPU with CUDA support (tested on RTX 3070 locally, L40S / A6000 on cloud)
+- [NVIDIA Isaac Sim 5.0.0](https://developer.nvidia.com/isaac-sim) with Isaac Lab
+- Python 3.10 (via Isaac Lab's bundled Python environment)
+- Conda (for local development) or a Brev/cloud Isaac Lab Launchable
 
-  ```bash
-  # Install Isaac Lab v2.0.2 (make sure you have build dependencies first, e.g. `sudo apt install cmake build-essential` on ubuntu)
-  git clone --branch v2.0.2 https://github.com/isaac-sim/IsaacLab.git
-  ./isaaclab.sh -i
-  ```
+### Step-by-step setup
 
-  Source: https://isaac-sim.github.io/IsaacLab/main/source/setup/installation/pip_installation.html
-</details>
+**1. Install Isaac Lab** following the [official instructions](https://isaac-sim.github.io/IsaacLab/main/source/setup/installation.html).
 
-<details>
-  <summary><b>Ubuntu 20.04</b></summary>
-  
-  ### Setup Conda Environment
-
-  Again, while this isn't technically necessary, we highly recommend using conda to keep dependencies and packages organized. 
-
-  Conda can be installed [here](https://docs.conda.io/projects/conda/en/stable/user-guide/install/index.html).
-
-  ```bash
-  # Create a conda environment named WL
-  conda create -n WL python=3.10
-  conda activate WL
-  ```
-
-  ### Install Isaac Sim
-
-  1. Download Isaac Sim from the [Isaac Sim website](https://docs.isaacsim.omniverse.nvidia.com/4.5.0/installation/download.html). You can also do this in terminal by running: 
-
-  ```bash
-  wget https://download.isaacsim.omniverse.nvidia.com/isaac-sim-standalone-4.5.0-linux-x86_64.zip
-  ```
-  2. Unzip the binaries. In this example, we'll be unzipping the contents to the folder `isaacsim`.
-
-  ```bash
-  # Generally speaking, you want to run "unzip ZIPPED_FOLDER.zip -d DESTINATION_FOLDER"
-  unzip isaac-sim-standalone-4.5.0-linux-x86_64.zip -d isaacsim
-  ```
-  3. Let's make sure Isaac Sim was installed correctly. Go into the `isaacsim` and run `./isaac-sim.sh`. 
-
-  ```bash
-  cd isaacsim
-  ./isaac-sim.sh
-
-  # If you see something like "Isaac Sim Full App is loaded", you should be good to go. 
-  ```
-
-  4. Run `source setup_conda_env.sh` in the isaacsim directory. Example:
-
-  ```bash
-  cd isaacsim
-  source setup_conda_env.sh
-  ```
-
-  <mark>Note! You **MUST** run `source setup_conda_env.sh` every time you start a new session.</mark>
-
-  ### Install Isaac Lab
-
-  ```bash
-  # Clone Isaac Lab v2.0.2
-  git clone --branch v2.0.2 https://github.com/isaac-sim/IsaacLab.git
-  ```
-
-  Next, create a symbolic link between the installed Isaac Sim and the Isaac Lab directory. Do so by running the following in the Isaac Lab folder. 
-
-  ```bash
-  cd Isaaclab
-  ln -s ~/PATH/TO/ISAAC/SIM/DIRECTORY _isaac_sim
-  ```
-
-  Finally, install Isaac Lab extensions by running the following:
-
-  ```bash
-  ./isaaclab.sh -i
-  ```
-
-  <mark>Warning! The IsaacLab install command (`./isaaclab.sh -i`) automatically installs the newest version of NumPy. **The newest version of NumPy is NOT compatible, so you MUST install NumPy v1.x**. You can do so by running `pip install --force-reinstall "numpy<2"`.</mark>
-
-  Source: https://isaac-sim.github.io/IsaacLab/main/source/setup/installation/binaries_installation.html
-</details>
-
-## Installing WheeledLab (~5 min)
+**2. Clone this repository** into your workspace:
 
 ```bash
-# Activate the conda environment that was created via the IsaacLab setup.
-conda activate <your IsaacLab env here> # 'WL' if you followed instructions above
-
-git clone git@github.com:UWRobotLearning/WheeledLab.git
-cd WheeledLab/source
-pip install -e wheeledlab
-pip install -e wheeledlab_tasks
-pip install -e wheeledlab_assets
-pip install -e wheeledlab_rl
+cd /path/to/your/workspace
+git clone https://github.com/Reek3r/WheeledLab.git
+cd WheeledLab
 ```
 
-After this, we recommend [Setting Up VSCode](https://github.com/UWRobotLearning/WheeledLab?tab=readme-ov-file#training-quick-start).
-
-## Training Quick Start
-
-Training runs can take a couple hours to produce a transferable policy.
-
-To start a drifting run:
+**3. Install the four WheeledLab packages:**
 
 ```bash
-python source/wheeledlab_rl/scripts/train_rl.py --headless -r RSS_DRIFT_CONFIG
+# On Brev/cloud (no sudo):
+pip install --user -e source/wheeledlab
+pip install --user -e source/wheeledlab_assets
+pip install --user -e source/wheeledlab_tasks
+pip install --user -e source/wheeledlab_rl
+
+# Locally with conda (activate your Isaac Lab env first):
+conda activate env_isaaclab
+pip install -e source/wheeledlab
+pip install -e source/wheeledlab_assets
+pip install -e source/wheeledlab_tasks
+pip install -e source/wheeledlab_rl
 ```
 
-To start a elevation run:
+**4. Patch the Isaac Lab vecenv wrapper** (required — this fix does not live in this repository):
+
+In your Isaac Lab installation, open:
+```
+<isaaclab_root>/source/isaaclab_rl/isaaclab_rl/rsl_rl/vecenv_wrapper.py
+```
+
+Locate the `get_observations` method and ensure the first check is:
+```python
+if hasattr(self.unwrapped, "get_observations"):
+    return self.unwrapped.get_observations()
+```
+
+This patch routes observation calls correctly through the WheeledLab environment wrapper. Without it, training will fail with an attribute error. **This patch does not survive a fresh Isaac Lab reinstall** — it must be reapplied.
+
+**5. (Optional) Configure Weights & Biases:**
 
 ```bash
-python source/wheeledlab_rl/scripts/train_rl.py --headless -r RSS_ELEV_CONFIG
+export WANDB_API_KEY=<your_key>
 ```
 
-To start a visual run:
+### Dependencies
+
+| Dependency | Version | Purpose |
+|-----------|---------|---------|
+| Isaac Sim | 5.0.0 | Physics simulation (PhysX backend) |
+| Isaac Lab | 0.47.1 | RL environment framework |
+| gymnasium | 1.0.0 | Environment API (shadows Isaac Lab's 1.2.0) |
+| rsl_rl | bundled | PPO implementation |
+| scikit-learn | ≥1.3 | Ridge regression for linear probes |
+| PyTorch | bundled | Network, forward hooks for activation extraction |
+| wandb | ≥0.16 | Experiment tracking |
+
+---
+
+## 4. How to Run the Software
+
+### Training a single agent
+
+**On Brev / cloud** (use Isaac Lab's bundled Python):
+```bash
+/workspace/isaaclab/_isaac_sim/python.sh \
+  source/wheeledlab_rl/scripts/train_rl.py \
+  -r AGENT_A_CONFIG \
+  --headless \
+  train.log.video=false \
+  env_setup.num_envs=1024 \
+  train.num_iterations=5000
+```
+
+**Locally** (with conda environment activated):
+```bash
+python source/wheeledlab_rl/scripts/train_rl.py \
+  -r AGENT_A_CONFIG \
+  --headless \
+  train.log.video=false \
+  env_setup.num_envs=32 \
+  train.num_iterations=5000
+```
+
+Replace `AGENT_A_CONFIG` with `AGENT_B_CONFIG` or `AGENT_C_CONFIG` for the other agents.
+
+### Running all 9 training runs (3 agents × 3 seeds)
+
+A launch script is provided for use inside a `tmux` session to survive disconnects:
 
 ```bash
-python source/wheeledlab_rl/scripts/train_rl.py --headless -r RSS_VISUAL_CONFIG
+tmux new -s training
+bash run_all_training.sh
 ```
 
-Though optional (and free), we strongly advise using [Weights & Biases](https://wandb.ai/site/) (`wandb`) to record and track training status. Logging to `wandb` is turned on by default. If you would like to disable it, add `train.log.no_wandb=True` to the CLI arguments.
+Detach with `Ctrl+B` then `D`. Reattach with `tmux attach -t training`.
 
-See more details about training in the `wheeledlab_rl` [README.md](source/wheeledlab_rl/docs/README.md)
+### Running the probe analysis
 
-> [!TIP]
-> If you encounter an error such as `ModuleNotFoundError: No module named 'isaacsim'`, navigate to the Isaac Sim directory and run `source setup_conda_env.sh`. This script must be executed before starting any training run in Wheeled Lab to ensure the environment is set up correctly.
+After training and activation extraction are complete:
 
-## Deployment
-
-A separate repository is maintained for existing integrations and deployments. See https://github.com/UWRobotLearning/RealLab for code.
-
-### Current Integrations
-
-1. HOUND [1] - https://github.com/UWRobotLearning/RealLab/tree/hound
-2. MuSHR [2] - https://github.com/UWRobotLearning/RealLab/tree/mushr
-3. F1Tenth [3] - (coming soon)
-
-If you have an integration or request for a platform not seen above, please contact us or consider contributing!
-
-## Setting Up VSCode
-
-It is a million times harder to develop in IsaacLab without Intellisense. Setting up the vscode workspace is
-STRONGLY advised.
-
-0. Find where your `IsaacLab` directory currently is. We'll refer to it as `<IsaacLab>` in this section. Move the VSCode tools to this workspace.
-
-   ```bash
-   cd <WheeledLab>
-   cp -r <IsaacLab>/.vscode/tools ./.vscode/
-   cp -r <IsaacLab>/.vscode/*.json ./.vscode/
-   ```
-
-1. Change `.vscode/tasks.json` line 11
-
-   ```json
-   "command": "${workspaceFolder}/../IsaacLab/isaaclab.sh -p ${workspaceFolder}/.vscode/tools/setup_vscode.py"
-   ```
-
-   to
-
-   ```json
-   "command": "<IsaacLabDir>/isaaclab.sh -p ${workspaceFolder}/.vscode/tools/setup_vscode.py"
-   ```
-
-2. `Ctrl` + `Shift` + `P` to bring up the VSCode command palette. type `Tasks:Run Task` or type until you see it show up and highlight it and press `Enter`.
-3. Click on `setup_python_env`. Follow the prompts until you're able to run the task. You should see a console at the bottom and the status of the task.
-4. If successful, you should now have `.vscode/{settings.json, launch.json}` in your `<WheeledLab>` repo and `settings.json` should have a populated list of paths under the `"python.analysis.extraPaths"` key.
-5. Make sure you at least have Microsoft's Python extension installed for intellisense to work. 
-
-### If it still doesn't work
-
-The `setup_vscode` task doesn't work for me for whatever reason. If that's true for you too, add the following lines to the end of the list under the key `"python.analysis.extraPaths"` in the `.vscode/settings.json` file:
-
-```json
-    "<IsaacLab>/source/isaaclab",
-    "<IsaacLab>/source/isaaclab_assets",
-    "<IsaacLab>/source/isaaclab_tasks",
-    "<IsaacLab>/source/isaaclab_rl",
+```bash
+python analysis/run_probes.py --checkpoint_dir <path_to_checkpoints> --output_dir <path_to_results>
 ```
+
+This script executes all four probe components (random-weight baseline, linear encoder probe, raw-input ceiling, MLP probe) and outputs R² values for every cell in the agent × checkpoint × layer grid.
+
+---
+
+## 5. Technical Details
+
+### Observation space
+
+Each timestep the policy receives a 14-dimensional proprioceptive observation: base linear velocity (3), base angular velocity (3), projected gravity (3), goal-relative position (2), wheel velocities (2), and track progress (1). A temporal history buffer stacks the most recent k=5 observations, producing a 70-dimensional input vector. On episode reset, the buffer is zero-padded.
+
+### Policy architecture
+
+A two-hidden-layer MLP with 64 units per layer and ELU activations. Input dimension is 70 (14 × k=5). Output dimension is 2 (linear and angular velocity commands). Separate actor and critic networks share the same architecture but not weights.
+
+### Training algorithm
+
+Proximal Policy Optimisation (PPO) with: clipping parameter ε=0.2, discount factor γ=0.997, GAE parameter λ=0.95, learning rate 1×10⁻³ with KL-adaptive schedule (target KL=0.01). Training runs for 5000 iterations. Checkpoints are saved at 0%, 25%, 50%, 75%, and 100% of total iterations via a custom `MilestoneOnPolicyRunner`.
+
+### Reward function
+
+```
+r_t = w1 · ω_progress  −  w2 · ‖a_t − a_{t−1}‖₂  +  w5 · b_lap
+```
+
+where ω_progress is angular progress around the track centreline, the action-smoothness penalty discourages jerk, and b_lap is a one-time bonus awarded on lap completion. Side-slip penalty weight is deliberately set to 0.0 — suppressing lateral sliding penalties preserves the friction-dependent dynamics that make µ observable from state transitions.
+
+### ADR gate logic (Agent C only)
+
+The `MushrDriftADREnv` subclass implements success-gated curriculum expansion. An episode is counted as successful if **both**: (1) `track_progress_completed ≥ 1.0` (full lap), and (2) `episode_length_s ≤ T_max = 5.5s`. Over a rolling window of 200 episodes, if the success rate exceeds 80%, the friction range expands symmetrically by ±0.02 per gate pass, from the initial [0.76, 0.84] toward the target [0.20, 1.00].
+
+### Track geometry
+
+A high-lateral-force cornering circuit with centreline radius r_min = 0.8m, inner termination radius 0.3m, and total track length 8.227m. The track is designed so that completing a lap within the time gate requires the policy to operate near the friction limit, ensuring that µ-dependent dynamics are exercised during training.
+
+### Friction parameter handling
+
+Ground-truth µ is read from the PhysX material tensor at indices `mats[:, 2:10, 0].mean(dim=1)` (indices 0–1 are the ground plane, not wheels). Friction randomisation uses event mode `"reset"` (re-sampled every episode reset), not `"startup"`.
+
+---
+
+## 6. Repository Structure and Modified Files
+
+This repository is a fork of [UWRobotLearning/WheeledLab](https://github.com/UWRobotLearning/WheeledLab). The upstream code provides the simulation platform, MuSHR rover asset, and base training infrastructure. **All files not listed below are unmodified from the upstream repository.**
+
+### Files modified or added for this dissertation
+
+| File | Purpose |
+|------|---------|
+| `source/wheeledlab_tasks/wheeledlab_tasks/drifting/mushr_drift_env_cfg.py` | Reward function, event configurations, termination conditions, and all three agent-specific environment configs (`MushrDriftAgentACfg`, `MushrDriftAgentBCfg`, `MushrDriftAgentCCfg`) |
+| `source/wheeledlab_tasks/wheeledlab_tasks/drifting/mushr_drift_env.py` | `MushrDriftADREnv` subclass implementing the ADR success gate, friction-range expansion logic, and per-episode µ logging |
+| `source/wheeledlab_tasks/wheeledlab_tasks/drifting/__init__.py` | Updated exports for the three agent configs |
+| `source/wheeledlab_tasks/wheeledlab_tasks/__init__.py` | Gymnasium registrations for `Isaac-MushrDriftRL-AgentA-v0`, `AgentB-v0`, `AgentC-v0` |
+| `source/wheeledlab_rl/wheeledlab_rl/configs/runs/rss_cfgs.py` | Hydra run configurations for `AGENT_A_CONFIG`, `AGENT_B_CONFIG`, `AGENT_C_CONFIG` |
+| `source/wheeledlab_rl/wheeledlab_rl/configs/runs/__init__.py` | Hydra registration calls for the three agent configs |
+| `source/wheeledlab_rl/wheeledlab_rl/utils/modified_rsl_rl_runner.py` | `MilestoneOnPolicyRunner` with milestone checkpointing at 0/25/50/75/100% and W&B ADR boundary logging |
+| `run_all_training.sh` | Bash script for launching all 9 training runs sequentially |
+
+### External patch (not in this repository)
+
+The Isaac Lab file `vecenv_wrapper.py` requires a one-line patch to route `get_observations()` calls through the WheeledLab environment wrapper. See Installation Instructions (Step 4) for details. This patch must be applied to the Isaac Lab installation, not this repository.
+
+### Third-party code acknowledgement
+
+The WheeledLab framework (Han et al., 2025) is used under its original licence. The upstream repository provides the MuSHR rover URDF asset, the base `MushrDriftEnv` environment class, the rsl_rl PPO training loop, and the Hydra configuration system. All upstream code is unmodified except for the files listed above.
+
+---
+
+## 7. Known Issues and Future Improvements
+
+### Known issues
+
+1. **vecenv_wrapper.py patch is fragile.** The patch to Isaac Lab's vecenv wrapper does not persist across fresh Isaac Lab installations. It must be manually reapplied after any reinstall. A post-install script or monkey-patch at import time would be more robust.
+
+2. **Seed control via Hydra.** The environment config hardcodes `seed: int = 42`. Hydra override syntax `+env_setup.seed=N` was required to vary seeds across runs; standard override syntax failed with a `ConfigCompositionException`.
+
+3. **Agent C does not run on local RTX 3070.** An OpenGL driver conflict with the AMD integrated GPU causes crashes. This is a driver-level issue, not a code bug — Agent C runs correctly on cloud GPUs (L40S, A6000).
+
+4. **gymnasium version mismatch.** Isaac Lab 0.47.1 expects gymnasium 1.2.0; WheeledLab pins 1.0.0. Installing 1.0.0 with `--user` shadows the system package. Training runs produce a deprecation warning but function correctly.
+
+5. **`bonus_per_lap` magnitude.** The lap completion bonus (provisional value 5000) was flagged during development as approximately 3× higher than the accumulated ω_progress reward over a typical episode. Recalibration may be needed for future work.
+
+### Future improvements
+
+1. **Automated probe pipeline.** Currently, activation extraction and probe fitting are separate manual steps. A single end-to-end script that takes a training run directory and produces the full R² grid would improve reproducibility.
+
+2. **Extended history buffer.** The k=5 temporal window was validated as sufficient via k-ablation diagnostic, but k=10 may capture longer-timescale friction dynamics. The observation dimension increase (70→140) would need to be evaluated against the 64-unit hidden layer capacity.
+
+3. **Sim-to-real transfer.** This dissertation evaluates representations within a single simulator. Transferring the trained policies to a physical MuSHR rover would test whether the friction representations identified by probing correspond to real-world physics adaptation. This was outside the scope of the current project.
+
+4. **Nonlinear curriculum structures.** Only uniform and adaptive curricula were tested. Curricula with explicit easy-to-hard staging, reverse curricula, or multi-parameter co-randomisation remain unexplored.
+
+---
 
 ## References
 
-### This work
+- Han, Z., et al. (2025). *WheeledLab: An Open-Source Framework for Wheeled Robot Learning.* GitHub: [UWRobotLearning/WheeledLab](https://github.com/UWRobotLearning/WheeledLab).
+- Schulman, J., et al. (2017). *Proximal Policy Optimization Algorithms.* arXiv:1707.06347.
+- Tobin, J., et al. (2017). *Domain Randomization for Transferring Deep Neural Networks from Simulation to the Real World.* IROS 2017.
+- NVIDIA (2025). *Isaac Lab.* [https://isaac-sim.github.io/IsaacLab](https://isaac-sim.github.io/IsaacLab).
 
-```
-@misc{2502.07380,
-Author = {Tyler Han and Preet Shah and Sidharth Rajagopal and Yanda Bao and Sanghun Jung and Sidharth Talia and Gabriel Guo and Bryan Xu and Bhaumik Mehta and Emma Romig and Rosario Scalise and Byron Boots},
-Title = {Demonstrating WheeledLab: Modern Sim2Real for Low-cost, Open-source Wheeled Robotics},
-Year = {2025},
-Eprint = {arXiv:2502.07380},
-}
-```
+---
 
-### Cited
+## Licence
 
-[1] Sidharth Talia, Matt Schmittle, Alexander Lambert, Alexander Spitzer, Christoforos Mavrogiannis, and Siddhartha S. Srinivasa.Demonstrating HOUND: A Low-cost Research Platform for High-speed Off-road Underactuated Nonholonomic Driving, July 2024.URL http://arxiv.org/abs/2311.11199.arXiv:2311.11199 [cs].
-
-[2] Siddhartha S. Srinivasa, Patrick Lancaster, Johan Michalove, Matt Schmittle, Colin Summers, Matthew Rockett, Rosario Scalise, Joshua R. Smith, Sanjiban Choudhury, Christoforos Mavrogiannis, and Fereshteh Sadeghi.MuSHR: A Low-Cost, Open-Source Robotic Racecar for Education and Research, December 2023.URL http://arxiv.org/abs/1908.08031.arXiv:1908.08031 [cs].
-
-[3] Matthew O’Kelly, Hongrui Zheng, Dhruv Karthik, and Rahul Mangharam. F1TENTH: An Open-source Eval- uation Environment for Continuous Control and Reinforcement Learning. In Proceedings of the NeurIPS 2019 Competition and Demonstration Track, pages 77– 89. PMLR, August 2020. URL https://proceedings.mlr. press/v123/o-kelly20a.html. ISSN: 2640-3498.
+This repository is a fork of WheeledLab and is distributed under the same licence as the upstream project. See [LICENSE](LICENSE) for details.
