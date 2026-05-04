@@ -3,7 +3,7 @@
 **Author:** Muhammad Rooman Waheed (11094142)  
 **Module:** EEEN30330 — Individual 3rd Year Project  
 **Institution:** Department of Electrical and Electronic Engineering, University of Manchester  
-**Supervisor:** [Supervisor name]  
+**Supervisor:** Shanika Matharage
 **Date:** May 2026
 
 ---
