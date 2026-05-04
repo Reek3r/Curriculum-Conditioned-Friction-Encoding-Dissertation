@@ -183,7 +183,7 @@ class MushrDriftADREnv(MushrDriftEnv):
     T_MAX         = 5.5
     ADR_STEP      = 0.02
     ADR_WINDOW    = 200 #TEMP Revert to 200
-    ADR_THRESHOLD = 0.8 #TEMP Revert to 0.8
+    ADR_THRESHOLD = 0.8 # Documented value (handoff §3.4 / userMemories). Step 5 derisk lowering reverted post Sim 5.0 termination patch.
     ADR_START_LO  = 0.76
     ADR_START_HI  = 0.84
     ADR_TARGET_LO = 0.2

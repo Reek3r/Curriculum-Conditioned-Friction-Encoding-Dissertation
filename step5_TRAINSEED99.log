@@ -1,0 +1,2039 @@
+nohup: ignoring input
+cat: '/sys/devices/system/cpu/cpu*/cpufreq/scaling_governor': No such file or directory
+Loading user config located at: '/isaac-sim/kit/data/Kit/Isaac-Sim/5.1/user.config.json'
+[Info] [carb] Logging to file: /isaac-sim/kit/logs/Kit/Isaac-Sim/5.1/kit_20260501_061216.log
+2026-05-01T06:12:17Z [723ms] [Warning] [carb.windowing-glfw.plugin] GLFW initialization failed.
+2026-05-01T06:12:17Z [723ms] [Warning] [carb] Failed to startup plugin carb.windowing-glfw.plugin (interfaces: [carb::windowing::IGLContext v1.0],[carb::windowing::IWindowing v1.5]) (impl: carb.windowing-glfw.plugin)
+2026-05-01T06:12:17Z [736ms] [Warning] [omni.platforminfo.plugin] failed to open the default display.  Can't verify X Server version.
+2026-05-01T06:12:17Z [739ms] [Warning] [carb.cudainterop.plugin] CUDA_VISIBLE_DEVICES environment variable is set.
+2026-05-01T06:12:17Z [739ms] [Warning] [carb.cudainterop.plugin] Note CUDA device enumeration and Omniverse device enumeration are different.
+2026-05-01T06:12:17Z [739ms] [Warning] [carb.cudainterop.plugin] Setting CUDA_VISIBLE_DEVICES can lead to undesired behavior or crashes.
+
+|---------------------------------------------------------------------------------------------|
+| Driver Version: 580.126.09    | Graphics API: Vulkan
+|=============================================================================================|
+| GPU | Name                             | Active | LDA | GPU Memory | Vendor-ID | LUID       |
+|     |                                  |        |     |            | Device-ID | UUID       |
+|     |                                  |        |     |            | Bus-ID    |            |
+|---------------------------------------------------------------------------------------------|
+| 0   | NVIDIA L40S                      | Yes: 0 |     | 46068   MB | 10de      | 0          |
+|     |                                  |        |     |            | 26b9      | 40e335c4.. |
+|     |                                  |        |     |            | 30        |            |
+|=============================================================================================|
+| OS: 24.04.2 LTS (Noble Numbat) ubuntu, Version: 24.04.2, Kernel: 6.8.0-1052-aws
+| Processor: AMD EPYC 7R13 Processor
+| Cores: 2 | Logical Cores: 4
+|---------------------------------------------------------------------------------------------|
+| Total Memory (MB): 31640 | Free Memory: 29335
+| Total Page/Swap (MB): 0 | Free Page/Swap: 0
+|---------------------------------------------------------------------------------------------|
+2026-05-01T06:12:17Z [1,453ms] [Warning] [gpu.foundation.plugin] ECC is enabled on physical device 0
+2026-05-01T06:12:17Z [1,455ms] [Warning] [gpu.foundation.plugin] PCIe link width current (8) and maximum (16) for device 0 don't match.
+2026-05-01T06:12:18Z [2,193ms] [Warning] [carb.windowing-glfw.plugin] GLFW initialization failed.
+2026-05-01T06:12:18Z [2,194ms] [Warning] [carb] Failed to startup plugin carb.windowing-glfw.plugin (interfaces: [carb::windowing::IGLContext v1.0],[carb::windowing::IWindowing v1.5]) (impl: carb.windowing-glfw.plugin)
+2026-05-01T06:12:18Z [2,213ms] [Warning] [carb.windowing-glfw.plugin] GLFW initialization failed.
+2026-05-01T06:12:18Z [2,213ms] [Warning] [carb] Failed to startup plugin carb.windowing-glfw.plugin (interfaces: [carb::windowing::IGLContext v1.0],[carb::windowing::IWindowing v1.5]) (impl: carb.windowing-glfw.plugin)
+2026-05-01T06:12:18Z [2,220ms] [Warning] [carb.windowing-glfw.plugin] GLFW initialization failed.
+2026-05-01T06:12:18Z [2,220ms] [Warning] [carb] Failed to startup plugin carb.windowing-glfw.plugin (interfaces: [carb::windowing::IGLContext v1.0],[carb::windowing::IWindowing v1.5]) (impl: carb.windowing-glfw.plugin)
+2026-05-01T06:12:18Z [2,230ms] [Warning] [carb.windowing-glfw.plugin] GLFW initialization failed.
+2026-05-01T06:12:18Z [2,230ms] [Warning] [carb] Failed to startup plugin carb.windowing-glfw.plugin (interfaces: [carb::windowing::IGLContext v1.0],[carb::windowing::IWindowing v1.5]) (impl: carb.windowing-glfw.plugin)
+2026-05-01T06:12:18Z [2,231ms] [Warning] [carb.windowing-glfw.plugin] GLFW initialization failed.
+2026-05-01T06:12:18Z [2,231ms] [Warning] [carb] Failed to startup plugin carb.windowing-glfw.plugin (interfaces: [carb::windowing::IGLContext v1.0],[carb::windowing::IWindowing v1.5]) (impl: carb.windowing-glfw.plugin)
+[INFO][AppLauncher]: Using device: cuda:0
+[INFO][AppLauncher]: Loading experience file: /workspace/isaaclab/apps/isaaclab.python.headless.rendering.kit
+[INFO]: Parsing configuration from: <class 'wheeledlab_tasks.drifting.mushr_drift_env_cfg.MushrDriftRLEnvCfg'>
+[INFO]: Parsing configuration from: wheeledlab_tasks.drifting.config.agents.mushr.rsl_rl_ppo_cfg:MushrPPORunnerCfg
+[INFO]: Parsing configuration from: <class 'wheeledlab_tasks.elevation.mushr_elevation_env_cfg.MushrElevationRLEnvCfg'>
+[INFO]: Parsing configuration from: wheeledlab_tasks.elevation.config.agents.mushr.rsl_rl_ppo_cfg:MushrPPORunnerCfg
+[INFO]: Parsing configuration from: <class 'wheeledlab_tasks.visual.mushr_visual_env_cfg.MushrVisualRLEnvCfg'>
+[INFO]: Parsing configuration from: wheeledlab_tasks.visual.config.agents.mushr.rsl_rl_ppo_cfg:MushrPPORunnerCfg
+[INFO]: Parsing configuration from: <class 'wheeledlab_tasks.drifting.f1tenth_drift_env_cfg.F1TenthDriftRLEnvCfg'>
+[INFO]: Parsing configuration from: wheeledlab_tasks.drifting.config.agents.f1tenth.rsl_rl_ppo_cfg:F1TenthPPORunnerCfg
+[INFO]: Parsing configuration from: <class 'wheeledlab_tasks.drifting.mushr_drift_env_cfg.MushrDriftAgentACfg'>
+[INFO]: Parsing configuration from: wheeledlab_tasks.drifting.config.agents.mushr.rsl_rl_ppo_cfg:MushrPPORunnerCfg
+[INFO]: Parsing configuration from: <class 'wheeledlab_tasks.drifting.mushr_drift_env_cfg.MushrDriftAgentBCfg'>
+[INFO]: Parsing configuration from: wheeledlab_tasks.drifting.config.agents.mushr.rsl_rl_ppo_cfg:MushrPPORunnerCfg
+[INFO]: Parsing configuration from: <class 'wheeledlab_tasks.drifting.mushr_drift_env_cfg.MushrDriftAgentCCfg'>
+[INFO]: Parsing configuration from: wheeledlab_tasks.drifting.config.agents.mushr.rsl_rl_ppo_cfg:MushrPPORunnerCfg
+[INFO]: Parsing configuration from: <class 'wheeledlab_tasks.drifting.mushr_drift_env_cfg.MushrDriftAgentCCfg'>
+[INFO]: Parsing configuration from: wheeledlab_tasks.drifting.config.agents.mushr.rsl_rl_ppo_cfg:MushrPPORunnerCfg
+wandb: Currently logged in as: m-roomanwaheed (m-roomanwaheed-the-university-of-manchester) to https://api.wandb.ai. Use `wandb login --relogin` to force relogin
+wandb: Tracking run with wandb version 0.22.2
+wandb: Run data is saved locally in /workspace/WheeledLab/wandb/run-20260501_061401-cgx75m9z
+wandb: Run `wandb offline` to turn off syncing.
+wandb: Syncing run devout-wind-79
+wandb: ⭐️ View project at https://wandb.ai/m-roomanwaheed-the-university-of-manchester/WheeledLab
+wandb: 🚀 View run at https://wandb.ai/m-roomanwaheed-the-university-of-manchester/WheeledLab/runs/cgx75m9z
+2026-05-01T06:12:18Z [2,232ms] [Warning] [carb.windowing-glfw.plugin] GLFW initialization failed.
+2026-05-01T06:12:18Z [2,232ms] [Warning] [carb] Failed to startup plugin carb.windowing-glfw.plugin (interfaces: [carb::windowing::IGLContext v1.0],[carb::windowing::IWindowing v1.5]) (impl: carb.windowing-glfw.plugin)
+2026-05-01T06:12:18Z [2,546ms] [Warning] [omni.log] Source: omni.hydra was already registered.
+2026-05-01T06:12:19Z [2,946ms] [Warning] [carb] Acquiring non optional plugin interface which is not listed as dependency: [omni::physx::IPhysxBenchmarks v1.0] (plugin: <default plugin>), by client: omni.physics.physx.plugin. Add it to CARB_PLUGIN_IMPL_DEPS() macro of a client.
+2026-05-01T06:12:19Z [2,958ms] [Warning] [omni.isaac.dynamic_control] omni.isaac.dynamic_control is deprecated as of Isaac Sim 4.5. No action is needed from end-users.
+2026-05-01T06:12:22Z [5,761ms] [Warning] [pxr.Semantics] pxr.Semantics is deprecated - please use Semantics instead
+2026-05-01T06:12:22Z [5,941ms] [Warning] [omni.graph.core.plugin] Found duplicate of category 'Replicator' - was 'Annotators', adding 'Fabric Reader'
+2026-05-01T06:12:22Z [5,941ms] [Warning] [omni.graph.core.plugin] Category 'Replicator' not accepted on node type 'omni.replicator.core.FabricReader' in extension 'omni.replicator.core'
+2026-05-01T06:12:22Z [5,942ms] [Warning] [omni.replicator.core.scripts.extension] No material configuration file, adding configuration to material settings directly.
+2026-05-01T06:12:30Z [13,998ms] [Warning] [omni.fabric.plugin] Warning: attribute viewportHandle not found for bucket id 7
+
+2026-05-01T06:14:05Z [108,890ms] [Error] [omni.physx.plugin] PhysicsUSD: Parse collision - triangle mesh collision (approximation None/MeshSimplification) cannot be a part of a dynamic body, falling back to convexHull approximation: /World/envs/env_0/Robot/mushr_nano/back_left_wheel_link/collisions.For dynamic collision please use approximations : convex hull, convex decomposition, box, sphere or SDF approximation.
+2026-05-01T06:14:05Z [108,890ms] [Error] [omni.physx.plugin] PhysicsUSD: Parse collision - triangle mesh collision (approximation None/MeshSimplification) cannot be a part of a dynamic body, falling back to convexHull approximation: /World/envs/env_0/Robot/mushr_nano/back_right_wheel_link/collisions_01.For dynamic collision please use approximations : convex hull, convex decomposition, box, sphere or SDF approximation.
+2026-05-01T06:14:05Z [108,891ms] [Error] [omni.physx.plugin] PhysicsUSD: Parse collision - triangle mesh collision (approximation None/MeshSimplification) cannot be a part of a dynamic body, falling back to convexHull approximation: /World/envs/env_0/Robot/mushr_nano/front_left_wheel_link/collisions_02.For dynamic collision please use approximations : convex hull, convex decomposition, box, sphere or SDF approximation.
+2026-05-01T06:14:05Z [108,891ms] [Error] [omni.physx.plugin] PhysicsUSD: Parse collision - triangle mesh collision (approximation None/MeshSimplification) cannot be a part of a dynamic body, falling back to convexHull approximation: /World/envs/env_0/Robot/mushr_nano/front_right_wheel_link/collisions_02.For dynamic collision please use approximations : convex hull, convex decomposition, box, sphere or SDF approximation.
+2026-05-01T06:14:05Z [108,893ms] [Warning] [omni.physx.plugin] Stiffness attribute is unsupported for articulation joints and will be ignored (/World/envs/env_0/Robot/mushr_nano/base_link/back_left_wheel_suspension).
+2026-05-01T06:14:05Z [108,893ms] [Warning] [omni.physx.plugin] Damping attribute is unsupported for articulation joints and will be ignored (/World/envs/env_0/Robot/mushr_nano/base_link/back_left_wheel_suspension).
+2026-05-01T06:14:05Z [108,893ms] [Warning] [omni.physx.plugin] Stiffness attribute is unsupported for articulation joints and will be ignored (/World/envs/env_0/Robot/mushr_nano/base_link/back_right_wheel_suspension).
+2026-05-01T06:14:05Z [108,893ms] [Warning] [omni.physx.plugin] Damping attribute is unsupported for articulation joints and will be ignored (/World/envs/env_0/Robot/mushr_nano/base_link/back_right_wheel_suspension).
+2026-05-01T06:14:05Z [108,893ms] [Warning] [omni.physx.plugin] Stiffness attribute is unsupported for articulation joints and will be ignored (/World/envs/env_0/Robot/mushr_nano/base_link/front_left_wheel_suspension).
+2026-05-01T06:14:05Z [108,893ms] [Warning] [omni.physx.plugin] Damping attribute is unsupported for articulation joints and will be ignored (/World/envs/env_0/Robot/mushr_nano/base_link/front_left_wheel_suspension).
+2026-05-01T06:14:05Z [108,893ms] [Warning] [omni.physx.plugin] Stiffness attribute is unsupported for articulation joints and will be ignored (/World/envs/env_0/Robot/mushr_nano/base_link/front_right_wheel_suspension).
+2026-05-01T06:14:05Z [108,893ms] [Warning] [omni.physx.plugin] Damping attribute is unsupported for articulation joints and will be ignored (/World/envs/env_0/Robot/mushr_nano/base_link/front_right_wheel_suspension).
+2026-05-01T06:14:05Z [108,893ms] [Warning] [omni.physx.plugin] Stiffness attribute is unsupported for articulation joints and will be ignored (/World/envs/env_0/Robot/mushr_nano/base_link/back_left_wheel_suspension).
+2026-05-01T06:14:05Z [108,893ms] [Warning] [omni.physx.plugin] Damping attribute is unsupported for articulation joints and will be ignored (/World/envs/env_0/Robot/mushr_nano/base_link/back_left_wheel_suspension).
+2026-05-01T06:14:05Z [108,893ms] [Warning] [omni.physx.plugin] Stiffness attribute is unsupported for articulation joints and will be ignored (/World/envs/env_0/Robot/mushr_nano/base_link/back_right_wheel_suspension).
+2026-05-01T06:14:05Z [108,893ms] [Warning] [omni.physx.plugin] Damping attribute is unsupported for articulation joints and will be ignored (/World/envs/env_0/Robot/mushr_nano/base_link/back_right_wheel_suspension).
+2026-05-01T06:14:05Z [108,893ms] [Warning] [omni.physx.plugin] Stiffness attribute is unsupported for articulation joints and will be ignored (/World/envs/env_0/Robot/mushr_nano/base_link/front_left_wheel_suspension).
+2026-05-01T06:14:05Z [108,893ms] [Warning] [omni.physx.plugin] Damping attribute is unsupported for articulation joints and will be ignored (/World/envs/env_0/Robot/mushr_nano/base_link/front_left_wheel_suspension).
+2026-05-01T06:14:05Z [108,893ms] [Warning] [omni.physx.plugin] Stiffness attribute is unsupported for articulation joints and will be ignored (/World/envs/env_0/Robot/mushr_nano/base_link/front_right_wheel_suspension).
+2026-05-01T06:14:05Z [108,893ms] [Warning] [omni.physx.plugin] Damping attribute is unsupported for articulation joints and will be ignored (/World/envs/env_0/Robot/mushr_nano/base_link/front_right_wheel_suspension).
+2026-05-01T06:14:05Z [108,893ms] [Warning] [omni.physx.plugin] Stiffness attribute is unsupported for articulation joints and will be ignored (/World/envs/env_0/Robot/mushr_nano/base_link/back_left_wheel_suspension).
+2026-05-01T06:14:05Z [108,893ms] [Warning] [omni.physx.plugin] Damping attribute is unsupported for articulation joints and will be ignored (/World/envs/env_0/Robot/mushr_nano/base_link/back_left_wheel_suspension).
+2026-05-01T06:14:05Z [108,893ms] [Warning] [omni.physx.plugin] Stiffness attribute is unsupported for articulation joints and will be ignored (/World/envs/env_0/Robot/mushr_nano/base_link/back_right_wheel_suspension).
+2026-05-01T06:14:05Z [108,893ms] [Warning] [omni.physx.plugin] Damping attribute is unsupported for articulation joints and will be ignored (/World/envs/env_0/Robot/mushr_nano/base_link/back_right_wheel_suspension).
+2026-05-01T06:14:05Z [108,893ms] [Warning] [omni.physx.plugin] Stiffness attribute is unsupported for articulation joints and will be ignored (/World/envs/env_0/Robot/mushr_nano/base_link/front_left_wheel_suspension).
+2026-05-01T06:14:05Z [108,893ms] [Warning] [omni.physx.plugin] Damping attribute is unsupported for articulation joints and will be ignored (/World/envs/env_0/Robot/mushr_nano/base_link/front_left_wheel_suspension).
+2026-05-01T06:14:05Z [108,893ms] [Warning] [omni.physx.plugin] Stiffness attribute is unsupported for articulation joints and will be ignored (/World/envs/env_0/Robot/mushr_nano/base_link/front_right_wheel_suspension).
+2026-05-01T06:14:05Z [108,893ms] [Warning] [omni.physx.plugin] Damping attribute is unsupported for articulation joints and will be ignored (/World/envs/env_0/Robot/mushr_nano/base_link/front_right_wheel_suspension).
+2026-05-01T06:14:05Z [108,893ms] [Warning] [omni.physx.plugin] Stiffness attribute is unsupported for articulation joints and will be ignored (/World/envs/env_0/Robot/mushr_nano/base_link/back_left_wheel_suspension).
+2026-05-01T06:14:05Z [108,893ms] [Warning] [omni.physx.plugin] Damping attribute is unsupported for articulation joints and will be ignored (/World/envs/env_0/Robot/mushr_nano/base_link/back_left_wheel_suspension).
+2026-05-01T06:14:05Z [108,893ms] [Warning] [omni.physx.plugin] Stiffness attribute is unsupported for articulation joints and will be ignored (/World/envs/env_0/Robot/mushr_nano/base_link/back_right_wheel_suspension).
+2026-05-01T06:14:05Z [108,893ms] [Warning] [omni.physx.plugin] Damping attribute is unsupported for articulation joints and will be ignored (/World/envs/env_0/Robot/mushr_nano/base_link/back_right_wheel_suspension).
+2026-05-01T06:14:05Z [108,893ms] [Warning] [omni.physx.plugin] Stiffness attribute is unsupported for articulation joints and will be ignored (/World/envs/env_0/Robot/mushr_nano/base_link/front_left_wheel_suspension).
+2026-05-01T06:14:05Z [108,893ms] [Warning] [omni.physx.plugin] Damping attribute is unsupported for articulation joints and will be ignored (/World/envs/env_0/Robot/mushr_nano/base_link/front_left_wheel_suspension).
+2026-05-01T06:14:05Z [108,893ms] [Warning] [omni.physx.plugin] Stiffness attribute is unsupported for articulation joints and will be ignored (/World/envs/env_0/Robot/mushr_nano/base_link/front_right_wheel_suspension).
+2026-05-01T06:14:05Z [108,893ms] [Warning] [omni.physx.plugin] Damping attribute is unsupported for articulation joints and will be ignored (/World/envs/env_0/Robot/mushr_nano/base_link/front_right_wheel_suspension).
+2026-05-01T06:14:05Z [108,893ms] [Warning] [omni.physx.plugin] Stiffness attribute is unsupported for articulation joints and will be ignored (/World/envs/env_0/Robot/mushr_nano/base_link/back_left_wheel_suspension).
+2026-05-01T06:14:05Z [108,893ms] [Warning] [omni.physx.plugin] Damping attribute is unsupported for articulation joints and will be ignored (/World/envs/env_0/Robot/mushr_nano/base_link/back_left_wheel_suspension).
+2026-05-01T06:14:05Z [108,893ms] [Warning] [omni.physx.plugin] Stiffness attribute is unsupported for articulation joints and will be ignored (/World/envs/env_0/Robot/mushr_nano/base_link/back_right_wheel_suspension).
+2026-05-01T06:14:05Z [108,893ms] [Warning] [omni.physx.plugin] Damping attribute is unsupported for articulation joints and will be ignored (/World/envs/env_0/Robot/mushr_nano/base_link/back_right_wheel_suspension).
+2026-05-01T06:14:05Z [108,893ms] [Warning] [omni.physx.plugin] Stiffness attribute is unsupported for articulation joints and will be ignored (/World/envs/env_0/Robot/mushr_nano/base_link/front_left_wheel_suspension).
+2026-05-01T06:14:05Z [108,893ms] [Warning] [omni.physx.plugin] Damping attribute is unsupported for articulation joints and will be ignored (/World/envs/env_0/Robot/mushr_nano/base_link/front_left_wheel_suspension).
+2026-05-01T06:14:05Z [108,893ms] [Warning] [omni.physx.plugin] Stiffness attribute is unsupported for articulation joints and will be ignored (/World/envs/env_0/Robot/mushr_nano/base_link/front_right_wheel_suspension).
+2026-05-01T06:14:05Z [108,893ms] [Warning] [omni.physx.plugin] Damping attribute is unsupported for articulation joints and will be ignored (/World/envs/env_0/Robot/mushr_nano/base_link/front_right_wheel_suspension).
+2026-05-01T06:14:05Z [108,893ms] [Warning] [omni.physx.plugin] Stiffness attribute is unsupported for articulation joints and will be ignored (/World/envs/env_0/Robot/mushr_nano/base_link/back_left_wheel_suspension).
+2026-05-01T06:14:05Z [108,893ms] [Warning] [omni.physx.plugin] Damping attribute is unsupported for articulation joints and will be ignored (/World/envs/env_0/Robot/mushr_nano/base_link/back_left_wheel_suspension).
+2026-05-01T06:14:05Z [108,893ms] [Warning] [omni.physx.plugin] Stiffness attribute is unsupported for articulation joints and will be ignored (/World/envs/env_0/Robot/mushr_nano/base_link/back_right_wheel_suspension).
+2026-05-01T06:14:05Z [108,893ms] [Warning] [omni.physx.plugin] Damping attribute is unsupported for articulation joints and will be ignored (/World/envs/env_0/Robot/mushr_nano/base_link/back_right_wheel_suspension).
+2026-05-01T06:14:05Z [108,893ms] [Warning] [omni.physx.plugin] Stiffness attribute is unsupported for articulation joints and will be ignored (/World/envs/env_0/Robot/mushr_nano/base_link/front_left_wheel_suspension).
+2026-05-01T06:14:05Z [108,893ms] [Warning] [omni.physx.plugin] Damping attribute is unsupported for articulation joints and will be ignored (/World/envs/env_0/Robot/mushr_nano/base_link/front_left_wheel_suspension).
+2026-05-01T06:14:05Z [108,893ms] [Warning] [omni.physx.plugin] Stiffness attribute is unsupported for articulation joints and will be ignored (/World/envs/env_0/Robot/mushr_nano/base_link/front_right_wheel_suspension).
+2026-05-01T06:14:05Z [108,893ms] [Warning] [omni.physx.plugin] Damping attribute is unsupported for articulation joints and will be ignored (/World/envs/env_0/Robot/mushr_nano/base_link/front_right_wheel_suspension).
+2026-05-01T06:14:05Z [108,893ms] [Warning] [omni.physx.plugin] Stiffness attribute is unsupported for articulation joints and will be ignored (/World/envs/env_0/Robot/mushr_nano/base_link/back_right_wheel_suspension).
+2026-05-01T06:14:05Z [108,893ms] [Warning] [omni.physx.plugin] Damping attribute is unsupported for articulation joints and will be ignored (/World/envs/env_0/Robot/mushr_nano/base_link/back_right_wheel_suspension).
+2026-05-01T06:14:05Z [108,893ms] [Warning] [omni.physx.plugin] Stiffness attribute is unsupported for articulation joints and will be ignored (/World/envs/env_0/Robot/mushr_nano/base_link/front_left_wheel_suspension).
+2026-05-01T06:14:05Z [108,893ms] [Warning] [omni.physx.plugin] Damping attribute is unsupported for articulation joints and will be ignored (/World/envs/env_0/Robot/mushr_nano/base_link/front_left_wheel_suspension).
+2026-05-01T06:14:05Z [108,893ms] [Warning] [omni.physx.plugin] Stiffness attribute is unsupported for articulation joints and will be ignored (/World/envs/env_0/Robot/mushr_nano/base_link/front_right_wheel_suspension).
+2026-05-01T06:14:05Z [108,893ms] [Warning] [omni.physx.plugin] Damping attribute is unsupported for articulation joints and will be ignored (/World/envs/env_0/Robot/mushr_nano/base_link/front_right_wheel_suspension).
+2026-05-01T06:14:05Z [108,893ms] [Warning] [omni.physx.plugin] Stiffness attribute is unsupported for articulation joints and will be ignored (/World/envs/env_0/Robot/mushr_nano/base_link/back_right_wheel_suspension).
+2026-05-01T06:14:05Z [108,893ms] [Warning] [omni.physx.plugin] Damping attribute is unsupported for articulation joints and will be ignored (/World/envs/env_0/Robot/mushr_nano/base_link/back_right_wheel_suspension).
+2026-05-01T06:14:05Z [108,893ms] [Warning] [omni.physx.plugin] Stiffness attribute is unsupported for articulation joints and will be ignored (/World/envs/env_0/Robot/mushr_nano/base_link/front_left_wheel_suspension).
+2026-05-01T06:14:05Z [108,893ms] [Warning] [omni.physx.plugin] Damping attribute is unsupported for articulation joints and will be ignored (/World/envs/env_0/Robot/mushr_nano/base_link/front_left_wheel_suspension).
+2026-05-01T06:14:05Z [108,893ms] [Warning] [omni.physx.plugin] Stiffness attribute is unsupported for articulation joints and will be ignored (/World/envs/env_0/Robot/mushr_nano/base_link/front_right_wheel_suspension).
+2026-05-01T06:14:05Z [108,893ms] [Warning] [omni.physx.plugin] Damping attribute is unsupported for articulation joints and will be ignored (/World/envs/env_0/Robot/mushr_nano/base_link/front_right_wheel_suspension).
+2026-05-01T06:14:05Z [108,893ms] [Warning] [omni.physx.plugin] Stiffness attribute is unsupported for articulation joints and will be ignored (/World/envs/env_0/Robot/mushr_nano/base_link/front_left_wheel_suspension).
+2026-05-01T06:14:05Z [108,893ms] [Warning] [omni.physx.plugin] Damping attribute is unsupported for articulation joints and will be ignored (/World/envs/env_0/Robot/mushr_nano/base_link/front_left_wheel_suspension).
+2026-05-01T06:14:05Z [108,893ms] [Warning] [omni.physx.plugin] Stiffness attribute is unsupported for articulation joints and will be ignored (/World/envs/env_0/Robot/mushr_nano/base_link/front_right_wheel_suspension).
+2026-05-01T06:14:05Z [108,893ms] [Warning] [omni.physx.plugin] Damping attribute is unsupported for articulation joints and will be ignored (/World/envs/env_0/Robot/mushr_nano/base_link/front_right_wheel_suspension).
+2026-05-01T06:14:05Z [108,893ms] [Warning] [omni.physx.plugin] Stiffness attribute is unsupported for articulation joints and will be ignored (/World/envs/env_0/Robot/mushr_nano/base_link/front_left_wheel_suspension).
+2026-05-01T06:14:05Z [108,893ms] [Warning] [omni.physx.plugin] Damping attribute is unsupported for articulation joints and will be ignored (/World/envs/env_0/Robot/mushr_nano/base_link/front_left_wheel_suspension).
+2026-05-01T06:14:05Z [108,893ms] [Warning] [omni.physx.plugin] Stiffness attribute is unsupported for articulation joints and will be ignored (/World/envs/env_0/Robot/mushr_nano/base_link/front_right_wheel_suspension).
+2026-05-01T06:14:05Z [108,893ms] [Warning] [omni.physx.plugin] Damping attribute is unsupported for articulation joints and will be ignored (/World/envs/env_0/Robot/mushr_nano/base_link/front_right_wheel_suspension).
+2026-05-01T06:14:05Z [108,894ms] [Warning] [omni.physx.plugin] Stiffness attribute is unsupported for articulation joints and will be ignored (/World/envs/env_0/Robot/mushr_nano/base_link/front_right_wheel_suspension).
+2026-05-01T06:14:05Z [108,894ms] [Warning] [omni.physx.plugin] Damping attribute is unsupported for articulation joints and will be ignored (/World/envs/env_0/Robot/mushr_nano/base_link/front_right_wheel_suspension).
+2026-05-01T06:14:05Z [108,894ms] [Warning] [omni.physx.plugin] Stiffness attribute is unsupported for articulation joints and will be ignored (/World/envs/env_0/Robot/mushr_nano/base_link/front_right_wheel_suspension).
+2026-05-01T06:14:05Z [108,894ms] [Warning] [omni.physx.plugin] Damping attribute is unsupported for articulation joints and will be ignored (/World/envs/env_0/Robot/mushr_nano/base_link/front_right_wheel_suspension).
+2026-05-01T06:14:05Z [108,894ms] [Warning] [omni.physx.plugin] Stiffness attribute is unsupported for articulation joints and will be ignored (/World/envs/env_0/Robot/mushr_nano/base_link/front_right_wheel_suspension).
+2026-05-01T06:14:05Z [108,894ms] [Warning] [omni.physx.plugin] Damping attribute is unsupported for articulation joints and will be ignored (/World/envs/env_0/Robot/mushr_nano/base_link/front_right_wheel_suspension).
+2026-05-01T06:14:05Z [109,013ms] [Warning] [isaaclab.actuators.actuator_pd] The <ImplicitActuatorCfg> object has a value for 'effort_limit'. This parameter will be removed in the future. To set the effort limit, please use 'effort_limit_sim' instead.
+2026-05-01T06:14:05Z [109,013ms] [Warning] [isaaclab.actuators.actuator_pd] The <ImplicitActuatorCfg> object has a value for 'velocity_limit'. Previously, although this value was specified, it was not getting used by implicit actuators. Since this parameter affects the simulation behavior, we continue to not use it. This parameter will be removed in the future. To set the velocity limit, please use 'velocity_limit_sim' instead.
+/workspace/isaaclab/_isaac_sim/kit/python/lib/python3.11/site-packages/rsl_rl/utils/utils.py:244: UserWarning: The observation configuration dictionary 'obs_groups' must contain the 'policy' key. As an observation group with the name 'policy' was found, this is assumed to be the observation set. Consider adding the 'policy' key to the 'obs_groups' dictionary for clarity. This behavior will be removed in a future version.
+  warnings.warn(
+/workspace/isaaclab/_isaac_sim/kit/python/lib/python3.11/site-packages/rsl_rl/utils/utils.py:290: UserWarning: The observation configuration dictionary 'obs_groups' must contain the 'critic' key. As the configuration for 'critic' is missing, the observations from the 'policy' set are used. Consider adding the 'critic' key to the 'obs_groups' dictionary for clarity. This behavior will be removed in a future version.
+  warnings.warn(
+Setting seed: 42
+[INFO]: Base environment:
+	Environment device    : cuda:0
+	Environment seed      : 42
+	Physics step-size     : 0.005
+	Rendering step-size   : 0.1
+	Environment step-size : 0.02
+[INFO]: Time taken for scene creation : 1.765347 seconds
+[INFO]: Scene manager:  <class InteractiveScene>
+	Number of environments: 64
+	Environment spacing   : 0.0
+	Source prim name      : /World/envs/env_0
+	Global prim paths     : ['/World/ground']
+	Replicate physics     : True
+[INFO]: Starting the simulation. This may take a few seconds. Please wait...
+[INFO]: Time taken for simulation start : 0.880718 seconds
+[INFO] Command Manager:  <CommandManager> contains 0 active terms.
++------------------------+
+|  Active Command Terms  |
++--------+-------+-------+
+| Index  | Name  |  Type |
++--------+-------+-------+
++--------+-------+-------+
+
+[INFO] Event Manager:  <EventManager> contains 3 active terms.
++--------------------------------------+
+| Active Event Terms in Mode: 'reset'  |
++---------+----------------------------+
+|  Index  | Name                       |
++---------+----------------------------+
+|    0    | reset_root_state           |
+|    1    | change_wheel_friction      |
++---------+----------------------------+
++-------------------------------------+
+| Active Event Terms in Mode: 'startup' |
++----------+--------------------------+
+|  Index   | Name                     |
++----------+--------------------------+
+|    0     | randomize_gains          |
+|    1     | add_base_mass            |
++----------+--------------------------+
++--------------------------------------------------+
+|      Active Event Terms in Mode: 'interval'      |
++-------+----------------+-------------------------+
+| Index | Name           | Interval time range (s) |
++-------+----------------+-------------------------+
+|   0   | push_robots_hf |        (0.1, 0.4)       |
+|   1   | push_robots_lf |        (0.8, 1.2)       |
++-------+----------------+-------------------------+
+
+[INFO] Recorder Manager:  <RecorderManager> contains 0 active terms.
++---------------------+
+| Active Recorder Terms |
++-----------+---------+
+|   Index   | Name    |
++-----------+---------+
++-----------+---------+
+
+[INFO] Action Manager:  <ActionManager> contains 1 active terms.
++------------------------------------+
+|   Active Action Terms (shape: 2)   |
++-------+----------------+-----------+
+| Index | Name           | Dimension |
++-------+----------------+-----------+
+|   0   | throttle_steer |         2 |
++-------+----------------+-----------+
+
+[INFO] Observation Manager: <ObservationManager> contains 1 groups.
++----------------------------------------------------------+
+| Active Observation Terms in Group: 'policy' (shape: (14,)) |
++-----------+----------------------------------+-----------+
+|   Index   | Name                             |   Shape   |
++-----------+----------------------------------+-----------+
+|     0     | root_pos_w_term                  |    (3,)   |
+|     1     | root_euler_xyz_term              |    (3,)   |
+|     2     | base_lin_vel_term                |    (3,)   |
+|     3     | base_ang_vel_term                |    (3,)   |
+|     4     | last_action_term                 |    (2,)   |
++-----------+----------------------------------+-----------+
+
+[INFO] Termination Manager:  <TerminationManager> contains 2 active terms.
++----------------------------------+
+|     Active Termination Terms     |
++-------+---------------+----------+
+| Index | Name          | Time Out |
++-------+---------------+----------+
+|   0   | time_out      |   True   |
+|   1   | out_of_bounds |  False   |
++-------+---------------+----------+
+
+[INFO] Reward Manager:  <RewardManager> contains 8 active terms.
++-------------------------------+
+|      Active Reward Terms      |
++-------+-------------+---------+
+| Index | Name        |  Weight |
++-------+-------------+---------+
+|   0   | side_slip   |     0.0 |
+|   1   | vel         |    -5.0 |
+|   2   | progress    |    40.0 |
+|   3   | tlgr        |     0.0 |
+|   4   | turn_energy |     0.0 |
+|   5   | b_lap       |     1.0 |
+|   6   | cross_track |   -50.0 |
+|   7   | term_pens   | -5000.0 |
++-------+-------------+---------+
+
+[INFO] Curriculum Manager:  <CurriculumManager> contains 2 active terms.
++---------------------------+
+|  Active Curriculum Terms  |
++--------+------------------+
+| Index  | Name             |
++--------+------------------+
+|   0    | more_tlgr        |
+|   1    | more_term_pens   |
++--------+------------------+
+
+[INFO]: Completed setting up the environment...
+[EVENT MANAGER] ['__abstractmethods__', '__annotations__', '__class__', '__del__', '__delattr__', '__dict__', '__dir__', '__doc__', '__eq__', '__format__', '__ge__', '__getattribute__', '__getstate__', '__gt__', '__hash__', '__init__', '__init_subclass__', '__le__', '__lt__', '__module__', '__ne__', '__new__', '__reduce__', '__reduce_ex__', '__repr__', '__setattr__', '__sizeof__', '__slots__', '__str__', '__subclasshook__', '__weakref__', '_abc_impl', '_env', '_interval_term_time_left', '_is_scene_entities_resolved', '_mode_class_term_cfgs', '_mode_term_cfgs', '_mode_term_names', '_prepare_terms', '_process_term_cfg_at_play', '_reset_term_last_triggered_once', '_reset_term_last_triggered_step_id', '_resolve_common_term_cfg', '_resolve_terms_callback', '_resolve_terms_handle', 'active_terms', 'apply', 'available_modes', 'cfg', 'device', 'find_terms', 'get_active_iterable_terms', 'get_term_cfg', 'num_envs', 'reset', 'set_term_cfg']
+[EVENT TERMS via active_terms] {'reset': ['reset_root_state', 'change_wheel_friction'], 'startup': ['randomize_gains', 'add_base_mass'], 'interval': ['push_robots_hf', 'push_robots_lf']}
+[WHEEL BODIES] ([11, 12, 15, 16], ['back_left_wheel_link', 'back_right_wheel_link', 'front_left_wheel_link', 'front_right_wheel_link'])
+[MATS SHAPE] torch.Size([64, 10, 3])
+[MATS ENV0 ALL SHAPES] [[0.5, 0.5, 0.0], [0.5, 0.5, 0.0], [0.7943523526191711, 0.7943523526191711, 0.0], [0.8062340021133423, 0.8062340021133423, 0.0], [0.7993041276931763, 0.7993041276931763, 0.0], [0.8066567182540894, 0.7870118021965027, 0.0], [0.7953090667724609, 0.7837536334991455, 0.0], [0.7684251666069031, 0.7684251666069031, 0.0], [0.8203133940696716, 0.7756198048591614, 0.0], [0.830581545829773, 0.830581545829773, 0.0]]
+--------------------------------------------------------------------------------
+Resolved observation sets: 
+	 policy :  ['policy']
+	 critic :  ['policy']
+--------------------------------------------------------------------------------
+Actor MLP: MLP(
+  (0): Linear(in_features=70, out_features=64, bias=True)
+  (1): ELU(alpha=1.0)
+  (2): Linear(in_features=64, out_features=64, bias=True)
+  (3): ELU(alpha=1.0)
+  (4): Linear(in_features=64, out_features=2, bias=True)
+)
+Critic MLP: MLP(
+  (0): Linear(in_features=70, out_features=64, bias=True)
+  (1): ELU(alpha=1.0)
+  (2): Linear(in_features=64, out_features=64, bias=True)
+  (3): ELU(alpha=1.0)
+  (4): Linear(in_features=64, out_features=1, bias=True)
+)
+[MU PRE-TRAIN] [0.8026469945907593, 0.8071098923683167, 0.8005332946777344, 0.7934774160385132, 0.8019933700561523, 0.7915778756141663, 0.8034338355064392, 0.7996349334716797, 0.7974986433982849, 0.8092899322509766, 0.8076157569885254, 0.7970390915870667, 0.8028057813644409, 0.8056443929672241, 0.7949285507202148, 0.8032299280166626, 0.8154616951942444, 0.8049986958503723, 0.8001524209976196, 0.7914451360702515, 0.8067671060562134, 0.801289439201355, 0.7916711568832397, 0.8074262142181396, 0.8059085607528687, 0.8127204179763794, 0.8106797933578491, 0.8029374480247498, 0.7888075113296509, 0.7988131642341614, 0.807778537273407, 0.7957836389541626, 0.7937520742416382, 0.8092779517173767, 0.8107247352600098, 0.8028866052627563, 0.8051046133041382, 0.8045775294303894, 0.7924700379371643, 0.7938152551651001, 0.8070904016494751, 0.7912285923957825, 0.7913733124732971, 0.7898814082145691, 0.8142451047897339, 0.7938774824142456, 0.7896512150764465, 0.7978663444519043, 0.799046516418457, 0.8050362467765808, 0.8108677268028259, 0.7889237403869629, 0.8094632029533386, 0.8006744384765625, 0.8105223178863525, 0.8025222420692444, 0.7874797582626343, 0.7985296249389648, 0.7912683486938477, 0.7953267693519592, 0.8070131540298462, 0.7984884977340698, 0.7923298478126526, 0.7929058074951172]wandb: wandb.init() called while a run is active and reinit is set to 'default', so returning the previous run.
+
+Setting seed: 99
+Setting seed: 99
+[MilestoneRunner] Milestones: 0%→iter0, 25%→iter12, 50%→iter25, 75%→iter38, 100%→iter49
+[INFOS KEYS STEP] ['log', 'time_outs']
+################################################################################
+                       [1m Learning iteration 0/50 [0m                        
+
+                       Computation: 2012 steps/s (collection: 3.818s, learning 0.252s)
+             Mean action noise std: 1.02
+          Mean value_function loss: 353710.6375
+               Mean surrogate loss: -0.0048
+                 Mean entropy loss: 2.8616
+                       Mean reward: -690.05
+               Mean episode length: 76.34
+          Episode_Reward/side_slip: 0.0000
+                Episode_Reward/vel: 1.9423
+           Episode_Reward/progress: 0.3765
+               Episode_Reward/tlgr: 0.0000
+        Episode_Reward/turn_energy: 0.0000
+              Episode_Reward/b_lap: 0.0000
+        Episode_Reward/cross_track: 3.0330
+          Episode_Reward/term_pens: -52.3438
+      Episode_Termination/time_out: 0.0000
+ Episode_Termination/out_of_bounds: 0.1908
+--------------------------------------------------------------------------------
+                   Total timesteps: 8192
+                    Iteration time: 4.07s
+                      Time elapsed: 00:00:04
+                               ETA: 00:03:23
+
+[MilestoneRunner] ✓ 0% checkpoint → /workspace/WheeledLab/source/wheeledlab_rl/logs/devout-wind-79/models/model_milestone_iter0_0pct.pt
+[INFOS KEYS STEP] ['log', 'time_outs', 'episode']
+[EPISODE KEYS] ['mu', 'track_progress_completed', 'episode_length_s', 'min_radial_distance', 'adr_mu_lo', 'adr_mu_hi']
+################################################################################
+                       [1m Learning iteration 1/50 [0m                        
+
+                       Computation: 2861 steps/s (collection: 2.751s, learning 0.112s)
+             Mean action noise std: 1.02
+          Mean value_function loss: 1878670.9250
+               Mean surrogate loss: 0.0186
+                 Mean entropy loss: 2.8850
+                       Mean reward: -2709.11
+               Mean episode length: 109.78
+          Episode_Reward/side_slip: 0.0000
+                Episode_Reward/vel: 5.0274
+           Episode_Reward/progress: 0.9398
+               Episode_Reward/tlgr: 0.0000
+        Episode_Reward/turn_energy: 0.0000
+              Episode_Reward/b_lap: 0.0000
+        Episode_Reward/cross_track: 7.7868
+          Episode_Reward/term_pens: -373.7500
+      Episode_Termination/time_out: 0.0000
+ Episode_Termination/out_of_bounds: 0.7894
+                   Mean episode mu: 0.7994
+Mean episode track_progress_completed: 0.0600
+     Mean episode episode_length_s: 2.6195
+  Mean episode min_radial_distance: 1.0963
+            Mean episode adr_mu_lo: 0.7600
+            Mean episode adr_mu_hi: 0.8400
+--------------------------------------------------------------------------------
+                   Total timesteps: 16384
+                    Iteration time: 2.86s
+                      Time elapsed: 00:00:06
+                               ETA: 00:02:49
+
+[INFOS KEYS STEP] ['log', 'time_outs', 'episode']
+[EPISODE KEYS] ['mu', 'track_progress_completed', 'episode_length_s', 'min_radial_distance', 'adr_mu_lo', 'adr_mu_hi']
+################################################################################
+                       [1m Learning iteration 2/50 [0m                        
+
+                       Computation: 2895 steps/s (collection: 2.716s, learning 0.113s)
+             Mean action noise std: 1.03
+          Mean value_function loss: 2348928.0125
+               Mean surrogate loss: 0.0036
+                 Mean entropy loss: 2.8858
+                       Mean reward: -9728.39
+               Mean episode length: 139.99
+          Episode_Reward/side_slip: 0.0000
+                Episode_Reward/vel: 5.6265
+           Episode_Reward/progress: 1.3997
+               Episode_Reward/tlgr: 0.0000
+        Episode_Reward/turn_energy: 0.0000
+              Episode_Reward/b_lap: 0.0000
+        Episode_Reward/cross_track: 7.8339
+          Episode_Reward/term_pens: -1495.6902
+      Episode_Termination/time_out: 0.0000
+ Episode_Termination/out_of_bounds: 0.9941
+                   Mean episode mu: 0.8000
+Mean episode track_progress_completed: 0.0754
+     Mean episode episode_length_s: 3.1633
+  Mean episode min_radial_distance: 1.1613
+            Mean episode adr_mu_lo: 0.7600
+            Mean episode adr_mu_hi: 0.8400
+--------------------------------------------------------------------------------
+                   Total timesteps: 24576
+                    Iteration time: 2.83s
+                      Time elapsed: 00:00:09
+                               ETA: 00:02:36
+
+[INFOS KEYS STEP] ['log', 'time_outs', 'episode']
+[EPISODE KEYS] ['mu', 'track_progress_completed', 'episode_length_s', 'min_radial_distance', 'adr_mu_lo', 'adr_mu_hi']
+################################################################################
+                       [1m Learning iteration 3/50 [0m                        
+
+                       Computation: 2625 steps/s (collection: 3.019s, learning 0.101s)
+             Mean action noise std: 1.05
+          Mean value_function loss: 2301911.6000
+               Mean surrogate loss: 0.0244
+                 Mean entropy loss: 2.9258
+                       Mean reward: -14123.12
+               Mean episode length: 142.63
+          Episode_Reward/side_slip: 0.0000
+                Episode_Reward/vel: 4.8734
+           Episode_Reward/progress: 1.1438
+               Episode_Reward/tlgr: 0.0000
+        Episode_Reward/turn_energy: 0.0000
+              Episode_Reward/b_lap: 0.0000
+        Episode_Reward/cross_track: 7.9981
+          Episode_Reward/term_pens: -1385.0000
+      Episode_Termination/time_out: 0.0000
+ Episode_Termination/out_of_bounds: 1.0000
+                   Mean episode mu: 0.8011
+Mean episode track_progress_completed: 0.0660
+     Mean episode episode_length_s: 2.7700
+  Mean episode min_radial_distance: 1.0806
+            Mean episode adr_mu_lo: 0.7600
+            Mean episode adr_mu_hi: 0.8400
+--------------------------------------------------------------------------------
+                   Total timesteps: 32768
+                    Iteration time: 3.12s
+                      Time elapsed: 00:00:12
+                               ETA: 00:02:31
+
+[INFOS KEYS STEP] ['log', 'time_outs', 'episode']
+[EPISODE KEYS] ['mu', 'track_progress_completed', 'episode_length_s', 'min_radial_distance', 'adr_mu_lo', 'adr_mu_hi']
+################################################################################
+                       [1m Learning iteration 4/50 [0m                        
+
+                       Computation: 2868 steps/s (collection: 2.750s, learning 0.106s)
+             Mean action noise std: 1.05
+          Mean value_function loss: 2211137.6625
+               Mean surrogate loss: 0.0045
+                 Mean entropy loss: 2.9304
+                       Mean reward: -13057.14
+               Mean episode length: 131.90
+          Episode_Reward/side_slip: 0.0000
+                Episode_Reward/vel: 4.6977
+           Episode_Reward/progress: 0.7894
+               Episode_Reward/tlgr: 0.0000
+        Episode_Reward/turn_energy: 0.0000
+              Episode_Reward/b_lap: 0.0000
+        Episode_Reward/cross_track: 6.6037
+          Episode_Reward/term_pens: -1212.0703
+      Episode_Termination/time_out: 0.0000
+ Episode_Termination/out_of_bounds: 1.0000
+                   Mean episode mu: 0.8018
+Mean episode track_progress_completed: 0.0618
+     Mean episode episode_length_s: 2.4241
+  Mean episode min_radial_distance: 1.3093
+            Mean episode adr_mu_lo: 0.7600
+            Mean episode adr_mu_hi: 0.8400
+--------------------------------------------------------------------------------
+                   Total timesteps: 40960
+                    Iteration time: 2.86s
+                      Time elapsed: 00:00:15
+                               ETA: 00:02:24
+
+[INFOS KEYS STEP] ['log', 'time_outs', 'episode']
+[EPISODE KEYS] ['mu', 'track_progress_completed', 'episode_length_s', 'min_radial_distance', 'adr_mu_lo', 'adr_mu_hi']
+################################################################################
+                       [1m Learning iteration 5/50 [0m                        
+
+                       Computation: 2885 steps/s (collection: 2.729s, learning 0.110s)
+             Mean action noise std: 1.04
+          Mean value_function loss: 2291384.4000
+               Mean surrogate loss: 0.0015
+                 Mean entropy loss: 2.9163
+                       Mean reward: -12401.77
+               Mean episode length: 125.29
+          Episode_Reward/side_slip: 0.0000
+                Episode_Reward/vel: 4.7312
+           Episode_Reward/progress: 0.3594
+               Episode_Reward/tlgr: 0.0000
+        Episode_Reward/turn_energy: 0.0000
+              Episode_Reward/b_lap: 0.0000
+        Episode_Reward/cross_track: 6.0473
+          Episode_Reward/term_pens: -1134.1016
+      Episode_Termination/time_out: 0.0000
+ Episode_Termination/out_of_bounds: 1.0000
+                   Mean episode mu: 0.7987
+Mean episode track_progress_completed: 0.0513
+     Mean episode episode_length_s: 2.2682
+  Mean episode min_radial_distance: 1.2536
+            Mean episode adr_mu_lo: 0.7600
+            Mean episode adr_mu_hi: 0.8400
+--------------------------------------------------------------------------------
+                   Total timesteps: 49152
+                    Iteration time: 2.84s
+                      Time elapsed: 00:00:18
+                               ETA: 00:02:19
+
+[INFOS KEYS STEP] ['log', 'time_outs', 'episode']
+[EPISODE KEYS] ['mu', 'track_progress_completed', 'episode_length_s', 'min_radial_distance', 'adr_mu_lo', 'adr_mu_hi']
+################################################################################
+                       [1m Learning iteration 6/50 [0m                        
+
+                       Computation: 2896 steps/s (collection: 2.718s, learning 0.111s)
+             Mean action noise std: 1.04
+          Mean value_function loss: 2211848.9500
+               Mean surrogate loss: 0.0224
+                 Mean entropy loss: 2.9108
+                       Mean reward: -11876.57
+               Mean episode length: 119.98
+          Episode_Reward/side_slip: 0.0000
+                Episode_Reward/vel: 5.0799
+           Episode_Reward/progress: 0.8263
+               Episode_Reward/tlgr: 0.0000
+        Episode_Reward/turn_energy: 0.0000
+              Episode_Reward/b_lap: 0.0000
+        Episode_Reward/cross_track: 6.8066
+          Episode_Reward/term_pens: -1205.7683
+      Episode_Termination/time_out: 0.0000
+ Episode_Termination/out_of_bounds: 1.0000
+                   Mean episode mu: 0.8004
+Mean episode track_progress_completed: 0.0674
+     Mean episode episode_length_s: 2.4115
+  Mean episode min_radial_distance: 1.1759
+            Mean episode adr_mu_lo: 0.7600
+            Mean episode adr_mu_hi: 0.8400
+--------------------------------------------------------------------------------
+                   Total timesteps: 57344
+                    Iteration time: 2.83s
+                      Time elapsed: 00:00:21
+                               ETA: 00:02:14
+
+[INFOS KEYS STEP] ['log', 'time_outs', 'episode']
+[EPISODE KEYS] ['mu', 'track_progress_completed', 'episode_length_s', 'min_radial_distance', 'adr_mu_lo', 'adr_mu_hi']
+################################################################################
+                       [1m Learning iteration 7/50 [0m                        
+
+                       Computation: 2895 steps/s (collection: 2.722s, learning 0.107s)
+             Mean action noise std: 1.03
+          Mean value_function loss: 2223221.3250
+               Mean surrogate loss: 0.0017
+                 Mean entropy loss: 2.9105
+                       Mean reward: -12090.46
+               Mean episode length: 122.19
+          Episode_Reward/side_slip: 0.0000
+                Episode_Reward/vel: 5.4586
+           Episode_Reward/progress: 2.0356
+               Episode_Reward/tlgr: 0.0000
+        Episode_Reward/turn_energy: 0.0000
+              Episode_Reward/b_lap: 0.0000
+        Episode_Reward/cross_track: 6.7973
+          Episode_Reward/term_pens: -1271.6277
+      Episode_Termination/time_out: 0.0000
+ Episode_Termination/out_of_bounds: 1.0000
+                   Mean episode mu: 0.8008
+Mean episode track_progress_completed: 0.1028
+     Mean episode episode_length_s: 2.5433
+  Mean episode min_radial_distance: 1.1728
+            Mean episode adr_mu_lo: 0.7600
+            Mean episode adr_mu_hi: 0.8400
+--------------------------------------------------------------------------------
+                   Total timesteps: 65536
+                    Iteration time: 2.83s
+                      Time elapsed: 00:00:24
+                               ETA: 00:02:10
+
+[INFOS KEYS STEP] ['log', 'time_outs', 'episode']
+[EPISODE KEYS] ['mu', 'track_progress_completed', 'episode_length_s', 'min_radial_distance', 'adr_mu_lo', 'adr_mu_hi']
+################################################################################
+                       [1m Learning iteration 8/50 [0m                        
+
+                       Computation: 2863 steps/s (collection: 2.750s, learning 0.110s)
+             Mean action noise std: 1.02
+          Mean value_function loss: 2278436.1875
+               Mean surrogate loss: -0.0016
+                 Mean entropy loss: 2.8908
+                       Mean reward: -12009.38
+               Mean episode length: 121.36
+          Episode_Reward/side_slip: 0.0000
+                Episode_Reward/vel: 5.1060
+           Episode_Reward/progress: 1.3117
+               Episode_Reward/tlgr: 0.0000
+        Episode_Reward/turn_energy: 0.0000
+              Episode_Reward/b_lap: 0.0000
+        Episode_Reward/cross_track: 6.9214
+          Episode_Reward/term_pens: -1256.0547
+      Episode_Termination/time_out: 0.0000
+ Episode_Termination/out_of_bounds: 1.0000
+                   Mean episode mu: 0.7999
+Mean episode track_progress_completed: 0.0807
+     Mean episode episode_length_s: 2.5121
+  Mean episode min_radial_distance: 1.2125
+            Mean episode adr_mu_lo: 0.7600
+            Mean episode adr_mu_hi: 0.8400
+--------------------------------------------------------------------------------
+                   Total timesteps: 73728
+                    Iteration time: 2.86s
+                      Time elapsed: 00:00:27
+                               ETA: 00:02:06
+
+[INFOS KEYS STEP] ['log', 'time_outs', 'episode']
+[EPISODE KEYS] ['mu', 'track_progress_completed', 'episode_length_s', 'min_radial_distance', 'adr_mu_lo', 'adr_mu_hi']
+################################################################################
+                       [1m Learning iteration 9/50 [0m                        
+
+                       Computation: 2903 steps/s (collection: 2.711s, learning 0.110s)
+             Mean action noise std: 1.02
+          Mean value_function loss: 2137528.5000
+               Mean surrogate loss: 0.0004
+                 Mean entropy loss: 2.8758
+                       Mean reward: -12406.47
+               Mean episode length: 125.37
+          Episode_Reward/side_slip: 0.0000
+                Episode_Reward/vel: 5.1849
+           Episode_Reward/progress: 0.9652
+               Episode_Reward/tlgr: 0.0000
+        Episode_Reward/turn_energy: 0.0000
+              Episode_Reward/b_lap: 0.0000
+        Episode_Reward/cross_track: 6.8980
+          Episode_Reward/term_pens: -1262.9427
+      Episode_Termination/time_out: 0.0000
+ Episode_Termination/out_of_bounds: 1.0000
+                   Mean episode mu: 0.8019
+Mean episode track_progress_completed: 0.0703
+     Mean episode episode_length_s: 2.5259
+  Mean episode min_radial_distance: 1.1703
+            Mean episode adr_mu_lo: 0.7600
+            Mean episode adr_mu_hi: 0.8400
+--------------------------------------------------------------------------------
+                   Total timesteps: 81920
+                    Iteration time: 2.82s
+                      Time elapsed: 00:00:29
+                               ETA: 00:02:02
+
+[INFOS KEYS STEP] ['log', 'time_outs', 'episode']
+[EPISODE KEYS] ['mu', 'track_progress_completed', 'episode_length_s', 'min_radial_distance', 'adr_mu_lo', 'adr_mu_hi']
+################################################################################
+                       [1m Learning iteration 10/50 [0m                       
+
+                       Computation: 2876 steps/s (collection: 2.736s, learning 0.112s)
+             Mean action noise std: 1.02
+          Mean value_function loss: 2153108.2500
+               Mean surrogate loss: 0.0011
+                 Mean entropy loss: 2.8732
+                       Mean reward: -11486.89
+               Mean episode length: 116.03
+          Episode_Reward/side_slip: 0.0000
+                Episode_Reward/vel: 5.0826
+           Episode_Reward/progress: 0.1273
+               Episode_Reward/tlgr: 0.0000
+        Episode_Reward/turn_energy: 0.0000
+              Episode_Reward/b_lap: 0.0000
+        Episode_Reward/cross_track: 7.1285
+          Episode_Reward/term_pens: -1248.8281
+      Episode_Termination/time_out: 0.0000
+ Episode_Termination/out_of_bounds: 1.0000
+                   Mean episode mu: 0.8015
+Mean episode track_progress_completed: 0.0514
+     Mean episode episode_length_s: 2.4977
+  Mean episode min_radial_distance: 1.0742
+            Mean episode adr_mu_lo: 0.7600
+            Mean episode adr_mu_hi: 0.8400
+--------------------------------------------------------------------------------
+                   Total timesteps: 90112
+                    Iteration time: 2.85s
+                      Time elapsed: 00:00:32
+                               ETA: 00:01:59
+
+[INFOS KEYS STEP] ['log', 'time_outs', 'episode']
+[EPISODE KEYS] ['mu', 'track_progress_completed', 'episode_length_s', 'min_radial_distance', 'adr_mu_lo', 'adr_mu_hi']
+################################################################################
+                       [1m Learning iteration 11/50 [0m                       
+
+                       Computation: 2892 steps/s (collection: 2.726s, learning 0.106s)
+             Mean action noise std: 1.02
+          Mean value_function loss: 2172546.2625
+               Mean surrogate loss: 0.0013
+                 Mean entropy loss: 2.8711
+                       Mean reward: -11595.46
+               Mean episode length: 117.12
+          Episode_Reward/side_slip: 0.0000
+                Episode_Reward/vel: 5.1418
+           Episode_Reward/progress: 0.3777
+               Episode_Reward/tlgr: 0.0000
+        Episode_Reward/turn_energy: 0.0000
+              Episode_Reward/b_lap: 0.0000
+        Episode_Reward/cross_track: 6.6927
+          Episode_Reward/term_pens: -1200.5990
+      Episode_Termination/time_out: 0.0000
+ Episode_Termination/out_of_bounds: 1.0000
+                   Mean episode mu: 0.8016
+Mean episode track_progress_completed: 0.0584
+     Mean episode episode_length_s: 2.4012
+  Mean episode min_radial_distance: 1.1782
+            Mean episode adr_mu_lo: 0.7600
+            Mean episode adr_mu_hi: 0.8400
+--------------------------------------------------------------------------------
+                   Total timesteps: 98304
+                    Iteration time: 2.83s
+                      Time elapsed: 00:00:35
+                               ETA: 00:01:55
+
+[INFOS KEYS STEP] ['log', 'time_outs', 'episode']
+[EPISODE KEYS] ['mu', 'track_progress_completed', 'episode_length_s', 'min_radial_distance', 'adr_mu_lo', 'adr_mu_hi']
+################################################################################
+                       [1m Learning iteration 12/50 [0m                       
+
+                       Computation: 2826 steps/s (collection: 2.793s, learning 0.105s)
+             Mean action noise std: 1.02
+          Mean value_function loss: 2055318.1313
+               Mean surrogate loss: 0.0009
+                 Mean entropy loss: 2.8710
+                       Mean reward: -11083.44
+               Mean episode length: 112.03
+          Episode_Reward/side_slip: 0.0000
+                Episode_Reward/vel: 4.7555
+           Episode_Reward/progress: 0.6266
+               Episode_Reward/tlgr: 0.0000
+        Episode_Reward/turn_energy: 0.0000
+              Episode_Reward/b_lap: 0.0000
+        Episode_Reward/cross_track: 6.1962
+          Episode_Reward/term_pens: -1119.8828
+      Episode_Termination/time_out: 0.0000
+ Episode_Termination/out_of_bounds: 1.0000
+                   Mean episode mu: 0.8007
+Mean episode track_progress_completed: 0.0595
+     Mean episode episode_length_s: 2.2398
+  Mean episode min_radial_distance: 1.1150
+            Mean episode adr_mu_lo: 0.7600
+            Mean episode adr_mu_hi: 0.8400
+--------------------------------------------------------------------------------
+                   Total timesteps: 106496
+                    Iteration time: 2.90s
+                      Time elapsed: 00:00:38
+                               ETA: 00:01:52
+
+[MilestoneRunner] ✓ 25% checkpoint → /workspace/WheeledLab/source/wheeledlab_rl/logs/devout-wind-79/models/model_milestone_iter12_25pct.pt
+[INFOS KEYS STEP] ['log', 'time_outs', 'episode']
+[EPISODE KEYS] ['mu', 'track_progress_completed', 'episode_length_s', 'min_radial_distance', 'adr_mu_lo', 'adr_mu_hi']
+################################################################################
+                       [1m Learning iteration 13/50 [0m                       
+
+                       Computation: 2845 steps/s (collection: 2.771s, learning 0.108s)
+             Mean action noise std: 1.02
+          Mean value_function loss: 2165527.1375
+               Mean surrogate loss: 0.0016
+                 Mean entropy loss: 2.8722
+                       Mean reward: -10737.01
+               Mean episode length: 108.45
+          Episode_Reward/side_slip: 0.0000
+                Episode_Reward/vel: 4.6132
+           Episode_Reward/progress: -0.1698
+               Episode_Reward/tlgr: 0.0000
+        Episode_Reward/turn_energy: 0.0000
+              Episode_Reward/b_lap: 0.0000
+        Episode_Reward/cross_track: 6.1673
+          Episode_Reward/term_pens: -1093.9844
+      Episode_Termination/time_out: 0.0000
+ Episode_Termination/out_of_bounds: 1.0000
+                   Mean episode mu: 0.7991
+Mean episode track_progress_completed: 0.0410
+     Mean episode episode_length_s: 2.1880
+  Mean episode min_radial_distance: 1.2134
+            Mean episode adr_mu_lo: 0.7600
+            Mean episode adr_mu_hi: 0.8400
+--------------------------------------------------------------------------------
+                   Total timesteps: 114688
+                    Iteration time: 2.88s
+                      Time elapsed: 00:00:41
+                               ETA: 00:01:49
+
+[INFOS KEYS STEP] ['log', 'time_outs', 'episode']
+[EPISODE KEYS] ['mu', 'track_progress_completed', 'episode_length_s', 'min_radial_distance', 'adr_mu_lo', 'adr_mu_hi']
+################################################################################
+                       [1m Learning iteration 14/50 [0m                       
+
+                       Computation: 2897 steps/s (collection: 2.715s, learning 0.112s)
+             Mean action noise std: 1.02
+          Mean value_function loss: 2175456.7000
+               Mean surrogate loss: 0.0021
+                 Mean entropy loss: 2.8725
+                       Mean reward: -11481.32
+               Mean episode length: 116.01
+          Episode_Reward/side_slip: 0.0000
+                Episode_Reward/vel: 4.9996
+           Episode_Reward/progress: 0.2182
+               Episode_Reward/tlgr: 0.0000
+        Episode_Reward/turn_energy: 0.0000
+              Episode_Reward/b_lap: 0.0000
+        Episode_Reward/cross_track: 6.4959
+          Episode_Reward/term_pens: -1135.0717
+      Episode_Termination/time_out: 0.0000
+ Episode_Termination/out_of_bounds: 1.0000
+                   Mean episode mu: 0.8019
+Mean episode track_progress_completed: 0.0537
+     Mean episode episode_length_s: 2.2701
+  Mean episode min_radial_distance: 1.3195
+            Mean episode adr_mu_lo: 0.7600
+            Mean episode adr_mu_hi: 0.8400
+--------------------------------------------------------------------------------
+                   Total timesteps: 122880
+                    Iteration time: 2.83s
+                      Time elapsed: 00:00:44
+                               ETA: 00:01:46
+
+[INFOS KEYS STEP] ['log', 'time_outs', 'episode']
+[EPISODE KEYS] ['mu', 'track_progress_completed', 'episode_length_s', 'min_radial_distance', 'adr_mu_lo', 'adr_mu_hi']
+################################################################################
+                       [1m Learning iteration 15/50 [0m                       
+
+                       Computation: 2864 steps/s (collection: 2.751s, learning 0.109s)
+             Mean action noise std: 1.02
+          Mean value_function loss: 2046053.6313
+               Mean surrogate loss: 0.0032
+                 Mean entropy loss: 2.8726
+                       Mean reward: -10466.35
+               Mean episode length: 105.72
+          Episode_Reward/side_slip: 0.0000
+                Episode_Reward/vel: 4.6928
+           Episode_Reward/progress: -0.0193
+               Episode_Reward/tlgr: 0.0000
+        Episode_Reward/turn_energy: 0.0000
+              Episode_Reward/b_lap: 0.0000
+        Episode_Reward/cross_track: 6.3414
+          Episode_Reward/term_pens: -1115.1172
+      Episode_Termination/time_out: 0.0000
+ Episode_Termination/out_of_bounds: 1.0000
+                   Mean episode mu: 0.8006
+Mean episode track_progress_completed: 0.0442
+     Mean episode episode_length_s: 2.2302
+  Mean episode min_radial_distance: 1.2061
+            Mean episode adr_mu_lo: 0.7600
+            Mean episode adr_mu_hi: 0.8400
+--------------------------------------------------------------------------------
+                   Total timesteps: 131072
+                    Iteration time: 2.86s
+                      Time elapsed: 00:00:47
+                               ETA: 00:01:42
+
+[INFOS KEYS STEP] ['log', 'time_outs', 'episode']
+[EPISODE KEYS] ['mu', 'track_progress_completed', 'episode_length_s', 'min_radial_distance', 'adr_mu_lo', 'adr_mu_hi']
+################################################################################
+                       [1m Learning iteration 16/50 [0m                       
+
+                       Computation: 2854 steps/s (collection: 2.766s, learning 0.104s)
+             Mean action noise std: 1.02
+          Mean value_function loss: 2038796.1750
+               Mean surrogate loss: 0.0015
+                 Mean entropy loss: 2.8727
+                       Mean reward: -9845.53
+               Mean episode length: 99.47
+          Episode_Reward/side_slip: 0.0000
+                Episode_Reward/vel: 4.5551
+           Episode_Reward/progress: -0.0113
+               Episode_Reward/tlgr: 0.0000
+        Episode_Reward/turn_energy: 0.0000
+              Episode_Reward/b_lap: 0.0000
+        Episode_Reward/cross_track: 6.1042
+          Episode_Reward/term_pens: -1035.3906
+      Episode_Termination/time_out: 0.0000
+ Episode_Termination/out_of_bounds: 1.0000
+                   Mean episode mu: 0.8005
+Mean episode track_progress_completed: 0.0461
+     Mean episode episode_length_s: 2.0708
+  Mean episode min_radial_distance: 1.0637
+            Mean episode adr_mu_lo: 0.7600
+            Mean episode adr_mu_hi: 0.8400
+--------------------------------------------------------------------------------
+                   Total timesteps: 139264
+                    Iteration time: 2.87s
+                      Time elapsed: 00:00:49
+                               ETA: 00:01:39
+
+[INFOS KEYS STEP] ['log', 'time_outs', 'episode']
+[EPISODE KEYS] ['mu', 'track_progress_completed', 'episode_length_s', 'min_radial_distance', 'adr_mu_lo', 'adr_mu_hi']
+################################################################################
+                       [1m Learning iteration 17/50 [0m                       
+
+                       Computation: 2863 steps/s (collection: 2.750s, learning 0.111s)
+             Mean action noise std: 1.02
+          Mean value_function loss: 2020339.7563
+               Mean surrogate loss: 0.0012
+                 Mean entropy loss: 2.8728
+                       Mean reward: -10071.06
+               Mean episode length: 101.75
+          Episode_Reward/side_slip: 0.0000
+                Episode_Reward/vel: 4.4023
+           Episode_Reward/progress: 0.1780
+               Episode_Reward/tlgr: 0.0000
+        Episode_Reward/turn_energy: 0.0000
+              Episode_Reward/b_lap: 0.0000
+        Episode_Reward/cross_track: 5.9541
+          Episode_Reward/term_pens: -1007.1484
+      Episode_Termination/time_out: 0.0000
+ Episode_Termination/out_of_bounds: 1.0000
+                   Mean episode mu: 0.8009
+Mean episode track_progress_completed: 0.0469
+     Mean episode episode_length_s: 2.0143
+  Mean episode min_radial_distance: 1.1102
+            Mean episode adr_mu_lo: 0.7600
+            Mean episode adr_mu_hi: 0.8400
+--------------------------------------------------------------------------------
+                   Total timesteps: 147456
+                    Iteration time: 2.86s
+                      Time elapsed: 00:00:52
+                               ETA: 00:01:36
+
+[INFOS KEYS STEP] ['log', 'time_outs', 'episode']
+[EPISODE KEYS] ['mu', 'track_progress_completed', 'episode_length_s', 'min_radial_distance', 'adr_mu_lo', 'adr_mu_hi']
+################################################################################
+                       [1m Learning iteration 18/50 [0m                       
+
+                       Computation: 2894 steps/s (collection: 2.721s, learning 0.110s)
+             Mean action noise std: 1.02
+          Mean value_function loss: 2063738.1625
+               Mean surrogate loss: 0.0005
+                 Mean entropy loss: 2.8733
+                       Mean reward: -10135.55
+               Mean episode length: 102.40
+          Episode_Reward/side_slip: 0.0000
+                Episode_Reward/vel: 4.3664
+           Episode_Reward/progress: 0.5423
+               Episode_Reward/tlgr: 0.0000
+        Episode_Reward/turn_energy: 0.0000
+              Episode_Reward/b_lap: 0.0000
+        Episode_Reward/cross_track: 5.7573
+          Episode_Reward/term_pens: -1024.5703
+      Episode_Termination/time_out: 0.0000
+ Episode_Termination/out_of_bounds: 1.0000
+                   Mean episode mu: 0.8012
+Mean episode track_progress_completed: 0.0559
+     Mean episode episode_length_s: 2.0491
+  Mean episode min_radial_distance: 1.2726
+            Mean episode adr_mu_lo: 0.7600
+            Mean episode adr_mu_hi: 0.8400
+--------------------------------------------------------------------------------
+                   Total timesteps: 155648
+                    Iteration time: 2.83s
+                      Time elapsed: 00:00:55
+                               ETA: 00:01:33
+
+[INFOS KEYS STEP] ['log', 'time_outs', 'episode']
+[EPISODE KEYS] ['mu', 'track_progress_completed', 'episode_length_s', 'min_radial_distance', 'adr_mu_lo', 'adr_mu_hi']
+################################################################################
+                       [1m Learning iteration 19/50 [0m                       
+
+                       Computation: 2783 steps/s (collection: 2.808s, learning 0.135s)
+             Mean action noise std: 1.02
+          Mean value_function loss: 2035891.9000
+               Mean surrogate loss: 0.0014
+                 Mean entropy loss: 2.8739
+                       Mean reward: -10268.81
+               Mean episode length: 103.76
+          Episode_Reward/side_slip: 0.0000
+                Episode_Reward/vel: 4.3830
+           Episode_Reward/progress: 0.2143
+               Episode_Reward/tlgr: 0.0000
+        Episode_Reward/turn_energy: 0.0000
+              Episode_Reward/b_lap: 0.0000
+        Episode_Reward/cross_track: 5.6532
+          Episode_Reward/term_pens: -1032.2527
+      Episode_Termination/time_out: 0.0000
+ Episode_Termination/out_of_bounds: 1.0000
+                   Mean episode mu: 0.8000
+Mean episode track_progress_completed: 0.0491
+     Mean episode episode_length_s: 2.0645
+  Mean episode min_radial_distance: 1.2420
+            Mean episode adr_mu_lo: 0.7600
+            Mean episode adr_mu_hi: 0.8400
+--------------------------------------------------------------------------------
+                   Total timesteps: 163840
+                    Iteration time: 2.94s
+                      Time elapsed: 00:00:58
+                               ETA: 00:01:30
+
+[INFOS KEYS STEP] ['log', 'time_outs', 'episode']
+[EPISODE KEYS] ['mu', 'track_progress_completed', 'episode_length_s', 'min_radial_distance', 'adr_mu_lo', 'adr_mu_hi']
+################################################################################
+                       [1m Learning iteration 20/50 [0m                       
+
+                       Computation: 2858 steps/s (collection: 2.750s, learning 0.116s)
+             Mean action noise std: 1.02
+          Mean value_function loss: 2036677.3125
+               Mean surrogate loss: 0.0017
+                 Mean entropy loss: 2.8742
+                       Mean reward: -10135.93
+               Mean episode length: 102.39
+          Episode_Reward/side_slip: 0.0000
+                Episode_Reward/vel: 4.3876
+           Episode_Reward/progress: -0.1827
+               Episode_Reward/tlgr: 0.0000
+        Episode_Reward/turn_energy: 0.0000
+              Episode_Reward/b_lap: 0.0000
+        Episode_Reward/cross_track: 5.6883
+          Episode_Reward/term_pens: -1010.0156
+      Episode_Termination/time_out: 0.0000
+ Episode_Termination/out_of_bounds: 1.0000
+                   Mean episode mu: 0.8010
+Mean episode track_progress_completed: 0.0463
+     Mean episode episode_length_s: 2.0200
+  Mean episode min_radial_distance: 1.2582
+            Mean episode adr_mu_lo: 0.7600
+            Mean episode adr_mu_hi: 0.8400
+--------------------------------------------------------------------------------
+                   Total timesteps: 172032
+                    Iteration time: 2.87s
+                      Time elapsed: 00:01:01
+                               ETA: 00:01:27
+
+[INFOS KEYS STEP] ['log', 'time_outs', 'episode']
+[EPISODE KEYS] ['mu', 'track_progress_completed', 'episode_length_s', 'min_radial_distance', 'adr_mu_lo', 'adr_mu_hi']
+################################################################################
+                       [1m Learning iteration 21/50 [0m                       
+
+                       Computation: 2884 steps/s (collection: 2.732s, learning 0.108s)
+             Mean action noise std: 1.02
+          Mean value_function loss: 2057148.2937
+               Mean surrogate loss: 0.0019
+                 Mean entropy loss: 2.8748
+                       Mean reward: -10662.78
+               Mean episode length: 107.71
+          Episode_Reward/side_slip: 0.0000
+                Episode_Reward/vel: 5.0641
+           Episode_Reward/progress: 0.2536
+               Episode_Reward/tlgr: 0.0000
+        Episode_Reward/turn_energy: 0.0000
+              Episode_Reward/b_lap: 0.0000
+        Episode_Reward/cross_track: 6.7363
+          Episode_Reward/term_pens: -1153.5677
+      Episode_Termination/time_out: 0.0000
+ Episode_Termination/out_of_bounds: 1.0000
+                   Mean episode mu: 0.8020
+Mean episode track_progress_completed: 0.0616
+     Mean episode episode_length_s: 2.3071
+  Mean episode min_radial_distance: 1.0894
+            Mean episode adr_mu_lo: 0.7600
+            Mean episode adr_mu_hi: 0.8400
+--------------------------------------------------------------------------------
+                   Total timesteps: 180224
+                    Iteration time: 2.84s
+                      Time elapsed: 00:01:04
+                               ETA: 00:01:24
+
+[INFOS KEYS STEP] ['log', 'time_outs', 'episode']
+[EPISODE KEYS] ['mu', 'track_progress_completed', 'episode_length_s', 'min_radial_distance', 'adr_mu_lo', 'adr_mu_hi']
+################################################################################
+                       [1m Learning iteration 22/50 [0m                       
+
+                       Computation: 2893 steps/s (collection: 2.721s, learning 0.110s)
+             Mean action noise std: 1.02
+          Mean value_function loss: 2002442.2688
+               Mean surrogate loss: 0.0032
+                 Mean entropy loss: 2.8750
+                       Mean reward: -11032.34
+               Mean episode length: 111.48
+          Episode_Reward/side_slip: 0.0000
+                Episode_Reward/vel: 4.6980
+           Episode_Reward/progress: 0.4263
+               Episode_Reward/tlgr: 0.0000
+        Episode_Reward/turn_energy: 0.0000
+              Episode_Reward/b_lap: 0.0000
+        Episode_Reward/cross_track: 6.0444
+          Episode_Reward/term_pens: -1048.1185
+      Episode_Termination/time_out: 0.0000
+ Episode_Termination/out_of_bounds: 1.0000
+                   Mean episode mu: 0.8005
+Mean episode track_progress_completed: 0.0590
+     Mean episode episode_length_s: 2.0962
+  Mean episode min_radial_distance: 1.1546
+            Mean episode adr_mu_lo: 0.7600
+            Mean episode adr_mu_hi: 0.8400
+--------------------------------------------------------------------------------
+                   Total timesteps: 188416
+                    Iteration time: 2.83s
+                      Time elapsed: 00:01:07
+                               ETA: 00:01:21
+
+[INFOS KEYS STEP] ['log', 'time_outs', 'episode']
+[EPISODE KEYS] ['mu', 'track_progress_completed', 'episode_length_s', 'min_radial_distance', 'adr_mu_lo', 'adr_mu_hi']
+################################################################################
+                       [1m Learning iteration 23/50 [0m                       
+
+                       Computation: 2840 steps/s (collection: 2.768s, learning 0.116s)
+             Mean action noise std: 1.02
+          Mean value_function loss: 1970196.6875
+               Mean surrogate loss: 0.0037
+                 Mean entropy loss: 2.8750
+                       Mean reward: -10900.50
+               Mean episode length: 110.17
+          Episode_Reward/side_slip: 0.0000
+                Episode_Reward/vel: 4.8495
+           Episode_Reward/progress: 0.4262
+               Episode_Reward/tlgr: 0.0000
+        Episode_Reward/turn_energy: 0.0000
+              Episode_Reward/b_lap: 0.0000
+        Episode_Reward/cross_track: 6.2170
+          Episode_Reward/term_pens: -1109.1667
+      Episode_Termination/time_out: 0.0000
+ Episode_Termination/out_of_bounds: 1.0000
+                   Mean episode mu: 0.7981
+Mean episode track_progress_completed: 0.0578
+     Mean episode episode_length_s: 2.2183
+  Mean episode min_radial_distance: 1.2448
+            Mean episode adr_mu_lo: 0.7600
+            Mean episode adr_mu_hi: 0.8400
+--------------------------------------------------------------------------------
+                   Total timesteps: 196608
+                    Iteration time: 2.88s
+                      Time elapsed: 00:01:09
+                               ETA: 00:01:18
+
+[INFOS KEYS STEP] ['log', 'time_outs', 'episode']
+[EPISODE KEYS] ['mu', 'track_progress_completed', 'episode_length_s', 'min_radial_distance', 'adr_mu_lo', 'adr_mu_hi']
+################################################################################
+                       [1m Learning iteration 24/50 [0m                       
+
+                       Computation: 2875 steps/s (collection: 2.736s, learning 0.113s)
+             Mean action noise std: 1.02
+          Mean value_function loss: 1985267.0250
+               Mean surrogate loss: 0.0030
+                 Mean entropy loss: 2.8752
+                       Mean reward: -10670.89
+               Mean episode length: 107.79
+          Episode_Reward/side_slip: 0.0000
+                Episode_Reward/vel: 4.4569
+           Episode_Reward/progress: 0.1262
+               Episode_Reward/tlgr: 0.0000
+        Episode_Reward/turn_energy: 0.0000
+              Episode_Reward/b_lap: 0.0000
+        Episode_Reward/cross_track: 5.6696
+          Episode_Reward/term_pens: -1042.5781
+      Episode_Termination/time_out: 0.0000
+ Episode_Termination/out_of_bounds: 1.0000
+                   Mean episode mu: 0.8010
+Mean episode track_progress_completed: 0.0499
+     Mean episode episode_length_s: 2.0852
+  Mean episode min_radial_distance: 1.1797
+            Mean episode adr_mu_lo: 0.7600
+            Mean episode adr_mu_hi: 0.8400
+--------------------------------------------------------------------------------
+                   Total timesteps: 204800
+                    Iteration time: 2.85s
+                      Time elapsed: 00:01:12
+                               ETA: 00:01:15
+
+[INFOS KEYS STEP] ['log', 'time_outs', 'episode']
+[EPISODE KEYS] ['mu', 'track_progress_completed', 'episode_length_s', 'min_radial_distance', 'adr_mu_lo', 'adr_mu_hi']
+################################################################################
+                       [1m Learning iteration 25/50 [0m                       
+
+                       Computation: 2873 steps/s (collection: 2.743s, learning 0.108s)
+             Mean action noise std: 1.02
+          Mean value_function loss: 1943141.1438
+               Mean surrogate loss: 0.0006
+                 Mean entropy loss: 2.8754
+                       Mean reward: -10863.61
+               Mean episode length: 109.74
+          Episode_Reward/side_slip: 0.0000
+                Episode_Reward/vel: 4.6811
+           Episode_Reward/progress: 0.3285
+               Episode_Reward/tlgr: 0.0000
+        Episode_Reward/turn_energy: 0.0000
+              Episode_Reward/b_lap: 0.0000
+        Episode_Reward/cross_track: 5.5104
+          Episode_Reward/term_pens: -1073.0730
+      Episode_Termination/time_out: 0.0000
+ Episode_Termination/out_of_bounds: 1.0000
+                   Mean episode mu: 0.8012
+Mean episode track_progress_completed: 0.0556
+     Mean episode episode_length_s: 2.1461
+  Mean episode min_radial_distance: 1.3619
+            Mean episode adr_mu_lo: 0.7600
+            Mean episode adr_mu_hi: 0.8400
+--------------------------------------------------------------------------------
+                   Total timesteps: 212992
+                    Iteration time: 2.85s
+                      Time elapsed: 00:01:15
+                               ETA: 00:01:12
+
+[MilestoneRunner] ✓ 50% checkpoint → /workspace/WheeledLab/source/wheeledlab_rl/logs/devout-wind-79/models/model_milestone_iter25_50pct.pt
+[INFOS KEYS STEP] ['log', 'time_outs', 'episode']
+[EPISODE KEYS] ['mu', 'track_progress_completed', 'episode_length_s', 'min_radial_distance', 'adr_mu_lo', 'adr_mu_hi']
+################################################################################
+                       [1m Learning iteration 26/50 [0m                       
+
+                       Computation: 2895 steps/s (collection: 2.715s, learning 0.114s)
+             Mean action noise std: 1.02
+          Mean value_function loss: 1951632.6562
+               Mean surrogate loss: 0.0026
+                 Mean entropy loss: 2.8753
+                       Mean reward: -10535.77
+               Mean episode length: 106.41
+          Episode_Reward/side_slip: 0.0000
+                Episode_Reward/vel: 4.9133
+           Episode_Reward/progress: -0.0421
+               Episode_Reward/tlgr: 0.0000
+        Episode_Reward/turn_energy: 0.0000
+              Episode_Reward/b_lap: 0.0000
+        Episode_Reward/cross_track: 6.4334
+          Episode_Reward/term_pens: -1104.7527
+      Episode_Termination/time_out: 0.0000
+ Episode_Termination/out_of_bounds: 1.0000
+                   Mean episode mu: 0.8012
+Mean episode track_progress_completed: 0.0451
+     Mean episode episode_length_s: 2.2095
+  Mean episode min_radial_distance: 1.1866
+            Mean episode adr_mu_lo: 0.7600
+            Mean episode adr_mu_hi: 0.8400
+--------------------------------------------------------------------------------
+                   Total timesteps: 221184
+                    Iteration time: 2.83s
+                      Time elapsed: 00:01:18
+                               ETA: 00:01:09
+
+[INFOS KEYS STEP] ['log', 'time_outs', 'episode']
+[EPISODE KEYS] ['mu', 'track_progress_completed', 'episode_length_s', 'min_radial_distance', 'adr_mu_lo', 'adr_mu_hi']
+################################################################################
+                       [1m Learning iteration 27/50 [0m                       
+
+                       Computation: 2813 steps/s (collection: 2.802s, learning 0.110s)
+             Mean action noise std: 1.02
+          Mean value_function loss: 1901175.6313
+               Mean surrogate loss: 0.0013
+                 Mean entropy loss: 2.8753
+                       Mean reward: -10665.17
+               Mean episode length: 107.79
+          Episode_Reward/side_slip: 0.0000
+                Episode_Reward/vel: 4.6596
+           Episode_Reward/progress: 0.0785
+               Episode_Reward/tlgr: 0.0000
+        Episode_Reward/turn_energy: 0.0000
+              Episode_Reward/b_lap: 0.0000
+        Episode_Reward/cross_track: 6.2400
+          Episode_Reward/term_pens: -1061.3933
+      Episode_Termination/time_out: 0.0000
+ Episode_Termination/out_of_bounds: 1.0000
+                   Mean episode mu: 0.8010
+Mean episode track_progress_completed: 0.0506
+     Mean episode episode_length_s: 2.1228
+  Mean episode min_radial_distance: 1.1981
+            Mean episode adr_mu_lo: 0.7600
+            Mean episode adr_mu_hi: 0.8400
+--------------------------------------------------------------------------------
+                   Total timesteps: 229376
+                    Iteration time: 2.91s
+                      Time elapsed: 00:01:21
+                               ETA: 00:01:06
+
+[INFOS KEYS STEP] ['log', 'time_outs', 'episode']
+[EPISODE KEYS] ['mu', 'track_progress_completed', 'episode_length_s', 'min_radial_distance', 'adr_mu_lo', 'adr_mu_hi']
+################################################################################
+                       [1m Learning iteration 28/50 [0m                       
+
+                       Computation: 2870 steps/s (collection: 2.747s, learning 0.107s)
+             Mean action noise std: 1.02
+          Mean value_function loss: 1949700.1187
+               Mean surrogate loss: 0.0027
+                 Mean entropy loss: 2.8754
+                       Mean reward: -10011.53
+               Mean episode length: 101.18
+          Episode_Reward/side_slip: 0.0000
+                Episode_Reward/vel: 4.6483
+           Episode_Reward/progress: 0.1166
+               Episode_Reward/tlgr: 0.0000
+        Episode_Reward/turn_energy: 0.0000
+              Episode_Reward/b_lap: 0.0000
+        Episode_Reward/cross_track: 5.9673
+          Episode_Reward/term_pens: -1045.0391
+      Episode_Termination/time_out: 0.0000
+ Episode_Termination/out_of_bounds: 1.0000
+                   Mean episode mu: 0.7999
+Mean episode track_progress_completed: 0.0475
+     Mean episode episode_length_s: 2.0901
+  Mean episode min_radial_distance: 1.1515
+            Mean episode adr_mu_lo: 0.7600
+            Mean episode adr_mu_hi: 0.8400
+--------------------------------------------------------------------------------
+                   Total timesteps: 237568
+                    Iteration time: 2.85s
+                      Time elapsed: 00:01:24
+                               ETA: 00:01:03
+
+[INFOS KEYS STEP] ['log', 'time_outs', 'episode']
+[EPISODE KEYS] ['mu', 'track_progress_completed', 'episode_length_s', 'min_radial_distance', 'adr_mu_lo', 'adr_mu_hi']
+################################################################################
+                       [1m Learning iteration 29/50 [0m                       
+
+                       Computation: 2891 steps/s (collection: 2.719s, learning 0.114s)
+             Mean action noise std: 1.02
+          Mean value_function loss: 1986346.5813
+               Mean surrogate loss: 0.0024
+                 Mean entropy loss: 2.8754
+                       Mean reward: -11354.74
+               Mean episode length: 114.69
+          Episode_Reward/side_slip: 0.0000
+                Episode_Reward/vel: 5.4158
+           Episode_Reward/progress: 0.1247
+               Episode_Reward/tlgr: 0.0000
+        Episode_Reward/turn_energy: 0.0000
+              Episode_Reward/b_lap: 0.0000
+        Episode_Reward/cross_track: 7.0557
+          Episode_Reward/term_pens: -1221.1328
+      Episode_Termination/time_out: 0.0000
+ Episode_Termination/out_of_bounds: 1.0000
+                   Mean episode mu: 0.7999
+Mean episode track_progress_completed: 0.0549
+     Mean episode episode_length_s: 2.4423
+  Mean episode min_radial_distance: 1.2045
+            Mean episode adr_mu_lo: 0.7600
+            Mean episode adr_mu_hi: 0.8400
+--------------------------------------------------------------------------------
+                   Total timesteps: 245760
+                    Iteration time: 2.83s
+                      Time elapsed: 00:01:27
+                               ETA: 00:01:00
+
+[INFOS KEYS STEP] ['log', 'time_outs', 'episode']
+[EPISODE KEYS] ['mu', 'track_progress_completed', 'episode_length_s', 'min_radial_distance', 'adr_mu_lo', 'adr_mu_hi']
+################################################################################
+                       [1m Learning iteration 30/50 [0m                       
+
+                       Computation: 2886 steps/s (collection: 2.722s, learning 0.116s)
+             Mean action noise std: 1.02
+          Mean value_function loss: 1914145.4187
+               Mean surrogate loss: 0.0024
+                 Mean entropy loss: 2.8753
+                       Mean reward: -10982.62
+               Mean episode length: 110.93
+          Episode_Reward/side_slip: 0.0000
+                Episode_Reward/vel: 4.7672
+           Episode_Reward/progress: 0.1270
+               Episode_Reward/tlgr: 0.0000
+        Episode_Reward/turn_energy: 0.0000
+              Episode_Reward/b_lap: 0.0000
+        Episode_Reward/cross_track: 6.1804
+          Episode_Reward/term_pens: -1086.6406
+      Episode_Termination/time_out: 0.0000
+ Episode_Termination/out_of_bounds: 1.0000
+                   Mean episode mu: 0.7996
+Mean episode track_progress_completed: 0.0504
+     Mean episode episode_length_s: 2.1733
+  Mean episode min_radial_distance: 1.1976
+            Mean episode adr_mu_lo: 0.7600
+            Mean episode adr_mu_hi: 0.8400
+--------------------------------------------------------------------------------
+                   Total timesteps: 253952
+                    Iteration time: 2.84s
+                      Time elapsed: 00:01:29
+                               ETA: 00:00:58
+
+[INFOS KEYS STEP] ['log', 'time_outs', 'episode']
+[EPISODE KEYS] ['mu', 'track_progress_completed', 'episode_length_s', 'min_radial_distance', 'adr_mu_lo', 'adr_mu_hi']
+################################################################################
+                       [1m Learning iteration 31/50 [0m                       
+
+                       Computation: 2858 steps/s (collection: 2.764s, learning 0.102s)
+             Mean action noise std: 1.02
+          Mean value_function loss: 1914212.6875
+               Mean surrogate loss: 0.0016
+                 Mean entropy loss: 2.8752
+                       Mean reward: -10571.91
+               Mean episode length: 106.83
+          Episode_Reward/side_slip: 0.0000
+                Episode_Reward/vel: 5.3506
+           Episode_Reward/progress: 0.5026
+               Episode_Reward/tlgr: 0.0000
+        Episode_Reward/turn_energy: 0.0000
+              Episode_Reward/b_lap: 0.0000
+        Episode_Reward/cross_track: 6.3978
+          Episode_Reward/term_pens: -1117.7214
+      Episode_Termination/time_out: 0.0000
+ Episode_Termination/out_of_bounds: 1.0000
+                   Mean episode mu: 0.8021
+Mean episode track_progress_completed: 0.0683
+     Mean episode episode_length_s: 2.2354
+  Mean episode min_radial_distance: 1.1048
+            Mean episode adr_mu_lo: 0.7600
+            Mean episode adr_mu_hi: 0.8400
+--------------------------------------------------------------------------------
+                   Total timesteps: 262144
+                    Iteration time: 2.87s
+                      Time elapsed: 00:01:32
+                               ETA: 00:00:55
+
+[INFOS KEYS STEP] ['log', 'time_outs', 'episode']
+[EPISODE KEYS] ['mu', 'track_progress_completed', 'episode_length_s', 'min_radial_distance', 'adr_mu_lo', 'adr_mu_hi']
+################################################################################
+                       [1m Learning iteration 32/50 [0m                       
+
+                       Computation: 2887 steps/s (collection: 2.732s, learning 0.105s)
+             Mean action noise std: 1.02
+          Mean value_function loss: 1946124.1438
+               Mean surrogate loss: 0.0020
+                 Mean entropy loss: 2.8753
+                       Mean reward: -11215.71
+               Mean episode length: 113.28
+          Episode_Reward/side_slip: 0.0000
+                Episode_Reward/vel: 4.5386
+           Episode_Reward/progress: -0.3126
+               Episode_Reward/tlgr: 0.0000
+        Episode_Reward/turn_energy: 0.0000
+              Episode_Reward/b_lap: 0.0000
+        Episode_Reward/cross_track: 6.2202
+          Episode_Reward/term_pens: -1078.1641
+      Episode_Termination/time_out: 0.0000
+ Episode_Termination/out_of_bounds: 1.0000
+                   Mean episode mu: 0.8014
+Mean episode track_progress_completed: 0.0391
+     Mean episode episode_length_s: 2.1563
+  Mean episode min_radial_distance: 1.2308
+            Mean episode adr_mu_lo: 0.7600
+            Mean episode adr_mu_hi: 0.8400
+--------------------------------------------------------------------------------
+                   Total timesteps: 270336
+                    Iteration time: 2.84s
+                      Time elapsed: 00:01:35
+                               ETA: 00:00:52
+
+[INFOS KEYS STEP] ['log', 'time_outs', 'episode']
+[EPISODE KEYS] ['mu', 'track_progress_completed', 'episode_length_s', 'min_radial_distance', 'adr_mu_lo', 'adr_mu_hi']
+################################################################################
+                       [1m Learning iteration 33/50 [0m                       
+
+                       Computation: 2888 steps/s (collection: 2.728s, learning 0.108s)
+             Mean action noise std: 1.02
+          Mean value_function loss: 1902683.7375
+               Mean surrogate loss: 0.0025
+                 Mean entropy loss: 2.8753
+                       Mean reward: -10844.96
+               Mean episode length: 109.60
+          Episode_Reward/side_slip: 0.0000
+                Episode_Reward/vel: 4.9966
+           Episode_Reward/progress: 0.3688
+               Episode_Reward/tlgr: 0.0000
+        Episode_Reward/turn_energy: 0.0000
+              Episode_Reward/b_lap: 0.0000
+        Episode_Reward/cross_track: 6.4125
+          Episode_Reward/term_pens: -1088.7566
+      Episode_Termination/time_out: 0.0000
+ Episode_Termination/out_of_bounds: 1.0000
+                   Mean episode mu: 0.7982
+Mean episode track_progress_completed: 0.0578
+     Mean episode episode_length_s: 2.1775
+  Mean episode min_radial_distance: 1.0814
+            Mean episode adr_mu_lo: 0.7600
+            Mean episode adr_mu_hi: 0.8400
+--------------------------------------------------------------------------------
+                   Total timesteps: 278528
+                    Iteration time: 2.84s
+                      Time elapsed: 00:01:38
+                               ETA: 00:00:49
+
+[INFOS KEYS STEP] ['log', 'time_outs', 'episode']
+[EPISODE KEYS] ['mu', 'track_progress_completed', 'episode_length_s', 'min_radial_distance', 'adr_mu_lo', 'adr_mu_hi']
+################################################################################
+                       [1m Learning iteration 34/50 [0m                       
+
+                       Computation: 2827 steps/s (collection: 2.780s, learning 0.118s)
+             Mean action noise std: 1.02
+          Mean value_function loss: 1884908.8750
+               Mean surrogate loss: 0.0027
+                 Mean entropy loss: 2.8752
+                       Mean reward: -9711.44
+               Mean episode length: 98.15
+          Episode_Reward/side_slip: 0.0000
+                Episode_Reward/vel: 4.1262
+           Episode_Reward/progress: 0.4368
+               Episode_Reward/tlgr: 0.0000
+        Episode_Reward/turn_energy: 0.0000
+              Episode_Reward/b_lap: 0.0000
+        Episode_Reward/cross_track: 5.1132
+          Episode_Reward/term_pens: -895.8334
+      Episode_Termination/time_out: 0.0000
+ Episode_Termination/out_of_bounds: 1.0000
+                   Mean episode mu: 0.8022
+Mean episode track_progress_completed: 0.0505
+     Mean episode episode_length_s: 1.7917
+  Mean episode min_radial_distance: 1.2289
+            Mean episode adr_mu_lo: 0.7600
+            Mean episode adr_mu_hi: 0.8400
+--------------------------------------------------------------------------------
+                   Total timesteps: 286720
+                    Iteration time: 2.90s
+                      Time elapsed: 00:01:41
+                               ETA: 00:00:46
+
+[INFOS KEYS STEP] ['log', 'time_outs', 'episode']
+[EPISODE KEYS] ['mu', 'track_progress_completed', 'episode_length_s', 'min_radial_distance', 'adr_mu_lo', 'adr_mu_hi']
+################################################################################
+                       [1m Learning iteration 35/50 [0m                       
+
+                       Computation: 2877 steps/s (collection: 2.732s, learning 0.115s)
+             Mean action noise std: 1.02
+          Mean value_function loss: 1924289.4062
+               Mean surrogate loss: 0.0023
+                 Mean entropy loss: 2.8753
+                       Mean reward: -10130.20
+               Mean episode length: 102.38
+          Episode_Reward/side_slip: 0.0000
+                Episode_Reward/vel: 4.6088
+           Episode_Reward/progress: 0.2204
+               Episode_Reward/tlgr: 0.0000
+        Episode_Reward/turn_energy: 0.0000
+              Episode_Reward/b_lap: 0.0000
+        Episode_Reward/cross_track: 5.6662
+          Episode_Reward/term_pens: -1036.8359
+      Episode_Termination/time_out: 0.0000
+ Episode_Termination/out_of_bounds: 1.0000
+                   Mean episode mu: 0.8018
+Mean episode track_progress_completed: 0.0555
+     Mean episode episode_length_s: 2.0737
+  Mean episode min_radial_distance: 1.2826
+            Mean episode adr_mu_lo: 0.7600
+            Mean episode adr_mu_hi: 0.8400
+--------------------------------------------------------------------------------
+                   Total timesteps: 294912
+                    Iteration time: 2.85s
+                      Time elapsed: 00:01:44
+                               ETA: 00:00:43
+
+[INFOS KEYS STEP] ['log', 'time_outs', 'episode']
+[EPISODE KEYS] ['mu', 'track_progress_completed', 'episode_length_s', 'min_radial_distance', 'adr_mu_lo', 'adr_mu_hi']
+################################################################################
+                       [1m Learning iteration 36/50 [0m                       
+
+                       Computation: 2883 steps/s (collection: 2.733s, learning 0.108s)
+             Mean action noise std: 1.02
+          Mean value_function loss: 1937043.2812
+               Mean surrogate loss: 0.0029
+                 Mean entropy loss: 2.8753
+                       Mean reward: -10557.68
+               Mean episode length: 106.64
+          Episode_Reward/side_slip: 0.0000
+                Episode_Reward/vel: 4.6250
+           Episode_Reward/progress: -0.2313
+               Episode_Reward/tlgr: 0.0000
+        Episode_Reward/turn_energy: 0.0000
+              Episode_Reward/b_lap: 0.0000
+        Episode_Reward/cross_track: 6.0876
+          Episode_Reward/term_pens: -1075.0652
+      Episode_Termination/time_out: 0.0000
+ Episode_Termination/out_of_bounds: 1.0000
+                   Mean episode mu: 0.8012
+Mean episode track_progress_completed: 0.0416
+     Mean episode episode_length_s: 2.1501
+  Mean episode min_radial_distance: 1.1732
+            Mean episode adr_mu_lo: 0.7600
+            Mean episode adr_mu_hi: 0.8400
+--------------------------------------------------------------------------------
+                   Total timesteps: 303104
+                    Iteration time: 2.84s
+                      Time elapsed: 00:01:47
+                               ETA: 00:00:40
+
+[INFOS KEYS STEP] ['log', 'time_outs', 'episode']
+[EPISODE KEYS] ['mu', 'track_progress_completed', 'episode_length_s', 'min_radial_distance', 'adr_mu_lo', 'adr_mu_hi']
+################################################################################
+                       [1m Learning iteration 37/50 [0m                       
+
+                       Computation: 2891 steps/s (collection: 2.724s, learning 0.109s)
+             Mean action noise std: 1.02
+          Mean value_function loss: 1950210.1812
+               Mean surrogate loss: 0.0020
+                 Mean entropy loss: 2.8752
+                       Mean reward: -10376.15
+               Mean episode length: 104.81
+          Episode_Reward/side_slip: 0.0000
+                Episode_Reward/vel: 4.3474
+           Episode_Reward/progress: 0.0824
+               Episode_Reward/tlgr: 0.0000
+        Episode_Reward/turn_energy: 0.0000
+              Episode_Reward/b_lap: 0.0000
+        Episode_Reward/cross_track: 5.9703
+          Episode_Reward/term_pens: -1010.3907
+      Episode_Termination/time_out: 0.0000
+ Episode_Termination/out_of_bounds: 1.0000
+                   Mean episode mu: 0.7997
+Mean episode track_progress_completed: 0.0461
+     Mean episode episode_length_s: 2.0208
+  Mean episode min_radial_distance: 1.1187
+            Mean episode adr_mu_lo: 0.7600
+            Mean episode adr_mu_hi: 0.8400
+--------------------------------------------------------------------------------
+                   Total timesteps: 311296
+                    Iteration time: 2.83s
+                      Time elapsed: 00:01:49
+                               ETA: 00:00:37
+
+[INFOS KEYS STEP] ['log', 'time_outs', 'episode']
+[EPISODE KEYS] ['mu', 'track_progress_completed', 'episode_length_s', 'min_radial_distance', 'adr_mu_lo', 'adr_mu_hi']
+################################################################################
+                       [1m Learning iteration 38/50 [0m                       
+
+                       Computation: 2868 steps/s (collection: 2.751s, learning 0.105s)
+             Mean action noise std: 1.02
+          Mean value_function loss: 1924363.7437
+               Mean surrogate loss: 0.0028
+                 Mean entropy loss: 2.8752
+                       Mean reward: -10926.22
+               Mean episode length: 110.37
+          Episode_Reward/side_slip: 0.0000
+                Episode_Reward/vel: 5.0888
+           Episode_Reward/progress: -0.5409
+               Episode_Reward/tlgr: 0.0000
+        Episode_Reward/turn_energy: 0.0000
+              Episode_Reward/b_lap: 0.0000
+        Episode_Reward/cross_track: 6.8265
+          Episode_Reward/term_pens: -1111.3021
+      Episode_Termination/time_out: 0.0000
+ Episode_Termination/out_of_bounds: 1.0000
+                   Mean episode mu: 0.8008
+Mean episode track_progress_completed: 0.0459
+     Mean episode episode_length_s: 2.2226
+  Mean episode min_radial_distance: 0.9879
+            Mean episode adr_mu_lo: 0.7600
+            Mean episode adr_mu_hi: 0.8400
+--------------------------------------------------------------------------------
+                   Total timesteps: 319488
+                    Iteration time: 2.86s
+                      Time elapsed: 00:01:52
+                               ETA: 00:00:34
+
+[MilestoneRunner] ✓ 75% checkpoint → /workspace/WheeledLab/source/wheeledlab_rl/logs/devout-wind-79/models/model_milestone_iter38_75pct.pt
+[INFOS KEYS STEP] ['log', 'time_outs', 'episode']
+[EPISODE KEYS] ['mu', 'track_progress_completed', 'episode_length_s', 'min_radial_distance', 'adr_mu_lo', 'adr_mu_hi']
+################################################################################
+                       [1m Learning iteration 39/50 [0m                       
+
+                       Computation: 2870 steps/s (collection: 2.741s, learning 0.112s)
+             Mean action noise std: 1.02
+          Mean value_function loss: 1871531.7812
+               Mean surrogate loss: 0.0024
+                 Mean entropy loss: 2.8753
+                       Mean reward: -10637.13
+               Mean episode length: 107.48
+          Episode_Reward/side_slip: 0.0000
+                Episode_Reward/vel: 4.7474
+           Episode_Reward/progress: 0.0431
+               Episode_Reward/tlgr: 0.0000
+        Episode_Reward/turn_energy: 0.0000
+              Episode_Reward/b_lap: 0.0000
+        Episode_Reward/cross_track: 6.2030
+          Episode_Reward/term_pens: -1088.7500
+      Episode_Termination/time_out: 0.0000
+ Episode_Termination/out_of_bounds: 1.0000
+                   Mean episode mu: 0.7983
+Mean episode track_progress_completed: 0.0473
+     Mean episode episode_length_s: 2.1775
+  Mean episode min_radial_distance: 1.2180
+            Mean episode adr_mu_lo: 0.7600
+            Mean episode adr_mu_hi: 0.8400
+--------------------------------------------------------------------------------
+                   Total timesteps: 327680
+                    Iteration time: 2.85s
+                      Time elapsed: 00:01:55
+                               ETA: 00:00:31
+
+[INFOS KEYS STEP] ['log', 'time_outs', 'episode']
+[EPISODE KEYS] ['mu', 'track_progress_completed', 'episode_length_s', 'min_radial_distance', 'adr_mu_lo', 'adr_mu_hi']
+################################################################################
+                       [1m Learning iteration 40/50 [0m                       
+
+                       Computation: 2865 steps/s (collection: 2.750s, learning 0.108s)
+             Mean action noise std: 1.02
+          Mean value_function loss: 1849683.3938
+               Mean surrogate loss: 0.0025
+                 Mean entropy loss: 2.8756
+                       Mean reward: -10306.42
+               Mean episode length: 104.15
+          Episode_Reward/side_slip: 0.0000
+                Episode_Reward/vel: 4.4234
+           Episode_Reward/progress: 0.0448
+               Episode_Reward/tlgr: 0.0000
+        Episode_Reward/turn_energy: 0.0000
+              Episode_Reward/b_lap: 0.0000
+        Episode_Reward/cross_track: 5.9097
+          Episode_Reward/term_pens: -1013.3073
+      Episode_Termination/time_out: 0.0000
+ Episode_Termination/out_of_bounds: 1.0000
+                   Mean episode mu: 0.8022
+Mean episode track_progress_completed: 0.0456
+     Mean episode episode_length_s: 2.0266
+  Mean episode min_radial_distance: 1.1766
+            Mean episode adr_mu_lo: 0.7600
+            Mean episode adr_mu_hi: 0.8400
+--------------------------------------------------------------------------------
+                   Total timesteps: 335872
+                    Iteration time: 2.86s
+                      Time elapsed: 00:01:58
+                               ETA: 00:00:28
+
+[INFOS KEYS STEP] ['log', 'time_outs', 'episode']
+[EPISODE KEYS] ['mu', 'track_progress_completed', 'episode_length_s', 'min_radial_distance', 'adr_mu_lo', 'adr_mu_hi']
+################################################################################
+                       [1m Learning iteration 41/50 [0m                       
+
+                       Computation: 2819 steps/s (collection: 2.785s, learning 0.121s)
+             Mean action noise std: 1.02
+          Mean value_function loss: 1859698.2125
+               Mean surrogate loss: 0.0032
+                 Mean entropy loss: 2.8758
+                       Mean reward: -9536.17
+               Mean episode length: 96.36
+          Episode_Reward/side_slip: 0.0000
+                Episode_Reward/vel: 4.2927
+           Episode_Reward/progress: 0.6019
+               Episode_Reward/tlgr: 0.0000
+        Episode_Reward/turn_energy: 0.0000
+              Episode_Reward/b_lap: 0.0000
+        Episode_Reward/cross_track: 4.8982
+          Episode_Reward/term_pens: -954.3164
+      Episode_Termination/time_out: 0.0000
+ Episode_Termination/out_of_bounds: 1.0000
+                   Mean episode mu: 0.7985
+Mean episode track_progress_completed: 0.0584
+     Mean episode episode_length_s: 1.9086
+  Mean episode min_radial_distance: 1.2777
+            Mean episode adr_mu_lo: 0.7600
+            Mean episode adr_mu_hi: 0.8400
+--------------------------------------------------------------------------------
+                   Total timesteps: 344064
+                    Iteration time: 2.91s
+                      Time elapsed: 00:02:01
+                               ETA: 00:00:26
+
+[INFOS KEYS STEP] ['log', 'time_outs', 'episode']
+[EPISODE KEYS] ['mu', 'track_progress_completed', 'episode_length_s', 'min_radial_distance', 'adr_mu_lo', 'adr_mu_hi']
+################################################################################
+                       [1m Learning iteration 42/50 [0m                       
+
+                       Computation: 2818 steps/s (collection: 2.790s, learning 0.116s)
+             Mean action noise std: 1.02
+          Mean value_function loss: 1824081.2625
+               Mean surrogate loss: 0.0017
+                 Mean entropy loss: 2.8758
+                       Mean reward: -10074.11
+               Mean episode length: 101.77
+          Episode_Reward/side_slip: 0.0000
+                Episode_Reward/vel: 4.3266
+           Episode_Reward/progress: -0.2194
+               Episode_Reward/tlgr: 0.0000
+        Episode_Reward/turn_energy: 0.0000
+              Episode_Reward/b_lap: 0.0000
+        Episode_Reward/cross_track: 5.7991
+          Episode_Reward/term_pens: -999.4141
+      Episode_Termination/time_out: 0.0000
+ Episode_Termination/out_of_bounds: 1.0000
+                   Mean episode mu: 0.7990
+Mean episode track_progress_completed: 0.0399
+     Mean episode episode_length_s: 1.9988
+  Mean episode min_radial_distance: 1.1642
+            Mean episode adr_mu_lo: 0.7600
+            Mean episode adr_mu_hi: 0.8400
+--------------------------------------------------------------------------------
+                   Total timesteps: 352256
+                    Iteration time: 2.91s
+                      Time elapsed: 00:02:04
+                               ETA: 00:00:23
+
+[INFOS KEYS STEP] ['log', 'time_outs', 'episode']
+[EPISODE KEYS] ['mu', 'track_progress_completed', 'episode_length_s', 'min_radial_distance', 'adr_mu_lo', 'adr_mu_hi']
+################################################################################
+                       [1m Learning iteration 43/50 [0m                       
+
+                       Computation: 2906 steps/s (collection: 2.710s, learning 0.108s)
+             Mean action noise std: 1.02
+          Mean value_function loss: 1910233.3625
+               Mean surrogate loss: 0.0007
+                 Mean entropy loss: 2.8757
+                       Mean reward: -9602.50
+               Mean episode length: 96.99
+          Episode_Reward/side_slip: 0.0000
+                Episode_Reward/vel: 4.3519
+           Episode_Reward/progress: 0.3405
+               Episode_Reward/tlgr: 0.0000
+        Episode_Reward/turn_energy: 0.0000
+              Episode_Reward/b_lap: 0.0000
+        Episode_Reward/cross_track: 5.3588
+          Episode_Reward/term_pens: -1006.5365
+      Episode_Termination/time_out: 0.0000
+ Episode_Termination/out_of_bounds: 1.0000
+                   Mean episode mu: 0.8012
+Mean episode track_progress_completed: 0.0490
+     Mean episode episode_length_s: 2.0131
+  Mean episode min_radial_distance: 1.3311
+            Mean episode adr_mu_lo: 0.7600
+            Mean episode adr_mu_hi: 0.8400
+--------------------------------------------------------------------------------
+                   Total timesteps: 360448
+                    Iteration time: 2.82s
+                      Time elapsed: 00:02:07
+                               ETA: 00:00:20
+
+[INFOS KEYS STEP] ['log', 'time_outs', 'episode']
+[EPISODE KEYS] ['mu', 'track_progress_completed', 'episode_length_s', 'min_radial_distance', 'adr_mu_lo', 'adr_mu_hi']
+################################################################################
+                       [1m Learning iteration 44/50 [0m                       
+
+                       Computation: 2899 steps/s (collection: 2.718s, learning 0.107s)
+             Mean action noise std: 1.02
+          Mean value_function loss: 1809962.6750
+               Mean surrogate loss: 0.0020
+                 Mean entropy loss: 2.8757
+                       Mean reward: -10056.20
+               Mean episode length: 101.64
+          Episode_Reward/side_slip: 0.0000
+                Episode_Reward/vel: 4.7277
+           Episode_Reward/progress: 0.1200
+               Episode_Reward/tlgr: 0.0000
+        Episode_Reward/turn_energy: 0.0000
+              Episode_Reward/b_lap: 0.0000
+        Episode_Reward/cross_track: 6.2592
+          Episode_Reward/term_pens: -1038.3074
+      Episode_Termination/time_out: 0.0000
+ Episode_Termination/out_of_bounds: 1.0000
+                   Mean episode mu: 0.8012
+Mean episode track_progress_completed: 0.0497
+     Mean episode episode_length_s: 2.0766
+  Mean episode min_radial_distance: 1.1153
+            Mean episode adr_mu_lo: 0.7600
+            Mean episode adr_mu_hi: 0.8400
+--------------------------------------------------------------------------------
+                   Total timesteps: 368640
+                    Iteration time: 2.83s
+                      Time elapsed: 00:02:09
+                               ETA: 00:00:17
+
+[INFOS KEYS STEP] ['log', 'time_outs', 'episode']
+[EPISODE KEYS] ['mu', 'track_progress_completed', 'episode_length_s', 'min_radial_distance', 'adr_mu_lo', 'adr_mu_hi']
+################################################################################
+                       [1m Learning iteration 45/50 [0m                       
+
+                       Computation: 2878 steps/s (collection: 2.733s, learning 0.113s)
+             Mean action noise std: 1.02
+          Mean value_function loss: 1817468.3000
+               Mean surrogate loss: 0.0016
+                 Mean entropy loss: 2.8758
+                       Mean reward: -10053.58
+               Mean episode length: 101.53
+          Episode_Reward/side_slip: 0.0000
+                Episode_Reward/vel: 4.3503
+           Episode_Reward/progress: -0.1468
+               Episode_Reward/tlgr: 0.0000
+        Episode_Reward/turn_energy: 0.0000
+              Episode_Reward/b_lap: 0.0000
+        Episode_Reward/cross_track: 5.5412
+          Episode_Reward/term_pens: -993.2552
+      Episode_Termination/time_out: 0.0000
+ Episode_Termination/out_of_bounds: 1.0000
+                   Mean episode mu: 0.8021
+Mean episode track_progress_completed: 0.0391
+     Mean episode episode_length_s: 1.9865
+  Mean episode min_radial_distance: 1.3218
+            Mean episode adr_mu_lo: 0.7600
+            Mean episode adr_mu_hi: 0.8400
+--------------------------------------------------------------------------------
+                   Total timesteps: 376832
+                    Iteration time: 2.85s
+                      Time elapsed: 00:02:12
+                               ETA: 00:00:14
+
+[INFOS KEYS STEP] ['log', 'time_outs', 'episode']
+[EPISODE KEYS] ['mu', 'track_progress_completed', 'episode_length_s', 'min_radial_distance', 'adr_mu_lo', 'adr_mu_hi']
+################################################################################
+                       [1m Learning iteration 46/50 [0m                       
+
+                       Computation: 2872 steps/s (collection: 2.749s, learning 0.102s)
+             Mean action noise std: 1.02
+          Mean value_function loss: 1819989.9688
+               Mean surrogate loss: 0.0031
+                 Mean entropy loss: 2.8759
+                       Mean reward: -9757.06
+               Mean episode length: 98.56
+          Episode_Reward/side_slip: 0.0000
+                Episode_Reward/vel: 4.2972
+           Episode_Reward/progress: -0.3544
+               Episode_Reward/tlgr: 0.0000
+        Episode_Reward/turn_energy: 0.0000
+              Episode_Reward/b_lap: 0.0000
+        Episode_Reward/cross_track: 5.4739
+          Episode_Reward/term_pens: -964.3620
+      Episode_Termination/time_out: 0.0000
+ Episode_Termination/out_of_bounds: 1.0000
+                   Mean episode mu: 0.8024
+Mean episode track_progress_completed: 0.0370
+     Mean episode episode_length_s: 1.9287
+  Mean episode min_radial_distance: 1.1877
+            Mean episode adr_mu_lo: 0.7600
+            Mean episode adr_mu_hi: 0.8400
+--------------------------------------------------------------------------------
+                   Total timesteps: 385024
+                    Iteration time: 2.85s
+                      Time elapsed: 00:02:15
+                               ETA: 00:00:11
+
+[INFOS KEYS STEP] ['log', 'time_outs', 'episode']
+[EPISODE KEYS] ['mu', 'track_progress_completed', 'episode_length_s', 'min_radial_distance', 'adr_mu_lo', 'adr_mu_hi']
+################################################################################
+                       [1m Learning iteration 47/50 [0m                       
+
+                       Computation: 2882 steps/s (collection: 2.731s, learning 0.111s)
+             Mean action noise std: 1.02
+          Mean value_function loss: 1786954.1625
+               Mean surrogate loss: 0.0039
+                 Mean entropy loss: 2.8759
+                       Mean reward: -10078.37
+               Mean episode length: 101.78
+          Episode_Reward/side_slip: 0.0000
+                Episode_Reward/vel: 4.7921
+           Episode_Reward/progress: -0.1853
+               Episode_Reward/tlgr: 0.0000
+        Episode_Reward/turn_energy: 0.0000
+              Episode_Reward/b_lap: 0.0000
+        Episode_Reward/cross_track: 6.0010
+          Episode_Reward/term_pens: -1063.0730
+      Episode_Termination/time_out: 0.0000
+ Episode_Termination/out_of_bounds: 1.0000
+                   Mean episode mu: 0.8008
+Mean episode track_progress_completed: 0.0421
+     Mean episode episode_length_s: 2.1261
+  Mean episode min_radial_distance: 1.1952
+            Mean episode adr_mu_lo: 0.7600
+            Mean episode adr_mu_hi: 0.8400
+--------------------------------------------------------------------------------
+                   Total timesteps: 393216
+                    Iteration time: 2.84s
+                      Time elapsed: 00:02:18
+                               ETA: 00:00:08
+
+[INFOS KEYS STEP] ['log', 'time_outs', 'episode']
+[EPISODE KEYS] ['mu', 'track_progress_completed', 'episode_length_s', 'min_radial_distance', 'adr_mu_lo', 'adr_mu_hi']
+################################################################################
+                       [1m Learning iteration 48/50 [0m                       
+
+                       Computation: 2876 steps/s (collection: 2.737s, learning 0.111s)
+             Mean action noise std: 1.02
+          Mean value_function loss: 1802449.5938
+               Mean surrogate loss: 0.0033
+                 Mean entropy loss: 2.8761
+                       Mean reward: -9316.12
+               Mean episode length: 94.08
+          Episode_Reward/side_slip: 0.0000
+                Episode_Reward/vel: 4.4586
+           Episode_Reward/progress: -0.1874
+               Episode_Reward/tlgr: 0.0000
+        Episode_Reward/turn_energy: 0.0000
+              Episode_Reward/b_lap: 0.0000
+        Episode_Reward/cross_track: 5.7105
+          Episode_Reward/term_pens: -972.7995
+      Episode_Termination/time_out: 0.0000
+ Episode_Termination/out_of_bounds: 1.0000
+                   Mean episode mu: 0.8003
+Mean episode track_progress_completed: 0.0458
+     Mean episode episode_length_s: 1.9456
+  Mean episode min_radial_distance: 1.2181
+            Mean episode adr_mu_lo: 0.7600
+            Mean episode adr_mu_hi: 0.8400
+--------------------------------------------------------------------------------
+                   Total timesteps: 401408
+                    Iteration time: 2.85s
+                      Time elapsed: 00:02:21
+                               ETA: 00:00:05
+
+[INFOS KEYS STEP] ['log', 'time_outs', 'episode']
+[EPISODE KEYS] ['mu', 'track_progress_completed', 'episode_length_s', 'min_radial_distance', 'adr_mu_lo', 'adr_mu_hi']
+################################################################################
+                       [1m Learning iteration 49/50 [0m                       
+
+                       Computation: 2819 steps/s (collection: 2.797s, learning 0.109s)
+             Mean action noise std: 1.02
+          Mean value_function loss: 1764703.1125
+               Mean surrogate loss: 0.0029
+                 Mean entropy loss: 2.8762
+                       Mean reward: -10001.56
+               Mean episode length: 101.02
+          Episode_Reward/side_slip: 0.0000
+                Episode_Reward/vel: 4.2978
+           Episode_Reward/progress: -0.2998
+               Episode_Reward/tlgr: 0.0000
+        Episode_Reward/turn_energy: 0.0000
+              Episode_Reward/b_lap: 0.0000
+        Episode_Reward/cross_track: 5.5523
+          Episode_Reward/term_pens: -975.1693
+      Episode_Termination/time_out: 0.0000
+ Episode_Termination/out_of_bounds: 1.0000
+                   Mean episode mu: 0.8009
+Mean episode track_progress_completed: 0.0391
+     Mean episode episode_length_s: 1.9503
+  Mean episode min_radial_distance: 1.2745
+            Mean episode adr_mu_lo: 0.7600
+            Mean episode adr_mu_hi: 0.8400
+--------------------------------------------------------------------------------
+                   Total timesteps: 409600
+                    Iteration time: 2.91s
+                      Time elapsed: 00:02:24
+                               ETA: 00:00:02
+
+[MilestoneRunner] ✓ 100% checkpoint → /workspace/WheeledLab/source/wheeledlab_rl/logs/devout-wind-79/models/model_milestone_iter49_100pct.pt
+ 100% ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 50/50  [ 0:02:29 < 0:00:00 , 0 it/s ]
+wandb: updating run metadata
+wandb: 
+wandb: Run history:
+wandb:                Episode/adr_mu_hi ▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+wandb:                Episode/adr_mu_lo ▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+wandb:         Episode/episode_length_s ▅█▆▄▃▅▅▅▅▄▃▃▃▂▂▂▄▃▃▂▃▃▃▄▃▃▃▁▂▃▃▃▂▂▂▂▂▂▃▂
+wandb:      Episode/min_radial_distance ▃▅▃█▇▅▅▃▅▄█▆▃▄▇▇▃▄▆▅▅▅▄▆▅▆▃▆▇▅▁▆▅▇▅▄█▅▅▇
+wandb:                       Episode/mu ▃▄▆▇▂▅▄▇▇▇▃▇▅▅▆▄▆▇▅▁▆▆▄▄▃▆▁█▇▆▅▁█▂▃▆██▅▆
+wandb: Episode/track_progress_completed ▃▅▄▄▃█▆▅▃▃▃▂▂▂▃▂▄▃▃▂▂▂▂▃▂▁▃▂▃▁▂▂▂▃▁▂▁▁▂▁
+wandb:             Episode_Reward/b_lap ▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+wandb:       Episode_Reward/cross_track ▁███▆▆▆▆▆▇▅▅▆▆▅▅▅▅▆▅▅▄▆▆▅▅▆▅▆▄▅▅▆▅▅▅▄▆▅▅
+wandb:          Episode_Reward/progress ▃▅▆▆▃█▆▅▃▃▂▃▂▂▃▃▂▃▄▄▃▃▃▃▃▂▃▄▃▂▁▃▃▄▂▃▂▂▂▂
+wandb:         Episode_Reward/side_slip ▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+wandb:                              +16 ...
+wandb: 
+wandb: Run summary:
+wandb:                Episode/adr_mu_hi 0.84
+wandb:                Episode/adr_mu_lo 0.76
+wandb:         Episode/episode_length_s 1.95034
+wandb:      Episode/min_radial_distance 1.27452
+wandb:                       Episode/mu 0.80088
+wandb: Episode/track_progress_completed 0.03914
+wandb:             Episode_Reward/b_lap 0
+wandb:       Episode_Reward/cross_track 5.55229
+wandb:          Episode_Reward/progress -0.29984
+wandb:         Episode_Reward/side_slip 0
+wandb:                              +16 ...
+wandb: 
+wandb: 🚀 View run devout-wind-79 at: https://wandb.ai/m-roomanwaheed-the-university-of-manchester/WheeledLab/runs/cgx75m9z
+wandb: ⭐️ View project at: https://wandb.ai/m-roomanwaheed-the-university-of-manchester/WheeledLab
+wandb: Synced 5 W&B file(s), 0 media file(s), 0 artifact file(s) and 6 other file(s)
+wandb: Find logs at: ./wandb/run-20260501_061401-cgx75m9z/logs
+[MU POST-TRAIN] [0.7957352995872498, 0.8125723600387573, 0.8008120059967041, 0.801504373550415, 0.7848716974258423, 0.8066678047180176, 0.8003859519958496, 0.7986014485359192, 0.8107395768165588, 0.7977490425109863, 0.7956653833389282, 0.8098932504653931, 0.7995538115501404, 0.8096468448638916, 0.8026039600372314, 0.7985242009162903, 0.7963361144065857, 0.806656002998352, 0.8078911304473877, 0.809923529624939, 0.8174513578414917, 0.8017570972442627, 0.7941851615905762, 0.8130981922149658, 0.8020642399787903, 0.8072408437728882, 0.796978235244751, 0.7928754091262817, 0.8022249937057495, 0.7975414991378784, 0.8000553846359253, 0.8143644332885742, 0.7965579032897949, 0.7796993255615234, 0.7966830730438232, 0.7956744432449341, 0.7897930145263672, 0.802371084690094, 0.7873996496200562, 0.813382089138031, 0.7985155582427979, 0.7900222539901733, 0.8169842958450317, 0.8025305867195129, 0.8011482954025269, 0.8036500811576843, 0.7963064312934875, 0.7970369458198547, 0.8019328117370605, 0.8007150292396545, 0.8051653504371643, 0.8024834394454956, 0.8034954071044922, 0.786548376083374, 0.8026056289672852, 0.8004356622695923, 0.7906721830368042, 0.8035876750946045, 0.7975887656211853, 0.8135313987731934, 0.7983083724975586, 0.806183397769928, 0.7967236042022705, 0.7956863045692444]

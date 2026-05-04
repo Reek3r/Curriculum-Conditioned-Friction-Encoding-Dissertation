@@ -303,10 +303,15 @@ class DriftRewardsCfg:
         params={"straight": STRAIGHT}
     )
 
+    # b_lap: analytically calibrated against per-lap progress reward.
+    #   R_progress/lap = w_progress · ∫ω_z dt = 40.0 · 2π ≈ 251.3
+    #   Target: w_b_lap · b_lap ∈ [1.0, 1.5] × R_progress/lap = [251, 377]
+    #   Selected 300 (≈1.19× R_progress/lap; midpoint absorbing counter-steer loss).
+    #   See §3.3 / Appendix A.2 for derivation. Previous value 1500 was 5× this.
     b_lap = RewTerm(
         func=lap_bonus,
         weight=1.0,
-        params={"bonus_per_lap": 1500.0}
+        params={"bonus_per_lap": 300.0}
     )
 
     ## Penalties
@@ -356,6 +361,7 @@ class DriftCurriculumCfg:
         }
     )
 
+    # more_term_pens re-enabled after Sim 5.0 source patch (Fix B in rewards.py)
     more_term_pens = CurrTerm(
         func=increase_reward_weight_over_time,
         params={

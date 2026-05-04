@@ -14,6 +14,9 @@ simulation_app, args_cli = startup(parser=parser)
 
 import gymnasium as gym
 import os
+import random
+import numpy as np
+import torch
 
 from isaaclab.utils.dict import print_dict
 from isaaclab.utils.io import dump_yaml
@@ -30,6 +33,43 @@ from wheeledlab_rl.utils import (
     ClipAction,
 )
 
+def _resolve_seed(default_seed: int) -> int:
+    """Resolve seed from TRAIN_SEED env var, falling back to config default.
+
+    Centralises seed source so the top-of-main helper and the existing
+    env.seed() block (later in main) read from the same value. Workaround for
+    Hydra `train.seed=N` overrides being silently ignored on this codebase.
+    """
+    override = os.environ.get("TRAIN_SEED")
+    if override is None:
+        return int(default_seed)
+    try:
+        return int(override)
+    except ValueError as exc:
+        raise ValueError(
+            f"TRAIN_SEED env var must be an integer, got {override!r}"
+        ) from exc
+
+
+def _set_global_seed(seed: int) -> None:
+    """Seed all RNGs touched during training: Python, NumPy, torch, CUDA, cuDNN.
+
+    Called at the top of main() before any env/runner/model construction so that
+    network initialization, action sampling, and replay-time augmentation all
+    derive from the same seed. cuDNN deterministic flags add ~5-10% wall-time
+    overhead but are required for n=3 seed-level variance to be reproducible.
+    See §3.9 / Appendix A.3 for derivation of weight-L2 evidence at iter 0.
+    """
+    os.environ["PYTHONHASHSEED"] = str(seed)
+    random.seed(seed)
+    np.random.seed(seed)
+    torch.manual_seed(seed)
+    if torch.cuda.is_available():
+        torch.cuda.manual_seed_all(seed)
+    torch.backends.cudnn.deterministic = True
+    torch.backends.cudnn.benchmark = False
+
+
 @hydra_run_config(run_config_name=args_cli.run_config_name)
 def main(run_cfg: RunConfig): # TODO: Add SB3 config support
 
@@ -43,6 +83,22 @@ def main(run_cfg: RunConfig): # TODO: Add SB3 config support
     train_cfg = run_cfg.train
     log_cfg = train_cfg.log
     env_setup = run_cfg.env_setup
+
+    #################
+    ##### SEED ######
+    #################
+    # Resolve seed from TRAIN_SEED env var (Hydra train.seed=N is silently
+    # ignored on this codebase; see hydra.py override mechanism). Write the
+    # resolved value back to agent_cfg.seed so the existing env.seed() call
+    # later in main() and the rsl_rl runner construction observe the same
+    # value. Seed BEFORE env/runner/model construction so network init is
+    # deterministic across re-runs of the same TRAIN_SEED.
+    _resolved_seed = _resolve_seed(agent_cfg.seed)
+    agent_cfg.seed = _resolved_seed
+    env_cfg.seed = _resolved_seed
+    _set_global_seed(_resolved_seed)
+    print(f"[SEED] Global seed set to {_resolved_seed} (source: "
+          f"{'TRAIN_SEED env var' if os.environ.get('TRAIN_SEED') else 'agent_cfg default'})")
 
     if not log_cfg.no_wandb:
         import wandb
