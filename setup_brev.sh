@@ -6,13 +6,13 @@ set -e
 
 echo "=== Installing WheeledLab packages ==="
 cd "$(dirname "$0")/source"
-pip install -e wheeledlab --no-deps
-pip install -e wheeledlab_assets --no-deps
-pip install -e wheeledlab_tasks --no-deps
-pip install -e wheeledlab_rl --no-deps
+/workspace/isaaclab/_isaac_sim/python.sh -m pip install -e wheeledlab --no-deps
+/workspace/isaaclab/_isaac_sim/python.sh -m pip install -e wheeledlab_assets --no-deps
+/workspace/isaaclab/_isaac_sim/python.sh -m pip install -e wheeledlab_tasks --no-deps
+/workspace/isaaclab/_isaac_sim/python.sh -m pip install -e wheeledlab_rl --no-deps
 
 echo "=== Installing W&B ==="
-pip install wandb
+/workspace/isaaclab/_isaac_sim/python.sh -m pip install wandb
 
 echo "=== Setup complete. Next steps: ==="
 echo "1. Run: wandb login"
