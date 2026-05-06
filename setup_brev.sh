@@ -56,25 +56,3 @@ else
     echo "ERROR: Wrapper patch target string not found in $WRAPPER_FILE — manual intervention required"
     exit 1
 fi
-
-# === vecenv_wrapper.py routing patch ===
-# Routes get_observations through env subclass (for k=5 history buffer in MushrDriftEnv).
-# Without this, the wrapper falls back to the 14-dim observation_manager output and
-# breaks the 70-dim policy network. See dissertation §3.2 / Methodology.
-echo "=== Applying vecenv_wrapper get_observations routing patch ==="
-WRAPPER_FILE=/workspace/isaaclab/source/isaaclab_rl/isaaclab_rl/rsl_rl/vecenv_wrapper.py
-WRAPPER_MARKER='if hasattr(self.unwrapped, "get_observations"):'
-WRAPPER_OLD='        if hasattr(self.unwrapped, "observation_manager"):'
-WRAPPER_NEW='        if hasattr(self.unwrapped, "get_observations"):\
-            obs_dict = self.unwrapped.get_observations()\
-        elif hasattr(self.unwrapped, "observation_manager"):'
-
-if grep -qF "$WRAPPER_MARKER" "$WRAPPER_FILE"; then
-    echo "Wrapper patch already present — skipping"
-elif grep -qF '        if hasattr(self.unwrapped, "observation_manager"):' "$WRAPPER_FILE"; then
-    sed -i 's|        if hasattr(self.unwrapped, "observation_manager"):|        if hasattr(self.unwrapped, "get_observations"):\n            obs_dict = self.unwrapped.get_observations()\n        elif hasattr(self.unwrapped, "observation_manager"):|' "$WRAPPER_FILE"
-    grep -qF "$WRAPPER_MARKER" "$WRAPPER_FILE" && echo "Wrapper patch applied" || { echo "ERROR: sed reported success but marker not found post-patch"; exit 1; }
-else
-    echo "ERROR: Wrapper patch target string not found in $WRAPPER_FILE — manual intervention required"
-    exit 1
-fi
