@@ -247,10 +247,34 @@ class MushrDriftADREnv(MushrDriftEnv):
             self._adr_successes = 0
             self._adr_total     = 0
 
-        # ── Patch friction range in event manager BEFORE reset fires ─
+        # ── Regenerate runtime friction buckets BEFORE reset fires ───
+        # NOTE: randomize_rigid_body_material is a ManagerTermBase subclass.
+        # It caches material_buckets in __init__; __call__ ignores the
+        # *_friction_range kwargs at runtime. Mutating term_cfg.params
+        # therefore has no effect on sampled friction. The fix is to
+        # regenerate buckets on the *instance* (which lives at term_cfg.func
+        # after _prepare_terms; see event_manager.py L374).
         friction_term = self.event_manager.get_term_cfg("change_wheel_friction")
-        friction_term.params["static_friction_range"] = (self.adr_mu_lo, self.adr_mu_hi)
+        friction_term.params["static_friction_range"]  = (self.adr_mu_lo, self.adr_mu_hi)
         friction_term.params["dynamic_friction_range"] = (self.adr_mu_lo, self.adr_mu_hi)
+
+        if not hasattr(self, "_adr_last_range") or \
+           self._adr_last_range != (self.adr_mu_lo, self.adr_mu_hi):
+            num_buckets = int(friction_term.params.get("num_buckets", 20))
+            ranges = torch.tensor(
+                [(self.adr_mu_lo, self.adr_mu_hi),
+                 (self.adr_mu_lo, self.adr_mu_hi),
+                 (0.0, 0.0)],
+                device="cpu",
+            )
+            new_buckets = (ranges[:, 1] - ranges[:, 0]) * \
+                          torch.rand((num_buckets, 3), device="cpu") + ranges[:, 0]
+            new_buckets[:, 1] = torch.min(new_buckets[:, 0], new_buckets[:, 1])
+            friction_term.func.material_buckets = new_buckets
+            self._adr_last_range = (self.adr_mu_lo, self.adr_mu_hi)
+            print(f"[ADR] Regenerated buckets for mu=[{self.adr_mu_lo:.3f}, "
+                  f"{self.adr_mu_hi:.3f}], num_buckets={num_buckets}, "
+                  f"sample={new_buckets[:3, 0].tolist()}")
 
         # ── Delegate to MushrDriftEnv._reset_idx (snapshots + reset) ─
         super()._reset_idx(env_ids)
