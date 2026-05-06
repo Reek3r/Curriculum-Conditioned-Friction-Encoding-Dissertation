@@ -13,6 +13,7 @@ cd "$(dirname "$0")/source"
 
 echo "=== Installing W&B ==="
 /workspace/isaaclab/_isaac_sim/python.sh -m pip install wandb
+/workspace/isaaclab/_isaac_sim/python.sh -m pip install av
 
 echo "=== Setup complete. Next steps: ==="
 echo "1. Run: wandb login"
