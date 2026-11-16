@@ -24,8 +24,8 @@ The software pipeline has three stages, executed sequentially:
 ┌─────────────────────────────────────────────────────────────────┐
 │  STAGE 1: TRAINING                                              │
 │                                                                 │
-│  Isaac Lab (PhysX)  ──►  PPO (rsl_rl)  ──►  Checkpoints        │
-│  3 agents × 3 seeds × 5 milestones = 45 saved models           │
+│  Isaac Lab (PhysX)  ──►  PPO (rsl_rl)  ──►  Checkpoints         │
+│  3 agents × 3 seeds × 5 milestones = 45 saved models            │
 │  Logging: Weights & Biases (per-episode µ, rewards, ADR bounds) │
 └─────────────────────────────────────────────────────────────────┘
                               │
